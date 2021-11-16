@@ -11,6 +11,10 @@ setopt histignorealldups                                        # If a new comma
 setopt autocd                                                   # if only directory path is entered, cd there.
 setopt inc_append_history                                       # save commands are added to the history immediately, otherwise only when shell exits.
 
+stty stop undef                                                 # Disable ctrl-d to freeze ternubak
+
+zle_highlight=("paste:none")                                    # Disable paste highlight
+
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'       # Case insensitive tab completion
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"         # Colored completion (different colors for dirs/files/etc)
 zstyle ':completion:*' rehash true                              # automatically find new executables in path 
@@ -21,8 +25,7 @@ zstyle ':completion:*' cache-path ~/.zsh/cache
 HISTFILE=~/.zhistory
 HISTSIZE=10000
 SAVEHIST=10000
-#export EDITOR=/usr/bin/nano
-#export VISUAL=/usr/bin/nano
+
 WORDCHARS=${WORDCHARS//\/[&.;]}                                 # Don't consider certain characters part of the word
 
 ## Alias section 
@@ -47,19 +50,39 @@ export LESS_TERMCAP_us=$'\E[01;36m'
 export LESS=-R
 
 ## Plugins section: Enable fish style features
-# Use syntax highlighting
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-# Use history substring search
-source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
-# bind UP and DOWN arrow keys to history substring search
-zmodload zsh/terminfo
-bindkey "$terminfo[kcuu1]" history-substring-search-up
-bindkey "$terminfo[kcud1]" history-substring-search-down
-bindkey '^[[A' history-substring-search-up			
-bindkey '^[[B' history-substring-search-down
 
-#POWERLINE
-export PATH="$PATH:/home/bruno/.local/bin/"
-export LC_ALL=en_US.UTF-8
-powerline-daemon -q
-source /home/bruno/.local/lib/python3.9/site-packages/powerline/bindings/zsh/powerline.zsh
+# Use syntax highlighting
+source ${HOME}/dotfiles/.config/zsh/plugins/zsh-syntax-highlight/zsh-syntax-highlighting.zsh
+
+## Prompt section
+
+# Load version control information
+autoload -Uz vcs_info
+
+zstyle ':vcs_info:*' enable git 
+precmd() { vcs_info }
+setopt prompt_subst
+
+# Check changes in repo
+zstyle ':vcs_info:git*+set-message:*' hooks git-untracked 
++vi-git-untracked(){
+    if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) == 'true' ]] && \
+        git status --porcelain | grep '??' &> /dev/null ; then
+        # This will show the marker if there are any untracked files in repo.
+        hook_com[staged]+='!' # signify new files with a bang
+    fi
+}
+zstyle ':vcs_info:*' check-for-changes true
+
+# Format the vcs_info_msg_0_ variable
+# %b - Branch information, like master
+# %m - In case of Git, show information about stashes
+# %u - Show unstaged changes in the repository
+# %c - Show staged changes in the repository
+zstyle ':vcs_info:git:*' formats "%F{014}[%f%F{red}%m%u%c%f %F{yellow}%b%f%F{014}]%f"
+ 
+# Set up the prompt (with git branch name)
+PROMPT='%B%F{012}[%f${PWD/#$HOME/~}%F{012}]%f%b'            # Directory
+PROMPT+=' %B%F{015}➤%f%b '                                  # Arrow
+
+RPROMPT='%B${vcs_info_msg_0_}%b'                            # Git branch

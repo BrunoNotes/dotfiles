@@ -135,11 +135,3 @@ ex ()
     echo "'$1' is not a valid file"
   fi
 }
-
-#POWERLINE
-export PATH="$PATH:/home/bruno/.local/bin/"
-export LC_ALL=en_US.UTF-8
-powerline-daemon -q
-POWERLINE_BASH_CONTINUATION=1
-POWERLINE_BASH_SELECT=1
-source /home/bruno/.local/lib/python3.9/site-packages/powerline/bindings/bash/powerline.sh
