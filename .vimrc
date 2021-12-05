@@ -4,6 +4,7 @@ set noerrorbells
 set nu
 set smartcase
 set incsearch
+set clipboard+=unnamedplus	" Use system clipboard
 set noswapfile
 
 " Specify a directory for plugins
