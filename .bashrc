@@ -12,8 +12,10 @@ bold=$(tput bold);
 reset=$(tput sgr0);
 
 ## Prompt
-
 PS1="\[${blue}\]\[${bold}\]["      # Blue [
+PS1+="\[${white}\]\H"                                 # Working Directory
+PS1+="\[${blue}\]]"     # Blue ]
+PS1+="\[${blue}\]\[${bold}\]["      # Blue [
 PS1+="\[${white}\]\w"                                 # Working Directory
 PS1+="\[${blue}\]]"     # Blue ]
 PS1+="\[${white}\] ➤ \[${reset}\]"

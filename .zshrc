@@ -33,6 +33,7 @@ alias cp="cp -i"                                                # Confirm before
 alias df='df -h'                                                # Human-readable sizes
 alias free='free -m'                                            # Show sizes in MB
 alias gitu='git add . && git commit && git push'
+alias lsa="ls -a"
 
 # Theming section  
 autoload -U compinit colors zcalc
@@ -82,7 +83,8 @@ zstyle ':vcs_info:*' check-for-changes true
 zstyle ':vcs_info:git:*' formats "%F{014}[%f%F{red}%m%u%c%f %F{yellow}%b%f%F{014}]%f"
  
 # Set up the prompt (with git branch name)
-PROMPT='%B%F{012}[%f${PWD/#$HOME/~}%F{012}]%f%b'            # Directory
+PROMPT='%B%F{012}[%F{white}%n%F{12}]%f%b'
+PROMPT+='%B%F{012}[%f${PWD/#$HOME/~}%F{12}]%f%b'            # Directory
 PROMPT+=' %B%F{015}➤%f%b '                                  # Arrow
 
 RPROMPT='%B${vcs_info_msg_0_}%b'                            # Git branch
