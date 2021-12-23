@@ -80,7 +80,7 @@ keys = [
     Key([mod], "q", lazy.window.kill(), desc="Kill focused window"),
 
     Key([mod], 'space', lazy.spawn('rofi -show drun -show-icons')),
-    Key([mod], 'e', lazy.spawn('pcmanfm')),
+    Key([mod], 'e', lazy.spawn('ranger')),
 
     Key([mod, "control"], "r", lazy.restart(), desc="Restart Qtile"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
