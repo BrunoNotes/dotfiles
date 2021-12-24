@@ -35,7 +35,7 @@ from libqtile.utils import guess_terminal
 
 mod = "mod4"
 #terminal = guess_terminal()
-terminal = "konsole"
+terminal = "gnome-terminal"
 
 keys = [
     # Switch between windows
