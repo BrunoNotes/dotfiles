@@ -1,4 +1,6 @@
 #! /bin/bash
 
-rsync -av "/home/bruno/Documents/Pessoal/joplin/" "/media/Arquivo/Pessoal/joplin/"
-rsync -av "/media/Arquivo/Pessoal/Senhas/" "/home/bruno/Documents/Pessoal/senhas/"
+rsync -av "/home/bruno/Documents/joplin/" "/mnt/arquivo/Pessoal/joplin/"
+rsync -av "/home/bruno/Documents/senhas/" "/mnt/arquivo/Pessoal/Senhas/"
+rsync -av "/mnt/arquivo/Pessoal/" "/mnt/arquivo2/backup/pessoal/"
+rsync -av "/mnt/arquivo/Faculdade/" "/mnt/arquivo2/backup/faculdade/"
