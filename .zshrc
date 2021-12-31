@@ -34,6 +34,7 @@ alias df='df -h'                                                # Human-readable
 alias free='free -m'                                            # Show sizes in MB
 alias gitu='git add . && git commit && git push'
 alias lsa="ls -a"
+alias grub-update='grub-mkconfig -o /boot/grub/grub.cfg'
 
 # Theming section  
 autoload -U compinit colors zcalc

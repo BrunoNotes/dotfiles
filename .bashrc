@@ -26,6 +26,7 @@ alias df='df -h'                          # human-readable sizes
 alias free='free -m'                      # show sizes in MB
 alias np='nano -w PKGBUILD'
 alias more=less
+alias grub-update='grub-mkconfig -o /boot/grub/grub.cfg'
 
 xhost +local:root > /dev/null 2>&1
 
