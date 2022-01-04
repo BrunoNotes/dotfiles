@@ -67,3 +67,6 @@ ex ()
     echo "'$1' is not a valid file"
   fi
 }
+
+export VISUAL="vim"
+export EDITOR="vim"

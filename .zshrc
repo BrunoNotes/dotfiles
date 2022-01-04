@@ -89,3 +89,7 @@ PROMPT+='%B%F{012}[%f${PWD/#$HOME/~}%F{12}]%f%b'            # Directory
 PROMPT+=' %B%F{015}➤%f%b '                                  # Arrow
 
 RPROMPT='%B${vcs_info_msg_0_}%b'                            # Git branch
+
+export VISUAL="vim"
+export EDITOR="vim"
+
