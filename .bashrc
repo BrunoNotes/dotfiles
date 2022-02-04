@@ -70,3 +70,7 @@ ex ()
 
 export VISUAL="vim"
 export EDITOR="vim"
+
+# asdf
+. $HOME/.config/asdf/asdf.sh
+. $HOME/.config/asdf/completions/asdf.bash

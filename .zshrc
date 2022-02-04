@@ -93,3 +93,10 @@ RPROMPT='%B${vcs_info_msg_0_}%b'                            # Git branch
 export VISUAL="vim"
 export EDITOR="vim"
 
+# asdf
+
+. $HOME/.config/asdf/asdf.sh
+# append completions to fpath
+fpath=(${ASDF_DIR}/completions $fpath)
+# initialise completions with ZSH's compinit
+autoload -Uz compinit && compinit
