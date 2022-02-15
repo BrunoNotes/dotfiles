@@ -1,5 +1,4 @@
 ## Options section
-setopt correct                                                  # Auto correct mistakes
 setopt extendedglob                                             # Extended globbing. Allows using regular expressions with *
 setopt nocaseglob                                               # Case insensitive globbing
 setopt rcexpandparam                                            # Array expension with parameters
@@ -85,10 +84,10 @@ zstyle ':vcs_info:git:*' formats "%F{014}[%f%F{red}%m%u%c%f %F{yellow}%b%f%F{014
  
 # Set up the prompt (with git branch name)
 PROMPT='%B%F{012}[%F{white}%n%F{12}]%f%b'
+PROMPT+='%B${vcs_info_msg_0_}%b'                            # Git branch
 PROMPT+='%B%F{012}[%f${PWD/#$HOME/~}%F{12}]%f%b'            # Directory
 PROMPT+=' %B%F{015}➤%f%b '                                  # Arrow
 
-RPROMPT='%B${vcs_info_msg_0_}%b'                            # Git branch
 
 export VISUAL="vim"
 export EDITOR="vim"
