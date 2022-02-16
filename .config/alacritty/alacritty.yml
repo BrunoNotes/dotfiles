@@ -117,7 +117,7 @@ font:
     #   - (macOS) Menlo
     #   - (Linux/BSD) monospace
     #   - (Windows) Consolas
-    family: Source Code Pro
+    family: SauceCodePro Nerd Font 
 
     # The `style` can be specified to pick a specific face.
     #style: Regular
@@ -128,7 +128,7 @@ font:
     #
     # If the bold family is not specified, it will fall back to the
     # value specified for the normal font.
-    family: Source Code Pro
+    family: SauceCodePro Nerd Font
 
     # The `style` can be specified to pick a specific face.
     style: Bold
@@ -139,7 +139,7 @@ font:
     #
     # If the italic family is not specified, it will fall back to the
     # value specified for the normal font.
-    family: Source Code Pro
+    family: SauceCodePro Nerd Font
 
     # The `style` can be specified to pick a specific face.
     style: Italic
@@ -150,7 +150,7 @@ font:
     #
     # If the bold italic family is not specified, it will fall back to the
     # value specified for the normal font.
-    family: Source Code Pro
+    family: SauceCodePro Nerd Font
 
     # The `style` can be specified to pick a specific face.
     style: Bold Italic
@@ -161,9 +161,9 @@ font:
   # Offset is the extra space around each character. `offset.y` can be thought
   # of as modifying the line spacing, and `offset.x` as modifying the letter
   # spacing.
-  #offset:
-  #  x: 0
-  #  y: 0
+  offset:
+    x: 0
+    y: 0 
 
   # Glyph offset determines the locations of the glyphs within their cells with
   # the default being at the bottom. Increasing `x` moves the glyph to the
@@ -511,7 +511,7 @@ schemes:
       blue:    '#81a2be'
       magenta: '#b294bb'
       cyan:    '#70c0ba'
-      white:   '#373b41'
+      white:   '#f2f2f2'
 
     # Bright colors
     bright:
@@ -522,7 +522,7 @@ schemes:
       blue:    '#81a2be'
       magenta: '#b77ee0'
       cyan:    '#54ced6'
-      white:   '#282a2e'
+      white:   '#f2f2f2'
 
 ######################################################################
 ## SET THEME: Choose ONE color scheme from those in the above list. ##
@@ -539,7 +539,7 @@ schemes:
 # *SolarizedDark
 # *TomorrowNight
 
-colors: *Palenight
+colors: *TomorrowNight
 
 #######################################
 ##       END OF COLOR SCHEMES        ##

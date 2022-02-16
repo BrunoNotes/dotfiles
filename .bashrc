@@ -70,6 +70,7 @@ ex ()
 
 export VISUAL="vim"
 export EDITOR="vim"
+export PATH="$HOME/.local/bin:$PATH"
 
 # asdf
 . $HOME/.config/asdf/asdf.sh

@@ -91,6 +91,7 @@ PROMPT+=' %B%F{015}➤%f%b '                                  # Arrow
 
 export VISUAL="vim"
 export EDITOR="vim"
+export PATH="$HOME/.local/bin:$PATH"
 
 # asdf
 
