@@ -539,7 +539,7 @@ schemes:
 # *SolarizedDark
 # *TomorrowNight
 
-colors: *TomorrowNight
+colors: *TomorrowNight 
 
 #######################################
 ##       END OF COLOR SCHEMES        ##
