@@ -10,7 +10,7 @@ set nowrap
 set smartcase
 set incsearch
 set noswapfile
-set clipboard+=unnamedplus  " use system clipboard
+set clipboard=unnamedplus  " use system clipboard
 
 " Specify a directory for plugins
 call plug#begin('~/.config/nvim/plugged')
