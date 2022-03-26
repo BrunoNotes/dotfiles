@@ -34,6 +34,7 @@ alias free='free -m'                                            # Show sizes in 
 alias gitu='git add . && git commit && git push'
 alias grub-update='grub-mkconfig -o /boot/grub/grub.cfg'
 alias ls='exa --icons'
+alias update=$HOME/dotfiles/update.sh
 
 # Theming section  
 autoload -U compinit colors zcalc

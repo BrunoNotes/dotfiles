@@ -27,6 +27,7 @@ alias free='free -m'                      # show sizes in MB
 alias np='nano -w PKGBUILD'
 alias more=less
 alias grub-update='grub-mkconfig -o /boot/grub/grub.cfg'
+alias updata=$HOME/dotfiles/update.sh
 
 xhost +local:root > /dev/null 2>&1
 
