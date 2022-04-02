@@ -187,90 +187,6 @@ draw_bold_text_with_bright_colors: true
 
 schemes:
 
-  ### Dracula ###
-  Dracula: &Dracula
-    primary:
-      background: '#282a36'
-      foreground: '#f8f8f2'
-    cursor:
-      text: CellBackground
-      cursor: CellForeground
-    vi_mode_cursor:
-      text: CellBackground
-      cursor: CellForeground
-    search:
-      matches:
-        foreground: '#44475a'
-        background: '#50fa7b'
-      focused_match:
-        foreground: '#44475a'
-        background: '#ffb86c'
-      bar:
-        background: '#282a36'
-        foreground: '#f8f8f2'
-    line_indicator:
-      foreground: None
-      background: None
-    selection:
-      text: CellForeground
-      background: '#44475a'
-    normal:
-      black:   '#000000'
-      red:     '#ff5555'
-      green:   '#50fa7b'
-      yellow:  '#f1fa8c'
-      blue:    '#bd93f9'
-      magenta: '#ff79c6'
-      cyan:    '#8be9fd'
-      white:   '#bfbfbf'
-    bright:
-      black:   '#4d4d4d'
-      red:     '#ff6e67'
-      green:   '#5af78e'
-      yellow:  '#f4f99d'
-      blue:    '#caa9fa'
-      magenta: '#ff92d0'
-      cyan:    '#9aedfe'
-      white:   '#e6e6e6'
-    dim:
-      black:   '#14151b'
-      red:     '#ff2222'
-      green:   '#1ef956'
-      yellow:  '#ebf85b'
-      blue:    '#4d5b86'
-      magenta: '#ff46b0'
-      cyan:    '#59dffc'
-      white:   '#e6e6d1'
-
-### Monokai ###
-  MonokaiPro: &MonokaiPro
-    # Default colors
-    primary:
-      background: '#2D2A2E'
-      foreground: '#FCFCFA'
-
-    # Normal colors
-    normal:
-      black:   '#403E41'
-      red:     '#FF6188'
-      green:   '#A9DC76'
-      yellow:  '#FFD866'
-      blue:    '#FC9867'
-      magenta: '#AB9DF2'
-      cyan:    '#78DCE8'
-      white:   '#FCFCFA'
-
-    # Bright colors
-    bright:
-      black:   '#727072'
-      red:     '#FF6188'
-      green:   '#A9DC76'
-      yellow:  '#FFD866'
-      blue:    '#FC9867'
-      magenta: '#AB9DF2'
-      cyan:    '#78DCE8'
-      white:   '#FCFCFA'
-
   ### Nord ###
   Nord: &Nord
     # Default colors
@@ -299,35 +215,6 @@ schemes:
       magenta: '#B48EAD'
       cyan:    '#8FBCBB'
       white:   '#ECEFF4'
-
-  ### Palenight ###
-  Palenight: &Palenight
-    # Default colors
-    primary:
-      background: '#292d3e'
-      foreground: '#d0d0d0'
-
-    # Normal colors
-    normal:
-      black:   '#292d3e'
-      red:     '#f07178'
-      green:   '#c3e88d'
-      yellow:  '#ffcb6b'
-      blue:    '#82aaff'
-      magenta: '#c792ea'
-      cyan:    '#89ddff'
-      white:   '#d0d0d0'
-
-    # Bright colors
-    bright:
-      black:   '#434758'
-      red:     '#ff8b92'
-      green:   '#ddffa7'
-      yellow:  '#ffe585'
-      blue:    '#9cc4ff'
-      magenta: '#e1acff'
-      cyan:    '#a3f7ff'
-      white:   '#ffffff'
 
   ### Tomorrow Night ###
   TomorrowNight: &TomorrowNight
@@ -363,17 +250,44 @@ schemes:
       cyan:    '#54ced6'
       white:   '#f2f2f2'
 
+
+  BrewerDark: &BrewerDark
+    # Default colors
+    primary:
+      background: '0x0c0d0e'
+      foreground: '0xb7b8b9'
+
+    # Normal colors
+    normal:
+      black:   '0x0c0d0e'
+      red:     '0xe31a1c'
+      green:   '0x31a354'
+      yellow:  '0xdca060'
+      blue:    '0x3182bd'
+      magenta: '0x756bb1'
+      cyan:    '0x80b1d3'
+      white:   '0xb7b8b9'
+
+    # Bright colors
+    bright:
+      black:   '0x737475'
+      red:     '0xe31a1c'
+      green:   '0x31a354'
+      yellow:  '0xdca060'
+      blue:    '0x3182bd'
+      magenta: '0x756bb1'
+      cyan:    '0x80b1d3'
+      white:   '0xfcfdfe'
+
 ######################################################################
 ## SET THEME: Choose ONE color scheme from those in the above list. ##
 ## ###################################################################
 # Available themes are:
-# *Dracula
-# *MonokaiPro
 # *Nord
-# *Palenight
 # *TomorrowNight
+# *BrewerDark
 
-colors: *TomorrowNight 
+colors: *BrewerDark 
 
 #######################################
 ##       END OF COLOR SCHEMES        ##
