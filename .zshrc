@@ -35,6 +35,7 @@ alias gitu='git add . && git commit && git push'
 alias grub-update='grub-mkconfig -o /boot/grub/grub.cfg'
 alias ls='exa --icons'
 alias update=$HOME/dotfiles/update.sh
+alias sudo='sudo -E'
 
 # Theming section  
 autoload -U compinit colors zcalc
