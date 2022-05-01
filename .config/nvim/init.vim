@@ -13,6 +13,9 @@ set noswapfile
 set clipboard=unnamedplus  " use system clipboard
 
 set noshowmode  "dont show the mode
+if !has('gui_running')
+  set t_Co=256
+endif
 
 " Specify a directory for plugins
 call plug#begin('~/.config/nvim/plugged')
@@ -25,3 +28,4 @@ call plug#end()
 let g:lightline = {
       \ 'colorscheme': 'wombat',
       \ }
+
