@@ -23,7 +23,7 @@ alias df='df -h'                                                # Human-readable
 alias free='free -m'                                            # Show sizes in MB
 alias grub-update='grub-mkconfig -o /boot/grub/grub.cfg'
 alias ls='exa --icons'
-alias update=$HOME/dotfiles/update.sh
+alias update=$HOME/dotfiles/scripts/update.sh
 alias sudo='sudo -E'
 
 # Theming section  

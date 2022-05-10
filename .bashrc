@@ -25,7 +25,7 @@ alias cp="cp -i"                          # confirm before overwriting something
 alias df='df -h'                          # human-readable sizes
 alias free='free -m'                      # show sizes in MB
 alias grub-update='grub-mkconfig -o /boot/grub/grub.cfg'
-alias update=$HOME/dotfiles/update.sh
+alias update=$HOME/dotfiles/scripts/update.sh
 alias sudo='sudo -E'
 
 xhost +local:root > /dev/null 2>&1
