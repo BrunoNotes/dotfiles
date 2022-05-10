@@ -24,10 +24,8 @@ export PS1
 alias cp="cp -i"                          # confirm before overwriting something
 alias df='df -h'                          # human-readable sizes
 alias free='free -m'                      # show sizes in MB
-alias np='nano -w PKGBUILD'
-alias more=less
 alias grub-update='grub-mkconfig -o /boot/grub/grub.cfg'
-alias updata=$HOME/dotfiles/update.sh
+alias update=$HOME/dotfiles/update.sh
 alias sudo='sudo -E'
 
 xhost +local:root > /dev/null 2>&1
@@ -75,6 +73,6 @@ export EDITOR="vim"
 export PATH="$HOME/.local/bin:$PATH"
 
 
-# asdf
+# asdf - version control
 . $HOME/.config/asdf/asdf.sh
 . $HOME/.config/asdf/completions/asdf.bash
