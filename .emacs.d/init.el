@@ -11,6 +11,13 @@
 (unless (package-installed-p 'use-package)
   (package-install 'use-package))
 
+;; no-littering - makes the folder more clean
+(use-package no-littering :ensure t)
+(require 'no-littering)
+;; auto save with no littering
+(setq auto-save-file-name-transforms
+      `((".*" ,(no-littering-expand-var-file-name "auto-save/") t)))
+
 ;; Download Evil (vim like navigation)
 (use-package evil
   :ensure t
@@ -100,22 +107,13 @@
 ;; Ensure that emacsclient always opens on dashboard rather than scratch.
 (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
 
-;; Theme
+;; Move customization varables to a separate file and load it
+(setq custom-file (locate-user-emacs-file "Custom-vars.el"))
+(load custom-file 'noerror 'nomessage)
 
-;; Theme - added automaticaly
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-enabled-themes '(vscode-dark-plus))
- '(custom-safe-themes
-   '("6c4c97a17fc7b6c8127df77252b2d694b74e917bab167e7d3b53c769a6abb6d6" "0cce5c3627e626a8ab64cc849073ed4d92b45d4ad16af2ccd849f56bf5187b37" default))
- '(package-selected-packages
-   '(vscode-dark-plus-theme vs-dark-theme projectile dashboard evil-collection general wich-key evil smex)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+;; Theme
+(use-package vscode-dark-plus-theme
+  :ensure t
+  :config
+  (load-theme 'vscode-dark-plus t))
+

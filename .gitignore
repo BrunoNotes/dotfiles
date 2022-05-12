@@ -2,6 +2,7 @@
 /backup
 push_gitlab.sh
 /.config/nvim/plugged
-/.emacs.d/auto-save-list
-/.emacs.d/elpa
-/.emacs.d/smex-items
+/.emacs.d/*
+!/.emacs.d/init.el
+
+
