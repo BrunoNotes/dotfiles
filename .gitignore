@@ -1,4 +1,5 @@
 /.config/nvim/plugged
+/home/.vim/plugged
 /home/.emacs.d/*
 !/home/.emacs.d/init.el
 
