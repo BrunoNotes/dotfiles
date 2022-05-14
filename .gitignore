@@ -1,8 +1,5 @@
-/notes
-/backup
-push_gitlab.sh
 /.config/nvim/plugged
-/.emacs.d/*
-!/.emacs.d/init.el
+/home/.emacs.d/*
+!/home/.emacs.d/init.el
 
 

@@ -18,6 +18,10 @@
 (setq auto-save-file-name-transforms
       `((".*" ,(no-littering-expand-var-file-name "auto-save/") t)))
 
+;; Auto complete ()
+(electric-pair-mode 1)
+(setq electric-pair-preserve-balance nil)
+
 ;; Download Evil (vim like navigation)
 (use-package evil
   :ensure t
@@ -62,6 +66,16 @@
 (require 'which-key)
 (which-key-mode 1) ; Start wich key
 
+;; Dired
+(use-package dired
+  :custom ((dired-listing-switches "-agho --group-directories-first"))
+  )
+(with-eval-after-load 'dired
+  ;; Vim keybinding for dired
+  (evil-define-key 'normal dired-mode-map (kbd "h") 'dired-up-directory)
+  (evil-define-key 'normal dired-mode-map (kbd "l") 'dired-find-file)
+  )
+
 ;; General keybinding
 (use-package general :ensure t
   :config (general-evil-setup t))
@@ -76,7 +90,11 @@
        "b n"   '(next-buffer :which-key "Next buffer")
        "b p"   '(previous-buffer :which-key "Previous buffer")
        "b B"   '(ibuffer-list-buffers :which-key "Ibuffer list buffers")
-       "b K"   '(kill-buffer :which-key "Kill buffer"))
+       "b K"   '(kill-buffer :which-key "Kill buffer")
+       ;;Dired
+       "d d" '(dired :which-key "Open dired")
+       "d j" '(dired-jump :which-key "Dired jump to current")
+       )
 
 ;; Projectile
 (use-package projectile
