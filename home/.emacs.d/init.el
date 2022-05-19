@@ -1,15 +1,60 @@
-(setq inhibit-startup-screen t) ; Remove start screen
-
+;; Adding Melpa package repository
 (require 'package)
-(add-to-list 'package-archives '
-	     ;; Melpa package repository
-	     ("melpa" . "https://melpa.org/packages/")) 
-(package-refresh-contents)
+(add-to-list 'package-archives 
+  '("melpa" . "https://melpa.org/packages/")) 
 (package-initialize)
+;; (unless package-archive-contents
+;;   (package-refresh-contents))
+(package-refresh-contents)
 
 ;; use-package
 (unless (package-installed-p 'use-package)
   (package-install 'use-package))
+
+;; Remove Start screen
+(setq inhibit-startup-screen t)
+
+;; Auto complete ()
+(electric-pair-mode 1)
+(setq electric-pair-preserve-balance nil)
+
+(global-display-line-numbers-mode 1) ; Show line number
+(global-visual-line-mode 1) ; Makes lines wrap at word boundaries 
+;(menu-bar-mode -1) ; Disable menu-bar
+(tool-bar-mode -1) ; Disable tool-bar
+
+;; Make ESC quit prompts
+(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+
+;; Disable line numbers for some modes
+(dolist (mode '(
+		treemacs-mode-hook
+		))
+  (add-hook mode (lambda () (display-line-numbers-mode 0))))
+
+;; “Interactively DO things” autocompletion
+(ido-mode 1) 
+(ido-everywhere 1)
+
+;; Ivy completion
+(use-package ivy
+  :ensure t
+  :bind (
+	 :map ivy-minibuffer-map
+         ("C-j" . ivy-next-line)
+         ("C-k" . ivy-previous-line)
+	 )
+  :config
+  (ivy-mode))
+(use-package counsel
+  :after ivy
+  :ensure t
+  :config (counsel-mode))
+(use-package ivy-rich
+  :after ivy
+  :ensure t
+  :config
+  (ivy-rich-mode 1)) ;; this gets us descriptions in M-x.
 
 ;; no-littering - makes the folder more clean
 (use-package no-littering :ensure t)
@@ -17,10 +62,6 @@
 ;; auto save with no littering
 (setq auto-save-file-name-transforms
       `((".*" ,(no-littering-expand-var-file-name "auto-save/") t)))
-
-;; Auto complete ()
-(electric-pair-mode 1)
-(setq electric-pair-preserve-balance nil)
 
 ;; Download Evil (vim like navigation)
 (use-package evil
@@ -35,25 +76,10 @@
   :after evil
   :ensure t
   :config (evil-collection-init))
-
-(global-display-line-numbers-mode 1) ; Show line number
-(global-visual-line-mode 1) ; Makes lines wrap at word boundaries 
-
-;(menu-bar-mode -1) ; Disable menu-bar
-(tool-bar-mode -1) ; Disable tool-bar
-
-;; “Interactively DO things” autocompletion
-(ido-mode 1) 
-(ido-everywhere 1)
-
-;; Install Smex - ido like M-x completion
-(use-package smex :ensure t)
-
-;; Set the smex keybidings
-(require 'smex) 
-(global-set-key (kbd "M-x") 'smex) 
-(global-set-key (kbd "M-X") 'smex-major-mode-commands)
-(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command) ; This is your old M-x.
+;; Auto comment
+(use-package evil-nerd-commenter
+  :ensure t
+  :bind ("M-/" . evilnc-comment-or-uncomment-lines))
 
 ;; zoom in/out like we do everywhere else.
 (global-set-key (kbd "C-=") 'text-scale-increase)
@@ -79,10 +105,10 @@
 ;; General keybinding
 (use-package general :ensure t
   :config (general-evil-setup t))
-
 (nvmap :prefix "SPC"
-       "SPC"   '(smex :which-key "M-x")
+       "SPC"   '(counsel-M-x :which-key "M-x")
        "."     '(find-file :which-key "Find file")
+       "h r r" '((lambda () (interactive) (load-file "~/.emacs.d/init.el")) :which-key "Reload emacs config")
        ;; Buffers
        "b b"   '(ibuffer :which-key "Ibuffer")
        "b c"   '(clone-indirect-buffer-other-window :which-key "Clone indirect buffer other window")
@@ -94,7 +120,53 @@
        ;;Dired
        "d d" '(dired :which-key "Open dired")
        "d j" '(dired-jump :which-key "Dired jump to current")
+       ;; LSP
+       "l l" '(lsp :wich-key "lsp")
+       "l c" '(company-mode :which-key "Company-Mode")
+       "l t" '(treemacs-select-directory :which-key "TreeMacs")
        )
+
+;; LSP Mode - code completion
+(use-package lsp-mode
+  :ensure t
+  :commands (lsp lsp-deferred)
+  :hook (lsp-mode . efs/lsp-mode-setup)
+  :init
+  (setq lsp-keymap-prefix "C-c l") 
+  :config
+  (lsp-enable-which-key-integration t))
+;; Treemacs - tree style folders
+(use-package lsp-treemacs
+  :ensure t
+  :after lsp)
+;; Company
+(use-package company
+  :ensure t
+  :after lsp-mode
+  :hook (lsp-mode . company-mode)
+  :bind (:map company-active-map
+         ("<tab>" . company-complete-selection))
+        (:map lsp-mode-map
+         ("<tab>" . company-indent-or-complete-common))
+  :custom
+  (company-minimum-prefix-length 1)
+  (company-idle-delay 0.0)
+)
+
+;; Other languages
+
+;; TypeScript
+(use-package typescript-mode
+  :ensure t
+  :mode "\\.ts\\'"
+  :hook (typescript-mode . lsp-deferred))
+
+;; VUE Js
+(use-package vue-mode
+  :ensure t
+  :mode "\\.vue\\'"
+  :hook (vue-mode . lsp-deferred))
+
 
 ;; Projectile
 (use-package projectile
@@ -127,11 +199,24 @@
 
 ;; Move customization varables to a separate file and load it
 (setq custom-file (locate-user-emacs-file "Custom-vars.el"))
+
 (load custom-file 'noerror 'nomessage)
+
+;; Doom modeline
+(use-package doom-modeline
+  :ensure t
+  :init (doom-modeline-mode 1))
+
+;; All the icons
+(use-package all-the-icons
+  :ensure t)
 
 ;; Theme
 (use-package vscode-dark-plus-theme
   :ensure t
   :config
   (load-theme 'vscode-dark-plus t))
+
+;; Font
+(set-frame-font "SauceCodePro Nerd Font")
 
