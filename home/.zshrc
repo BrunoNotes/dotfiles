@@ -44,7 +44,7 @@ export LESS=-R
 ## Plugins section: Enable fish style features
 
 # Use syntax highlighting
-source ${HOME}/dotfiles/.config/zsh/plugins/zsh-syntax-highlight/zsh-syntax-highlighting.zsh
+source ${HOME}/.config/zsh/plugins/zsh-syntax-highlight/zsh-syntax-highlighting.zsh
 
 ## Prompt section
 

@@ -102,30 +102,6 @@
   (evil-define-key 'normal dired-mode-map (kbd "l") 'dired-find-file)
   )
 
-;; General keybinding
-(use-package general :ensure t
-  :config (general-evil-setup t))
-(nvmap :prefix "SPC"
-       "SPC"   '(counsel-M-x :which-key "M-x")
-       "."     '(find-file :which-key "Find file")
-       "h r r" '((lambda () (interactive) (load-file "~/.emacs.d/init.el")) :which-key "Reload emacs config")
-       ;; Buffers
-       "b b"   '(ibuffer :which-key "Ibuffer")
-       "b c"   '(clone-indirect-buffer-other-window :which-key "Clone indirect buffer other window")
-       "b k"   '(kill-current-buffer :which-key "Kill current buffer")
-       "b n"   '(next-buffer :which-key "Next buffer")
-       "b p"   '(previous-buffer :which-key "Previous buffer")
-       "b B"   '(ibuffer-list-buffers :which-key "Ibuffer list buffers")
-       "b K"   '(kill-buffer :which-key "Kill buffer")
-       ;;Dired
-       "d d" '(dired :which-key "Open dired")
-       "d j" '(dired-jump :which-key "Dired jump to current")
-       ;; LSP
-       "l l" '(lsp :wich-key "lsp")
-       "l c" '(company-mode :which-key "Company-Mode")
-       "l t" '(treemacs-select-directory :which-key "TreeMacs")
-       )
-
 ;; LSP Mode - code completion
 (use-package lsp-mode
   :ensure t
@@ -217,6 +193,34 @@
   :config
   (load-theme 'vscode-dark-plus t))
 
+;; (use-package gruber-darker-theme
+;;   :ensure t
+;;   :config
+;;   (load-theme 'gruber-darker t))
+
 ;; Font
 (set-frame-font "SauceCodePro Nerd Font")
 
+;; General keybinding
+(use-package general :ensure t
+  :config (general-evil-setup t))
+(nvmap :prefix "SPC"
+       "SPC"   '(counsel-M-x :which-key "M-x")
+       "."     '(find-file :which-key "Find file")
+       "h r r" '((lambda () (interactive) (load-file "~/.emacs.d/init.el")) :which-key "Reload emacs config")
+       ;; Buffers
+       "b b"   '(ibuffer :which-key "Ibuffer")
+       "b c"   '(clone-indirect-buffer-other-window :which-key "Clone indirect buffer other window")
+       "b k"   '(kill-current-buffer :which-key "Kill current buffer")
+       "b n"   '(next-buffer :which-key "Next buffer")
+       "b p"   '(previous-buffer :which-key "Previous buffer")
+       "b B"   '(ibuffer-list-buffers :which-key "Ibuffer list buffers")
+       "b K"   '(kill-buffer :which-key "Kill buffer")
+       ;;Dired
+       "d d" '(dired :which-key "Open dired")
+       "d j" '(dired-jump :which-key "Dired jump to current")
+       ;; LSP
+       "l l" '(lsp :wich-key "lsp")
+       "l c" '(company-mode :which-key "Company-Mode")
+       "l t" '(treemacs-select-directory :which-key "TreeMacs")
+       )
