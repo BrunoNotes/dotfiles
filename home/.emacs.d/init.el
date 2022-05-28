@@ -3,12 +3,21 @@
 (add-to-list 'package-archives 
   '("melpa" . "https://melpa.org/packages/")) 
 (package-initialize)
-(package-refresh-contents)
+(unless package-archive-contents
+  (package-refresh-contents))
 
 ;; use-package
 (unless (package-installed-p 'use-package)
   (package-install 'use-package))
 
+;; ----- Update -----
+
+;; Run the command to see the packages:
+;; M-x list-packages
+;; Hit "U" to mark available upgrades, then "x" to upgrade
+
+;; To delete older versions run:
+;; M-x package-autoremove
 
 ;; ----- IMPORTS -----
 

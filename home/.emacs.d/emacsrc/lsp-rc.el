@@ -31,8 +31,8 @@
   :custom
   (company-minimum-prefix-length 1)
   (company-idle-delay 0.0)
-  :init (global-company-mode t)
 )
+(add-hook 'after-init-hook 'global-company-mode)
 
 ;; Flycheck - Syntax checking
 (use-package flycheck
@@ -44,6 +44,11 @@
 (use-package apheleia
   :ensure t
   :init (apheleia-global-mode 1)
+  )
+
+;; Magit - Git
+(use-package magit
+  :ensure t
   )
 
 ;; ----- Other languages -----

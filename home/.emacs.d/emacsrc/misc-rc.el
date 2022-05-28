@@ -47,9 +47,10 @@
   :bind ("M-/" . evilnc-comment-or-uncomment-lines))
 
 ;; Which key - show the keybidings associated with a command
-(use-package which-key :ensure t)
-(require 'which-key)
-(which-key-mode 1) ; Start wich key
+(use-package which-key
+  :ensure t
+  :config (which-key-mode)
+  )
 
 ;; Dired
 (use-package dired
@@ -66,3 +67,28 @@
   :ensure t
   :config
   (projectile-global-mode 1))
+
+;; Terminal
+(use-package term
+  :config
+  (setq explicit-shell-file-name "zsh"))
+(use-package eterm-256color
+  :ensure t
+  :hook (term-mode . eterm-256color-mode))
+
+;; Eshell
+(defun rc/configure-eshell ()
+  ;; Truncate buffer for performance
+  (add-to-list 'eshell-output-filter-functions 'eshell-truncate-buffer)
+
+  (setq eshell-history-size         1000
+        eshell-buffer-maximum-lines 1000
+        eshell-hist-ignoredups t
+        eshell-scroll-to-bottom-on-input t))
+
+(use-package eshell
+  :hook (eshell-first-time-mode . rc/configure-eshell)
+  :config
+  (with-eval-after-load 'esh-opt
+    (setq eshell-destroy-buffer-when-process-dies t)
+    (setq eshell-visual-commands '("htop" "zsh" "vim"))))

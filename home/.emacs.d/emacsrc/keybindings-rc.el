@@ -27,6 +27,7 @@
        "b p"   '(previous-buffer :which-key "Previous buffer")
        "b B"   '(ibuffer-list-buffers :which-key "Ibuffer list buffers")
        "b K"   '(kill-buffer :which-key "Kill buffer")
+       "b s"   '(switch-to-buffer :which-key "switch-to-buffer")
        ;; Dired
        "d d" '(dired :which-key "Open dired")
        "d j" '(dired-jump :which-key "Dired jump to current")
@@ -34,4 +35,13 @@
        "l l" '(lsp :wich-key "lsp")
        "l c" '(company-mode :which-key "Company-Mode")
        "l t" '(treemacs-select-directory :which-key "TreeMacs")
+       ;; Term
+       "t t" '(term :which-key "term")
+       ;; Eshell
+       "e s" '(eshell :which-key "eshell")
+       ;; Window splits
+       "w c"   '(evil-window-delete :which-key "Close window")
+       "w n"   '(evil-window-new :which-key "New window")
+       "w h"   '(evil-window-split :which-key "Horizontal split window")
+       "w v"   '(evil-window-vsplit :which-key "Vertical split window")
        )

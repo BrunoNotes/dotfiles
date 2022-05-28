@@ -4,4 +4,4 @@ configuration {
 	modi: "window,run,ssh,drun";
     show-icons: true;
 }
-@theme "~/.config/rofi/theme.rasi"
+@theme "~/.config/rofi/theme2.rasi"
