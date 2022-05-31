@@ -40,18 +40,32 @@
   :init (global-flycheck-mode)
   )
 
-;; Auto formatter
-(use-package apheleia
-  :ensure t
-  :init (apheleia-global-mode 1)
-  )
-
 ;; Magit - Git
 (use-package magit
   :ensure t
   )
 
+;; Yasnippet
+(use-package yasnippet
+  :ensure t
+  :config
+  (setq yas-snippet-dirs
+        '("~/.emacs.d/etc/yasnippet/snippets" ;Personal snippet
+          ))
+  (yas-global-mode 1)
+  )
 ;; ----- Other languages -----
+
+;; Markdown
+(use-package markdown-mode
+  :ensure t
+  :mode "\\.md\\'"
+  )
+(custom-set-faces
+ '(markdown-header-face ((t (:inherit font-lock-function-name-face :weight bold :family "variable-pitch"))))
+ '(markdown-header-face-1 ((t (:inherit markdown-header-face :height 1.8))))
+ '(markdown-header-face-2 ((t (:inherit markdown-header-face :height 1.4))))
+ '(markdown-header-face-3 ((t (:inherit markdown-header-face :height 1.2)))))
 
 ;; TypeScript
 (use-package typescript-mode
@@ -76,3 +90,13 @@
   :ensure t
   :mode "\\.lua\\'"
   :hook (lua.mode . lsp-deferred))
+
+;; Rust
+(use-package rust-mode
+  :ensure t
+  :mode "\\.rs\\'"
+  :hook (rust.mode . lsp-deferred)
+  )
+(use-package rustic
+        :ensure t)
+

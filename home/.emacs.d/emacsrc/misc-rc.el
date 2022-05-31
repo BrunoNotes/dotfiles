@@ -39,7 +39,9 @@
 (use-package evil-collection
   :after evil
   :ensure t
-  :config (evil-collection-init))
+  :config
+  (setq evil-collection-mode-list '(dashboard dired ibuffer))
+  (evil-collection-init))
 
 ;; Auto comment
 (use-package evil-nerd-commenter

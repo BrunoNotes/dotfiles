@@ -76,3 +76,4 @@ export PATH="$HOME/.local/bin:$PATH"
 # asdf - version control
 . $HOME/.config/asdf/asdf.sh
 . $HOME/.config/asdf/completions/asdf.bash
+. "$HOME/.cargo/env"

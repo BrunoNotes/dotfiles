@@ -6,4 +6,4 @@ rsync -havu "/mnt/Arquivo/Alura/" "/mnt/Arquivo2/backup/alura/"
 rsync -havu "/mnt/Arquivo/imagens/" "/mnt/Arquivo2/backup/imagens/"
 rsync -havu "/home/bruno/Documents/bruno/" "/mnt/Arquivo/Pessoal/bruno/"
 rsync -havu "/home/bruno/.ssh/" "/mnt/Arquivo/Pessoal/bruno/ssh/"
-
+rsync -havu "/mnt/Arquivo/Programming//" "/mnt/Arquivo2/backup/Programming/"
