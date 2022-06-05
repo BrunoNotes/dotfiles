@@ -77,3 +77,4 @@ export PATH="$HOME/.local/bin:$PATH"
 . $HOME/.config/asdf/asdf.sh
 . $HOME/.config/asdf/completions/asdf.bash
 . "$HOME/.cargo/env"
+alias protontricks='flatpak run com.github.Matoking.protontricks'

@@ -91,3 +91,4 @@ export PATH="$HOME/.local/bin:$PATH"
 fpath=(${ASDF_DIR}/completions $fpath)
 # initialise completions with ZSH's compinit
 autoload -Uz compinit && compinit
+alias protontricks='flatpak run com.github.Matoking.protontricks'
