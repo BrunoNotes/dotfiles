@@ -44,6 +44,7 @@
 (use-package magit
   :ensure t
   )
+(setq magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1)
 
 ;; Yasnippet
 (use-package yasnippet
