@@ -24,7 +24,8 @@
 ;; Doom modeline
 (use-package doom-modeline
   :ensure t
-  :init (doom-modeline-mode 1))
+  :init
+  (doom-modeline-mode 1))
 
 ;; All the icons
 (use-package all-the-icons
@@ -36,15 +37,20 @@
 
 ;; Theme
 
-(use-package vscode-dark-plus-theme
-  :ensure t
-  :config
-  (load-theme 'vscode-dark-plus t))
-
 ;; (use-package gruber-darker-theme
 ;;   :ensure t
 ;;   :config
 ;;   (load-theme 'gruber-darker t))
 
+(use-package doom-themes
+  :ensure t
+  :config
+  ;; Global settings (defaults)
+  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+        doom-themes-enable-italic t) ; if nil, italics is universally disabled
+  (load-theme 'doom-tokyo-night t)
+  ;; (load-theme 'doom-dark+ t)
+  )
+
 ;; Font
-(set-frame-font "SauceCodePro Nerd Font")
+(set-frame-font "SauceCodePro Nerd Font 12")

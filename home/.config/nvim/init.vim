@@ -6,13 +6,14 @@ set shiftwidth=4
 set expandtab
 set smartindent
 set nu
+set relativenumber
 set nowrap
 set smartcase
 set incsearch
 set noswapfile
+set nobackup
 set clipboard=unnamedplus  " use system clipboard
-
-set background=dark
+set scrolloff=8
 
 set noshowmode  "dont show the mode
 

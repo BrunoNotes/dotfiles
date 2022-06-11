@@ -40,15 +40,19 @@
        "l t" '(treemacs-select-directory :which-key "TreeMacs")
        ;; Snippets
        "s n" '(yas-new-snippet :which-key "New snippet")
-       ;; Term
+       ;; Terminal
        "t t" '(term :which-key "term")
-       ;; Eshell
-       "e s" '(eshell :which-key "eshell")
+       "t e" '(eshell :which-key "eshell")
        ;; Window splits
        "w c"   '(evil-window-delete :which-key "Close window")
        "w n"   '(evil-window-new :which-key "New window")
        "w h"   '(evil-window-split :which-key "Horizontal split window")
        "w v"   '(evil-window-vsplit :which-key "Vertical split window")
+       ;; Window
+       "w f"   '(toggle-frame-fullscreen :which-key "Fullscreen")
+       "w m"   '(toggle-frame-maximized :which-key "Maximized")
        ;; Markdown
        "m p"   '(markdown-live-preview-mode :which-key "Live Preview")
+       ;; Magit
+       "g g"   '(magit-status :which-key "Magit Status")
        )

@@ -44,13 +44,17 @@
 ;; Move customization varables to a separate file and load it
 (setq custom-file (locate-user-emacs-file "Custom-vars.el"))
 (load custom-file 'noerror 'nomessage)
-
 ;; Show line number
-(global-display-line-numbers-mode 1) ; Show line number
+(global-display-line-numbers-mode 1)
+(setq display-line-numbers 'relative)
 ;; Makes lines wrap at word boundaries
-(global-visual-line-mode 1)  
+(global-visual-line-mode 1) ; change to 1 to wrap
+(setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
+(setq-default truncate-lines 0) ; change to 0 to wrap
 ;; Disable tool bar
 (tool-bar-mode -1)
+(scroll-bar-mode -1)
+(menu-bar-mode -1)
 ;; “Interactively DO things” autocompletion
 (ido-mode 1) 
 (ido-everywhere 1)

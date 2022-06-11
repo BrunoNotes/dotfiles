@@ -59,37 +59,13 @@
 ;; Markdown
 (use-package markdown-mode
   :ensure t
-  :mode "\\.md\\'"
-  )
+  :mode ("\\.md\\'" . gfm-mode)
+    )
 (custom-set-faces
  '(markdown-header-face ((t (:inherit font-lock-function-name-face :weight bold :family "variable-pitch"))))
  '(markdown-header-face-1 ((t (:inherit markdown-header-face :height 1.8))))
  '(markdown-header-face-2 ((t (:inherit markdown-header-face :height 1.4))))
  '(markdown-header-face-3 ((t (:inherit markdown-header-face :height 1.2)))))
-
-;; TypeScript
-(use-package typescript-mode
-  :ensure t
-  :mode "\\.ts\\'"
-  :hook (typescript-mode . lsp-deferred))
-
-;; VUE Js
-(use-package vue-mode
-  :ensure t
-  :mode "\\.vue\\'"
-  :hook (vue-mode . lsp-deferred))
-
-;; Yaml
-(use-package yaml-mode
-  :ensure t
-  :mode "\\.yml\\'"
-  :hook (yaml.mode . lsp-deferred))
-
-;; Lua
-(use-package lua-mode
-  :ensure t
-  :mode "\\.lua\\'"
-  :hook (lua.mode . lsp-deferred))
 
 ;; Rust
 (use-package rust-mode
