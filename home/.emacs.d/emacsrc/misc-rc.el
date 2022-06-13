@@ -1,3 +1,5 @@
+;; ----- Cleaning ----
+
 ;; no-littering - makes the folder more clean
 (use-package no-littering :ensure t)
 (require 'no-littering)
@@ -5,6 +7,8 @@
 ;; auto save with no littering
 (setq auto-save-file-name-transforms
       `((".*" ,(no-littering-expand-var-file-name "auto-save/") t)))
+
+;; ----- Auto completion -----
 
 ;; Ivy completion
 (use-package ivy
@@ -26,6 +30,14 @@
   :config
   (ivy-rich-mode 1)) ;; this gets us descriptions in M-x.
 
+;; Which key - show the keybidings associated with a command
+(use-package which-key
+  :ensure t
+  :config (which-key-mode)
+  )
+
+;; ----- Navigation -----
+
 ;; Download Evil (vim like navigation)
 (use-package evil
   :ensure t
@@ -44,16 +56,7 @@
   (evil-collection-init)
     )
 
-;; Auto comment
-(use-package evil-nerd-commenter
-  :ensure t
-  :bind ("M-/" . evilnc-comment-or-uncomment-lines))
-
-;; Which key - show the keybidings associated with a command
-(use-package which-key
-  :ensure t
-  :config (which-key-mode)
-  )
+;; ------ Files -----
 
 ;; Dired
 (use-package dired
@@ -71,7 +74,9 @@
   :config
   (projectile-global-mode 1))
 
-;; Terminal
+;; ----- Terminal -----
+
+;; Term
 (use-package term
   :config
   (setq explicit-shell-file-name "zsh"))

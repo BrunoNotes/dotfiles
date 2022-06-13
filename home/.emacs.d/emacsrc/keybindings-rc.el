@@ -15,6 +15,11 @@
 (global-set-key (kbd "C->") 'indent-rigidly-right-to-tab-stop)
 (global-set-key (kbd "C-<") 'indent-rigidly-left-to-tab-stop)
 
+;; Auto comment
+(use-package evil-nerd-commenter
+  :ensure t
+  :bind ("M-/" . evilnc-comment-or-uncomment-lines))
+
 ;; General keybinding
 (use-package general :ensure t
   :config (general-evil-setup t))

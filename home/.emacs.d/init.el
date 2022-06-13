@@ -58,8 +58,3 @@
 ;; “Interactively DO things” autocompletion
 (ido-mode 1) 
 (ido-everywhere 1)
-;; Disable line numbers for some modes
-(dolist (mode '(
-		treemacs-mode-hook
-		))
-  (add-hook mode (lambda () (display-line-numbers-mode 0))))

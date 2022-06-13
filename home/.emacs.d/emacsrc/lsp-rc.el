@@ -6,7 +6,6 @@
   (setq lsp-keymap-prefix "C-c l") 
   :config
   (lsp-enable-which-key-integration t))
-
 (use-package lsp-ui
     :ensure t
     :hook (lsp-mode . lsp-ui-mode))
@@ -15,6 +14,11 @@
 (use-package lsp-treemacs
   :ensure t
   :after lsp)
+;; Disable line numbers for some modes
+(dolist (mode '(
+		treemacs-mode-hook
+		))
+  (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
 ;; Company
 (use-package company
@@ -52,6 +56,7 @@
           ))
   (yas-global-mode 1)
   )
+
 ;; ----- Other languages -----
 
 ;; Markdown
