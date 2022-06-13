@@ -25,6 +25,8 @@ alias grub-update='grub-mkconfig -o /boot/grub/grub.cfg'
 alias ls='exa --icons'
 alias update=$HOME/dotfiles/scripts/update.sh
 alias sudo='sudo -E'
+alias protontricks='flatpak run com.github.Matoking.protontricks'
+alias penpot-stop=$HOME/Documents/penpot/penpot-stop.sh
 
 # Theming section  
 autoload -U compinit colors zcalc
@@ -91,4 +93,3 @@ export PATH="$HOME/.local/bin:$PATH"
 fpath=(${ASDF_DIR}/completions $fpath)
 # initialise completions with ZSH's compinit
 autoload -Uz compinit && compinit
-alias protontricks='flatpak run com.github.Matoking.protontricks'

@@ -44,7 +44,7 @@
        "t t" '(term :which-key "term")
        "t e" '(eshell :which-key "eshell")
        ;; Window splits
-       "w c"   '(evil-window-delete :which-key "Close window")
+       "w q"   '(evil-window-delete :which-key "Close window")
        "w n"   '(evil-window-new :which-key "New window")
        "w h"   '(evil-window-split :which-key "Horizontal split window")
        "w v"   '(evil-window-vsplit :which-key "Vertical split window")

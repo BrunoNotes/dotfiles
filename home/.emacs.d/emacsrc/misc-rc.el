@@ -41,8 +41,7 @@
   :ensure t
   :config
   (setq evil-collection-mode-list '(dashboard dired ibuffer))
-  (evil-collection-init t)
-  :custom (evil-collection-setup-minibuffer t)
+  (evil-collection-init)
     )
 
 ;; Auto comment

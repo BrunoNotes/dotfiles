@@ -2,17 +2,14 @@
 (use-package lsp-mode
   :ensure t
   :commands (lsp lsp-deferred)
-  :hook ((lsp-mode . efs/lsp-mode-setup)
-         (html-mode . lsp-deferred)
-         (css-mode . lsp-deferred)
-    )
   :init
   (setq lsp-keymap-prefix "C-c l") 
   :config
   (lsp-enable-which-key-integration t))
+
 (use-package lsp-ui
     :ensure t
-    :commands (lsp-ui-mode))
+    :hook (lsp-mode . lsp-ui-mode))
 
 ;; Treemacs - tree style folders
 (use-package lsp-treemacs
@@ -30,7 +27,7 @@
          ("<tab>" . company-indent-or-complete-common))
   :custom
   (company-minimum-prefix-length 1)
-  (company-idle-delay 0.0)
+  (company-idle-delay 0.1)
 )
 (add-hook 'after-init-hook 'global-company-mode)
 
@@ -67,13 +64,4 @@
  '(markdown-header-face-1 ((t (:inherit markdown-header-face :height 1.8))))
  '(markdown-header-face-2 ((t (:inherit markdown-header-face :height 1.4))))
  '(markdown-header-face-3 ((t (:inherit markdown-header-face :height 1.2)))))
-
-;; Rust
-(use-package rust-mode
-  :ensure t
-  :mode "\\.rs\\'"
-  :hook (rust.mode . lsp-deferred)
-  )
-(use-package rustic
-        :ensure t)
 

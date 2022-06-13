@@ -27,6 +27,8 @@ alias free='free -m'                      # show sizes in MB
 alias grub-update='grub-mkconfig -o /boot/grub/grub.cfg'
 alias update=$HOME/dotfiles/scripts/update.sh
 alias sudo='sudo -E'
+alias protontricks='flatpak run com.github.Matoking.protontricks'
+alias penpot-stop=$HOME/Documents/penpot/penpot-stop.sh
 
 xhost +local:root > /dev/null 2>&1
 
@@ -77,4 +79,3 @@ export PATH="$HOME/.local/bin:$PATH"
 . $HOME/.config/asdf/asdf.sh
 . $HOME/.config/asdf/completions/asdf.bash
 . "$HOME/.cargo/env"
-alias protontricks='flatpak run com.github.Matoking.protontricks'
