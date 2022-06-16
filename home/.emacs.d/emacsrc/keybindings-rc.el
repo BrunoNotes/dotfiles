@@ -18,15 +18,17 @@
 ;; Auto comment
 (use-package evil-nerd-commenter
   :ensure t
-  :bind ("M-/" . evilnc-comment-or-uncomment-lines))
+  :bind ("C-;" . evilnc-comment-or-uncomment-lines))
 
 ;; General keybinding
 (use-package general :ensure t
   :config (general-evil-setup t))
 (nvmap :prefix "SPC"
-       "SPC"   '(counsel-M-x :which-key "M-x")
+       "SPC"   '(execute-extended-command :which-key "M-x")
        "."     '(find-file :which-key "Find file")
        "h r r" '((lambda () (interactive) (load-file "~/.emacs.d/init.el")) :which-key "Reload emacs config")
+       ;; Visual mode
+       "v l"   '(visual-line-mode :which-key "Visual Line Mode")
        ;; Buffers
        "b b"   '(ibuffer :which-key "Ibuffer")
        "b c"   '(clone-indirect-buffer-other-window :which-key "Clone indirect buffer other window")

@@ -23,6 +23,8 @@
 
 ;; LSP Mode - code completion
 (load "~/.emacs.d/emacsrc/lsp-rc.el")
+;; Other programming languages
+(load "~/.emacs.d/emacsrc/lang-rc.el")
 ;; Misc
 (load "~/.emacs.d/emacsrc/misc-rc.el")
 ;; Keybidings
@@ -48,13 +50,14 @@
 (global-display-line-numbers-mode 1)
 (setq display-line-numbers 'relative)
 ;; Makes lines wrap at word boundaries
-(global-visual-line-mode 1) ; change to 1 to wrap
+(global-visual-line-mode 0) ; change to 1 to wrap
 (setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
-(setq-default truncate-lines 0) ; change to 0 to wrap
+(setq-default truncate-lines 1) ; change to 0 to wrap
 ;; Disable tool bar
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 (menu-bar-mode -1)
 ;; “Interactively DO things” autocompletion
 (ido-mode 1) 
-(ido-everywhere 1)
+(setq ido-everywhere 1)
+(setq ido-enable-flex-matching 1)

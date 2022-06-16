@@ -7,7 +7,7 @@
   (setq dashboard-banner-logo-title "Welcome do Emacs!")
   (setq dashboard-startup-banner 'logo) ;; use standard emacs logo as banner
   ;(setq dashboard-startup-banner "~/.emacs.d/emacs-dash.png")  ;; use custom image as banner
-  (setq dashboard-center-content nil) ;; set to 't' for centered content
+  (setq dashboard-center-content t) ;; set to 't' for centered content
   (setq dashboard-items '((recents . 5)
                           ;(agenda . 5 )
                           (bookmarks . 3)

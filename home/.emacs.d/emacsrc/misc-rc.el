@@ -10,25 +10,28 @@
 
 ;; ----- Auto completion -----
 
-;; Ivy completion
-(use-package ivy
+;; Vertigo
+(use-package vertico
   :ensure t
-  :bind (
-	 :map ivy-minibuffer-map
-         ("C-j" . ivy-next-line)
-         ("C-k" . ivy-previous-line)
-	 )
-  :config
-  (ivy-mode))
-(use-package counsel
-  :after ivy
+  :bind (:map vertico-map
+              ("C-j" . vertico-next)
+              ("C-k" . vertico-previous)
+              )
+  :init
+  (vertico-mode))
+;; Marginalia
+(use-package marginalia
+  :after vertico
   :ensure t
-  :config (counsel-mode))
-(use-package ivy-rich
-  :after ivy
+  :init
+  (marginalia-mode))
+;; Orderlesskjj
+(use-package orderless
   :ensure t
-  :config
-  (ivy-rich-mode 1)) ;; this gets us descriptions in M-x.
+  :init
+    (setq completion-styles '(orderless basic)
+        completion-category-defaults nil
+        completion-category-overrides '((file (styles partial-completion)))))
 
 ;; Which key - show the keybidings associated with a command
 (use-package which-key
@@ -100,3 +103,11 @@
   (with-eval-after-load 'esh-opt
     (setq eshell-destroy-buffer-when-process-dies t)
     (setq eshell-visual-commands '("htop" "zsh" "vim"))))
+
+;; ----- Others -----
+
+;; Magit - Git
+(use-package magit
+  :ensure t
+  )
+(setq magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1)
