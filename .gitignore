@@ -1,5 +1,6 @@
-/home/.config/nvim/plugged/*
-/home/.vim/plugged/*
+/home/.config/nvim/*
+!/home/.config/nvim/init.lua
+!/home/.config/nvim/lua
 /home/.emacs.d/*
 !/home/.emacs.d/init.el
 !/home/.emacs.d/emacsrc
