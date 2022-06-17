@@ -39,17 +39,29 @@ local lsp_flags = {
   -- This is the default in Nvim 0.7+
   debounce_text_changes = 150,
 }
+
+-- ----- TypeScript -----
+
 require('lspconfig')['tsserver'].setup{
     on_attach = on_attach,
     capabilities = capabilities,
     flags = lsp_flags,
 }
-require('lspconfig')['rust_analyzer'].setup{
+
+-- ----- RUST -----
+
+--require('lspconfig')['rust_analyzer'].setup{
+--    on_attach = on_attach,
+--    flags = lsp_flags,
+--    capabilities = capabilities,
+--    -- Server-specific settings...
+--    settings = {
+--      ["rust-analyzer"] = {}
+--    }
+--}
+
+require('lspconfig')['rls'].setup{
     on_attach = on_attach,
-    flags = lsp_flags,
     capabilities = capabilities,
-    -- Server-specific settings...
-    settings = {
-      ["rust-analyzer"] = {}
-    }
+    flags = lsp_flags,
 }
