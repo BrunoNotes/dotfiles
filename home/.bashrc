@@ -29,6 +29,7 @@ alias update=$HOME/dotfiles/scripts/update.sh
 alias sudo='sudo -E'
 alias protontricks='flatpak run com.github.Matoking.protontricks'
 alias penpot-stop=$HOME/Documents/penpot/penpot-stop.sh
+alias v="nvim"
 
 xhost +local:root > /dev/null 2>&1
 

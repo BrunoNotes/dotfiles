@@ -27,6 +27,7 @@ alias update=$HOME/dotfiles/scripts/update.sh
 alias sudo='sudo -E'
 alias protontricks='flatpak run com.github.Matoking.protontricks'
 alias penpot-stop=$HOME/Documents/penpot/penpot-stop.sh
+alias v="nvim"
 
 # Theming section  
 autoload -U compinit colors zcalc
