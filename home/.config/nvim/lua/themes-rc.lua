@@ -8,3 +8,4 @@ end
 
 vim.cmd([[highlight Normal guibg=none]])
 vim.cmd([[let g:lightline = {'colorscheme': 'tokyonight'}]])
+vim.cmd([[highlight NvimTreeNormal guibg=none]])
