@@ -25,6 +25,7 @@ map("n", "<leader>ps", ":PackerSync<CR>", opts)
 -- Telescope
 map("n", "<leader>.", ":Telescope find_files<CR>", opts)
 map("n", "<leader>bb", ":Telescope buffers<cr>", opts) -- list buffers
+map("n", "<leader><tab>", ":Telescope buffers<cr>", opts) -- list buffers
 
 -- Buffers
 map("n", "<leader>bd", ":bd<cr>", opts) -- close buffer
