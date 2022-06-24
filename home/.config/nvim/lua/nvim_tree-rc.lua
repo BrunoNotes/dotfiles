@@ -114,15 +114,4 @@ nvim_tree.setup {
             },
         },
     },
-
-    --  unknown options as of 22.05
-    --
-    --  update_to_buf_dir = {
-    --    enable = true,
-    --    auto_open = true,
-    --  },
-    --  auto_resize = true,
-    --  git_hl = 1,
-    --  root_folder_modifier = ":t",
-
 }

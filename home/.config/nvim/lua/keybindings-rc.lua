@@ -59,3 +59,4 @@ vim.keymap.set('x', '<C-_>', '<ESC><CMD>lua require("Comment.api").toggle_linewi
 
 -- AutoFormat
 map("n", "<leader>f", ":Format<cr>", opts)
+vim.cmd [[autocmd BufWritePre * execute 'lua vim.lsp.buf.formatting()']] -- format on save
