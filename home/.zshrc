@@ -23,11 +23,13 @@ alias df='df -h'                                                # Human-readable
 alias free='free -m'                                            # Show sizes in MB
 alias grub-update='grub-mkconfig -o /boot/grub/grub.cfg'
 alias ls='exa --icons'
+alias ll='exa --icons -al'
 alias update=$HOME/dotfiles/scripts/update.sh
 alias sudo='sudo -E'
 alias protontricks='flatpak run com.github.Matoking.protontricks'
 alias penpot-stop=$HOME/Documents/penpot/penpot-stop.sh
-alias v="nvim"
+alias nv="nvim"
+alias tm="tmux attach"
 
 # Theming section  
 autoload -U compinit colors zcalc

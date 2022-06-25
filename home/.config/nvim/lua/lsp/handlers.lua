@@ -15,7 +15,7 @@ M.setup = function()
 
     local config = {
         -- disable virtual text
-        virtual_text = false,
+        virtual_text = true,
         -- show signs
         signs = {
             active = signs,
@@ -80,9 +80,8 @@ end
 
 M.on_attach = function(client, bufnr)
     -- vim.notify(client.name .. " starting...")
-    -- TODO: refactor this into a method that checks if string in list
-    if client.name == "tsserver" then
-        client.resolved_capabilities.document_formatting = false
+    if client.resolved_capabilities.document_formatting then
+        vim.cmd [[autocmd BufWritePre * execute 'lua vim.lsp.buf.formatting_seq_sync()']] -- format on save
     end
     lsp_keymaps(bufnr)
     lsp_highlight_document(client)
