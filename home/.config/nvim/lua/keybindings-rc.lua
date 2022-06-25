@@ -26,6 +26,8 @@ map("n", "<leader>ps", ":PackerSync<CR>", opts)
 map("n", "<leader>.", ":Telescope find_files<CR>", opts)
 map("n", "<leader>bb", ":Telescope buffers<cr>", opts) -- list buffers
 map("n", "<leader><tab>", ":Telescope buffers<cr>", opts) -- list buffers
+map("n", "<leader>km", ":Telescope keymaps<cr>", opts) -- list keymaps
+map("n", "<leader>ff", ":Telescope current_buffer_fuzzy_find<cr>", opts) -- fuzzy find buffer
 
 -- Buffers
 map("n", "<leader>bd", ":bd<cr>", opts) -- close buffer

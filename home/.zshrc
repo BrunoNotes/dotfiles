@@ -91,8 +91,14 @@ export PATH="$HOME/.local/bin:$PATH"
 
 # asdf - version control
 
+if ! command -v asdf &> /dev/null
+then
 . $HOME/.config/asdf/asdf.sh
 # append completions to fpath
 fpath=(${ASDF_DIR}/completions $fpath)
 # initialise completions with ZSH's compinit
 autoload -Uz compinit && compinit
+else
+fi
+
+

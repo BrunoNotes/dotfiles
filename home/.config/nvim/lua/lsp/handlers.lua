@@ -79,7 +79,7 @@ local function lsp_keymaps(bufnr)
 end
 
 M.on_attach = function(client, bufnr)
-    -- vim.notify(client.name .. " starting...")
+    -- Autoformat
     if client.resolved_capabilities.document_formatting then
         vim.cmd [[autocmd BufWritePre * execute 'lua vim.lsp.buf.formatting_seq_sync()']] -- format on save
     end

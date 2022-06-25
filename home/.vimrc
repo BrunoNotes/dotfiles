@@ -6,5 +6,4 @@ set smartcase
 set incsearch
 set clipboard=unnamedplus	" Use system clipboard
 set noswapfile
-
 set background=dark

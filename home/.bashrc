@@ -78,6 +78,11 @@ export PATH="$HOME/.local/bin:$PATH"
 
 
 # asdf - version control
+if ! command -v asdf &> /dev/null
+then
 . $HOME/.config/asdf/asdf.sh
 . $HOME/.config/asdf/completions/asdf.bash
 . "$HOME/.cargo/env"
+else
+fi
+
