@@ -13,6 +13,8 @@ local servers = {
     "rls",
     "tsserver",
     "volar",
+    "cssls",
+    "html",
 }
 
 lsp_installer.setup {
