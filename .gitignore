@@ -5,5 +5,4 @@
 !/home/.emacs.d/init.el
 !/home/.emacs.d/emacsrc
 !/home/.emacs.d/etc/yasnippet/snippets
-/home/.config/awesome/themes/default
-
+/home/.local/

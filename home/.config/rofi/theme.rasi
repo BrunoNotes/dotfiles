@@ -38,9 +38,9 @@ element-icon {
 }
 
 entry {
-  background-color: @bg-alt;
+  background-color: @fg;
   padding: 12;
-  text-color: @fg;
+  text-color: @bg;
 }
 
 inputbar {
@@ -60,8 +60,8 @@ mainbox {
 }
 
 prompt {
-  background-color: @bg-alt;
+  background-color: @fg;
   enabled: true;
   padding: 12 0 0 12;
-  text-color: @fg;
+  text-color: @bg;
 }

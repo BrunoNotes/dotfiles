@@ -59,6 +59,7 @@ return require('packer').startup(function()
     use "rafamadriz/friendly-snippets" -- a bunch of snippets to use
     -- treesitter
     use { 'nvim-treesitter/nvim-treesitter', run = ":TSUpdate", }
+    use "p00f/nvim-ts-rainbow"
     -- telescope
     use { 'nvim-telescope/telescope.nvim', requires = { { 'nvim-lua/plenary.nvim' } } }
     -- autopair
