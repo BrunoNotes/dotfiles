@@ -100,6 +100,3 @@ if ! command -v asdf &> /dev/null; then
 else
     :
 fi
-
-# open in tmux
-tm
