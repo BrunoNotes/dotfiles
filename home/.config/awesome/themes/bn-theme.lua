@@ -21,7 +21,14 @@ local themes_path = gfs.get_themes_dir()
 
 local theme = {}
 
-theme.font = "sans 8"
+theme.font     = "Ubuntu Nerd Font 9"
+-- theme.font = "Noto Sans Nerd Font 8"
+local bg_white = "#ededed"
+-- local shape    = gears.shape.rounded_rect
+-- local shape    = gears.shape.rectangle
+local shape    = function(cr, width, height)
+    gears.shape.rounded_rect(cr, width, height, 2)
+end
 
 theme.bg_normal   = "#000000"
 theme.bg_focus    = "#000000"
@@ -37,7 +44,7 @@ theme.fg_minimize = "#ffffff"
 theme.useless_gap   = dpi(0)
 theme.border_width  = dpi(1)
 theme.border_normal = "#000000"
-theme.border_focus  = "#ffffff"
+theme.border_focus  = bg_white
 theme.border_marked = "#91231c"
 
 -- There are other variable sets
@@ -53,14 +60,37 @@ theme.border_marked = "#91231c"
 -- Example:
 --theme.taglist_bg_focus = "#ff0000"
 
--- Generate taglist squares:
-local taglist_square_size = dpi(4)
-theme.taglist_squares_sel = theme_assets.taglist_squares_sel(
-    taglist_square_size, theme.fg_normal
-)
-theme.taglist_squares_unsel = theme_assets.taglist_squares_unsel(
-    taglist_square_size, theme.fg_normal
-)
+theme.tasklist_fg_normal = theme.fg_normal
+theme.tasklist_bg_normal = theme.bg_normal
+theme.tasklist_fg_focus = theme.bg_focus
+theme.tasklist_bg_focus = bg_white
+theme.tasklist_disable_icon = true
+theme.tasklist_align = 'center'
+theme.tasklist_shape_focus = shape
+theme.tasklist_shape_border_width_focus = 1
+theme.tasklist_shape_border_color_focus = bg_white
+
+-- -- Generate taglist squares:
+-- local taglist_square_size = dpi(4)
+-- theme.taglist_squares_sel = theme_assets.taglist_squares_sel(
+--     taglist_square_size, theme.fg_normal
+-- )
+-- theme.taglist_squares_unsel = theme_assets.taglist_squares_unsel(
+--     taglist_square_size, theme.fg_normal
+-- )
+
+theme.taglist_shape_focus = shape
+theme.taglist_shape_border_width_focus = 0
+theme.taglist_shape_border_color_focus = bg_white
+theme.taglist_fg_focus = theme.bg_normal
+theme.taglist_bg_focus = bg_white
+theme.taglist_bg_occupied = theme.fg_normal
+theme.taglist_fg_occupied = theme.bg_normal
+theme.taglist_shape = shape
+theme.taglist_shape_border_width = 0
+-- theme.
+-- theme.
+-- theme.
 
 -- Variables set for theming notifications:
 -- notification_font
@@ -72,7 +102,7 @@ theme.taglist_squares_unsel = theme_assets.taglist_squares_unsel(
 -- menu_[bg|fg]_[normal|focus]
 -- menu_[border_color|border_width]
 theme.menu_submenu_icon = themes_path .. "default/submenu.png"
-theme.menu_height       = dpi(15)
+theme.menu_height       = dpi(20)
 theme.menu_width        = dpi(100)
 
 -- You can add as many variables as
@@ -137,7 +167,8 @@ end
 
 -- Define the icon theme for application icons. If not set then the icons
 -- from /usr/share/icons and /usr/share/icons/hicolor will be used.
-theme.icon_theme = nil
+-- theme.icon_theme = nil
+theme.icon_theme = "/home/bruno/.local/share/icons/Colloid-dark"
 
 return theme
 

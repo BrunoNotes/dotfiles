@@ -4,14 +4,22 @@ myawesomemenu = {
     { "hotkeys", function() hotkeys_popup.show_help(nil, awful.screen.focused()) end },
     { "manual", terminal .. " -e man awesome" },
     { "edit config", editor_cmd .. " " .. awesome.conffile },
-    { "restart", awesome.restart },
-    { "quit", function() awesome.quit() end },
+    { "restart wm", awesome.restart },
 }
 
-mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
-    { "open terminal", terminal }
+systemMenu = {
+    { "logout", function() awesome.quit() end },
+    { "reboot", function() awful.spawn.with_shell("reboot") end },
+    { "shutdown", function() awful.spawn.with_shell("shutdown") end },
 }
-})
+
+mymainmenu = awful.menu(
+    { items = {
+        { "awesome", myawesomemenu, beautiful.awesome_icon },
+        { "system", systemMenu },
+        { "open terminal", terminal },
+    }
+    })
 
 mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
     menu = mymainmenu })
@@ -91,14 +99,50 @@ awful.screen.connect_for_each_screen(function(s)
     s.mytaglist = awful.widget.taglist {
         screen  = s,
         filter  = awful.widget.taglist.filter.all,
+        layout  = {
+            spacing = 2,
+            layout  = wibox.layout.fixed.horizontal
+        },
         buttons = taglist_buttons
     }
 
     -- Create a tasklist widget
     s.mytasklist = awful.widget.tasklist {
-        screen  = s,
-        filter  = awful.widget.tasklist.filter.currenttags,
-        buttons = tasklist_buttons
+        screen          = s,
+        filter          = awful.widget.tasklist.filter.currenttags,
+        buttons         = tasklist_buttons,
+        style           = {
+            shape_border_width = 2,
+            shape_border_color = '#d6d6d6',
+        },
+        layout          = {
+            spacing = 0,
+            layout  = wibox.layout.flex.horizontal
+        },
+        widget_template = {
+            {
+                {
+                    {
+                        {
+                            id     = 'icon_role',
+                            widget = wibox.widget.imagebox,
+                        },
+                        margins = 2,
+                        widget  = wibox.container.margin,
+                    },
+                    {
+                        id     = 'text_role',
+                        widget = wibox.widget.textbox,
+                    },
+                    layout = wibox.layout.fixed.horizontal,
+                },
+                left   = 10,
+                right  = 10,
+                widget = wibox.container.margin
+            },
+            id     = 'background_role',
+            widget = wibox.container.background,
+        },
     }
 
     -- Create the wibox
