@@ -27,7 +27,7 @@ local bg_white = "#ededed"
 -- local shape    = gears.shape.rounded_rect
 -- local shape    = gears.shape.rectangle
 local shape    = function(cr, width, height)
-    gears.shape.rounded_rect(cr, width, height, 2)
+    gears.shape.rounded_rect(cr, width, height, 4)
 end
 
 theme.bg_normal   = "#000000"
@@ -62,12 +62,12 @@ theme.border_marked = "#91231c"
 
 theme.tasklist_fg_normal = theme.fg_normal
 theme.tasklist_bg_normal = theme.bg_normal
-theme.tasklist_fg_focus = theme.bg_focus
-theme.tasklist_bg_focus = bg_white
+theme.tasklist_fg_focus = bg_white
+theme.tasklist_bg_focus = theme.bg_focus
 theme.tasklist_disable_icon = true
 theme.tasklist_align = 'center'
 theme.tasklist_shape_focus = shape
-theme.tasklist_shape_border_width_focus = 1
+theme.tasklist_shape_border_width_focus = 2
 theme.tasklist_shape_border_color_focus = bg_white
 
 -- -- Generate taglist squares:
@@ -84,12 +84,10 @@ theme.taglist_shape_border_width_focus = 0
 theme.taglist_shape_border_color_focus = bg_white
 theme.taglist_fg_focus = theme.bg_normal
 theme.taglist_bg_focus = bg_white
-theme.taglist_bg_occupied = theme.fg_normal
-theme.taglist_fg_occupied = theme.bg_normal
 theme.taglist_shape = shape
-theme.taglist_shape_border_width = 0
--- theme.
--- theme.
+theme.taglist_shape_border_width = 2
+theme.taglist_shape_empty = shape
+theme.taglist_shape_border_width_empty = 0
 -- theme.
 
 -- Variables set for theming notifications:
