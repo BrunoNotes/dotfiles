@@ -9,8 +9,9 @@ myawesomemenu = {
 
 systemMenu = {
     { "logout", function() awesome.quit() end },
-    { "reboot", function() awful.spawn.with_shell("reboot") end },
-    { "shutdown", function() awful.spawn.with_shell("shutdown") end },
+    { "suspend", function() awful.spawn.with_shell("systemctl suspend") end },
+    { "reboot", function() awful.spawn.with_shell("systemctl reboot") end },
+    { "shutdown", function() awful.spawn.with_shell("systemctl poweroff") end },
 }
 
 mymainmenu = awful.menu(

@@ -21,7 +21,7 @@ local themes_path = gfs.get_themes_dir()
 
 local theme = {}
 
-theme.font     = "Ubuntu Nerd Font 9"
+theme.font     = "Ubuntu 9"
 -- theme.font = "Noto Sans Nerd Font 8"
 local bg_white = "#ededed"
 -- local shape    = gears.shape.rounded_rect
@@ -67,7 +67,7 @@ theme.tasklist_bg_focus = theme.bg_focus
 theme.tasklist_disable_icon = true
 theme.tasklist_align = 'center'
 theme.tasklist_shape_focus = shape
-theme.tasklist_shape_border_width_focus = 2
+theme.tasklist_shape_border_width_focus = 0
 theme.tasklist_shape_border_color_focus = bg_white
 
 -- -- Generate taglist squares:
@@ -154,7 +154,7 @@ theme.layout_cornersw   = themes_path .. "default/layouts/cornersww.png"
 theme.layout_cornerse   = themes_path .. "default/layouts/cornersew.png"
 
 -- Generate Awesome icon:
-local menu_icon = "/home/bruno/Pictures/imagens/cube-svgrepo-com_white.svg"
+local menu_icon = "/home/bruno/.config/awesome/themes/cube-white.svg"
 if file_exist(menu_icon) then
     theme.awesome_icon = menu_icon
 else
