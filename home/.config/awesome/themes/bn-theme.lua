@@ -41,11 +41,11 @@ theme.fg_focus    = "#ffffff"
 theme.fg_urgent   = "#ffffff"
 theme.fg_minimize = "#ffffff"
 
-theme.useless_gap   = dpi(0)
-theme.border_width  = dpi(1)
-theme.border_normal = "#000000"
-theme.border_focus  = bg_white
-theme.border_marked = "#91231c"
+theme.useless_gap       = dpi(4)
+theme.gap_single_client = false
+theme.border_width      = dpi(1)
+theme.border_normal     = "#000000"
+theme.border_focus      = bg_white
 
 -- There are other variable sets
 -- overriding the default one when
@@ -165,8 +165,12 @@ end
 
 -- Define the icon theme for application icons. If not set then the icons
 -- from /usr/share/icons and /usr/share/icons/hicolor will be used.
--- theme.icon_theme = nil
-theme.icon_theme = "/home/bruno/.local/share/icons/Colloid-dark"
+local iconTheme = "/home/bruno/.local/share/icons/Colloid-dark"
+if file_exist(iconTheme) then
+    theme.icon_theme = iconTheme
+else
+    theme.icon_theme = nil
+end
 
 return theme
 

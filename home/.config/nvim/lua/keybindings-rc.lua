@@ -19,6 +19,9 @@ vim.g.maplocalleader = " "
 -- Load config
 map("n", "<leader>rf", ":luafile %<cr>", opts)
 
+-- Save
+map("n", "<C-s>", ":w<cr>", opts)
+
 -- Packer
 map("n", "<leader>ps", ":PackerSync<CR>", opts)
 
