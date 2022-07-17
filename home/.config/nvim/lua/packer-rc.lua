@@ -66,6 +66,7 @@ return require('packer').startup(function()
     use { 'nvim-telescope/telescope.nvim', requires = { { 'nvim-lua/plenary.nvim' } } }
     use "windwp/nvim-autopairs" -- Autopairs, integrates with both cmp and treesitter
     use "numToStr/Comment.nvim" -- Easily comment stuff
+    use 'simrat39/rust-tools.nvim'
 
     -- nvim tree
     use "kyazdani42/nvim-web-devicons"

@@ -55,6 +55,8 @@ globalkeys = gears.table.join(
     -- Standard program
     awful.key({ modkey, }, "Return", function() awful.spawn(terminal) end,
         { description = "open a terminal", group = "launcher" }),
+    awful.key({ modkey, }, "b", function() awful.spawn("firefox") end,
+        { description = "open a browser", group = "launcher" }),
     awful.key({ modkey, }, "space", function() awful.spawn.with_shell("rofi -show drun") end,
         { description = "open rofi", group = "launcher" }),
     awful.key({ modkey, "Control" }, "r", awesome.restart,
@@ -62,7 +64,7 @@ globalkeys = gears.table.join(
     awful.key({ modkey, "Shift" }, "q", awesome.quit,
         { description = "quit awesome", group = "awesome" }),
     awful.key({ modkey, "Shift" }, "s", function() awful.spawn.with_shell("flameshot gui") end,
-        { description = "screemshot", group = "launcher" }),
+        { description = "screenshot", group = "launcher" }),
 
     awful.key({ modkey, }, "l", function() awful.tag.incmwfact(0.05) end,
         { description = "increase master width factor", group = "layout" }),

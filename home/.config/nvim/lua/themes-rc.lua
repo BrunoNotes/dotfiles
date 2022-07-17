@@ -6,6 +6,6 @@ if not status_ok then
     return
 end
 
-vim.cmd([[highlight Normal guibg=none]])
+vim.cmd([[highlight Normal guibg=none ctermbg=NONE]])
 vim.cmd([[let g:lightline = {'colorscheme': 'tokyonight'}]])
 vim.cmd([[highlight NvimTreeNormal guibg=none]])

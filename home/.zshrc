@@ -10,10 +10,9 @@ setopt autocd extendedglob nomatch menucomplete nobeep
 stty stop undef                                                 # Disable ctrl-d to freeze ternubak
 zle_highlight=("paste:none")                                    # Disable paste highlight
 
-
 # completions
+autoload -Uz compinit && compinit
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'       # Case insensitive tab completion
-autoload -Uz compinit
 zstyle ':completion:*' menu select
 zmodload zsh/complist
 # compinit
@@ -51,6 +50,7 @@ autoload edit-command-line; zle -N edit-command-line
 # Environment variables set everywhere
 export VISUAL="vim"
 export EDITOR="nvim"
+export TERMINAL="alacritty"
 export PATH="$HOME/.local/bin:$PATH"
 
 # asdf - version control

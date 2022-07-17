@@ -22,6 +22,7 @@ local options = {
     pumheight = 10,
     ignorecase = true,
     smartcase = true,
+    background = nil,
 }
 
 for key, value in pairs(options) do

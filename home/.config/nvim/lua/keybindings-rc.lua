@@ -1,5 +1,5 @@
 local map = vim.keymap.set
-local opts = { noremap = true, silent = true }
+local opts = { silent = true }
 
 map("", "<Space>", "<Nop>", opts)
 vim.g.mapleader = " "
@@ -44,7 +44,7 @@ map("n", "<leader>tk", ":Telescope keymaps<cr>", opts) -- list keymaps
 map("n", "<leader>tf", ":Telescope current_buffer_fuzzy_find<cr>", opts) -- fuzzy find buffer
 
 -- Buffers
-map("n", "<leader>bd", ":bd<cr>", opts) -- close buffer
+map("n", "<leader>q", ":bd<cr>", opts) -- close buffer
 map("n", "<leader>bl", ":bnext<cr>", opts) -- next buffer
 map("n", "<leader>bh", ":bprevious<cr>", opts) -- previous buffer
 map("n", "<S-l>", ":bnext<cr>", opts) -- next buffer
@@ -67,10 +67,6 @@ map("x", "<A-k>", ":move '<-2<CR>gv", opts)
 map("v", "p", '"_dP', opts)
 
 -- comment
-vim.keymap.set('n', '<C-_>', '<CMD>lua require("Comment.api").toggle_current_linewise()<CR>') -- Linewise toggle current line using C-/
-vim.keymap.set('x', '<C-_>', '<ESC><CMD>lua require("Comment.api").toggle_linewise_op(vim.fn.visualmode())<CR>') -- Linewise toggle using C-/
+map('n', '<C-_>', '<CMD>lua require("Comment.api").toggle_current_linewise()<CR>') -- Linewise toggle current line using C-/
+map('x', '<C-_>', '<ESC><CMD>lua require("Comment.api").toggle_linewise_op(vim.fn.visualmode())<CR>') -- Linewise toggle using C-/
 
--- LSP
-map("n", "<leader>li", ":LspInfo<cr>", opts)
-map("n", "<leader>lI", ":LspInstallInfo<cr>", opts)
-map("n", "<leader>lf", ":Format<cr>", opts) -- auto format
