@@ -7,3 +7,5 @@
 !/home/.emacs.d/etc/yasnippet/snippets
 /home/.local/
 /home/.config/Kvantum
+/home/.config/zsh/plugins/*
+home/.config/zsh/.zcompdump

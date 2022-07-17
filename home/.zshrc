@@ -1,92 +1,56 @@
+#!/bin/bash
+
+export ZDOTDIR=$HOME/.config/zsh
+HISTFILE=~/.zhistory
+setopt appendhistory
+
 ## Options section
-setopt nobeep                                                   # No beep
-setopt autocd                                                   # if only directory path is entered, cd there.
+setopt autocd extendedglob nomatch menucomplete nobeep
 
 stty stop undef                                                 # Disable ctrl-d to freeze ternubak
-
 zle_highlight=("paste:none")                                    # Disable paste highlight
 
+
+# completions
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'       # Case insensitive tab completion
-zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"         # Colored completion (different colors for dirs/files/etc)
-zstyle ':completion:*' rehash true                              # automatically find new executables in path 
-# Speed up completions
-zstyle ':completion:*' accept-exact '*(N)'
-zstyle ':completion:*' use-cache on
-zstyle ':completion:*' cache-path ~/.zsh/cache
-HISTFILE=~/.zhistory
-HISTSIZE=1000
-SAVEHIST=1000
+autoload -Uz compinit
+zstyle ':completion:*' menu select
+zmodload zsh/complist
+# compinit
+_comp_options+=(globdots)		# Include hidden files.
 
-## Alias section 
-alias cp="cp -i"                                                # Confirm before overwriting something
-alias df='df -h'                                                # Human-readable sizes
-alias free='free -m'                                            # Show sizes in MB
-alias grub-update='grub-mkconfig -o /boot/grub/grub.cfg'
-alias ls='exa --icons'
-alias ll='exa --icons -al'
-alias update=$HOME/dotfiles/scripts/update.sh
-alias sudo='sudo -E'
-alias protontricks='flatpak run com.github.Matoking.protontricks'
-alias penpot-stop=$HOME/Documents/penpot/penpot-stop.sh
-alias v="nvim"
-alias tm="tmux attach"
+autoload -U up-line-or-beginning-search
+autoload -U down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
 
-# Theming section  
-autoload -U compinit colors zcalc
-compinit -d
-colors
+# Theming section 
+autoload -Uz colors && colors
 
-# Color man pages
-export LESS_TERMCAP_mb=$'\E[01;32m'
-export LESS_TERMCAP_md=$'\E[01;32m'
-export LESS_TERMCAP_me=$'\E[0m'
-export LESS_TERMCAP_se=$'\E[0m'
-export LESS_TERMCAP_so=$'\E[01;47;34m'
-export LESS_TERMCAP_ue=$'\E[0m'
-export LESS_TERMCAP_us=$'\E[01;36m'
-export LESS=-R
+# Useful Functions
+source "$ZDOTDIR/zsh-functions"
 
-## Plugins section: Enable fish style features
+# Normal files to source
+zsh_add_file "zsh-exports"
+zsh_add_file "zsh-vim-mode"
+zsh_add_file "zsh-aliases"
+zsh_add_file "zsh-prompt"
 
-# Use syntax highlighting
-source ${HOME}/.config/zsh/plugins/zsh-syntax-highlight/zsh-syntax-highlighting.zsh
+# Plugins
+zsh_add_plugin "zsh-users/zsh-autosuggestions"
+zsh_add_plugin "zsh-users/zsh-syntax-highlighting"
 
-## Prompt section
+# Key-bindings
+bindkey "^k" up-line-or-beginning-search # Up
+bindkey "^j" down-line-or-beginning-search # Down
 
-# Load version control information
-autoload -Uz vcs_info
+# Edit line in vim with ctrl-e:
+autoload edit-command-line; zle -N edit-command-line
+# bindkey '^e' edit-command-line
 
-zstyle ':vcs_info:*' enable git 
-precmd() { vcs_info }
-setopt prompt_subst
-
-# Check changes in repo
-zstyle ':vcs_info:git*+set-message:*' hooks git-untracked 
-+vi-git-untracked(){
-    if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) == 'true' ]] && \
-        git status --porcelain | grep '??' &> /dev/null ; then
-        # This will show the marker if there are any untracked files in repo.
-        hook_com[staged]+='!' # signify new files with a bang
-    fi
-}
-zstyle ':vcs_info:*' check-for-changes true
-
-# Format the vcs_info_msg_0_ variable
-# %b - Branch information, like master
-# %m - In case of Git, show information about stashes
-# %u - Show unstaged changes in the repository
-# %c - Show staged changes in the repository
-zstyle ':vcs_info:git:*' formats "%F{014}[%f%F{red}%m%u%c%f %F{yellow}%b%f%F{014}]%f"
- 
-# Set up the prompt (with git branch name)
-PROMPT='%B%F{012}[%F{white}%n%F{12}]%f%b'
-PROMPT+='%B${vcs_info_msg_0_}%b'                            # Git branch
-PROMPT+='%B%F{012}[%f${PWD/#$HOME/~}%F{12}]%f%b'            # Directory
-PROMPT+=' %B%F{015}➤%f%b '                                  # Arrow
-
-
+# Environment variables set everywhere
 export VISUAL="vim"
-export EDITOR="vim"
+export EDITOR="nvim"
 export PATH="$HOME/.local/bin:$PATH"
 
 # asdf - version control
@@ -95,8 +59,6 @@ if ! command -v asdf &> /dev/null; then
     . $HOME/.config/asdf/asdf.sh
     # append completions to fpath
     fpath=(${ASDF_DIR}/completions $fpath)
-    # initialise completions with ZSH's compinit
-    autoload -Uz compinit && compinit
 else
     :
 fi

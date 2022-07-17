@@ -41,9 +41,11 @@ packer.init {
 -- Install Plugins
 return require('packer').startup(function()
     use 'wbthomason/packer.nvim'
+
     -- Theme
     use 'folke/tokyonight.nvim'
     use 'itchyny/lightline.vim'
+
     -- LSP
     use 'neovim/nvim-lspconfig'
     use "williamboman/nvim-lsp-installer" -- simple to use language server installer
@@ -57,15 +59,14 @@ return require('packer').startup(function()
     -- snippets
     use 'L3MON4D3/LuaSnip' -- Snippets plugin
     use "rafamadriz/friendly-snippets" -- a bunch of snippets to use
-    -- treesitter
+
+    -- Plugins
     use { 'nvim-treesitter/nvim-treesitter', run = ":TSUpdate", }
     use "p00f/nvim-ts-rainbow"
-    -- telescope
     use { 'nvim-telescope/telescope.nvim', requires = { { 'nvim-lua/plenary.nvim' } } }
-    -- autopair
     use "windwp/nvim-autopairs" -- Autopairs, integrates with both cmp and treesitter
-    -- comment
     use "numToStr/Comment.nvim" -- Easily comment stuff
+
     -- nvim tree
     use "kyazdani42/nvim-web-devicons"
     use "kyazdani42/nvim-tree.lua"

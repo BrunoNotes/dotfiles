@@ -1,24 +1,29 @@
-local set = vim.opt
+local options = {
+    -- :help options
+    syntax = "on",
+    errorbells = false,
+    tabstop = 4,
+    softtabstop = 4,
+    shiftwidth = 4,
+    expandtab = true,
+    smarttab = true,
+    smartindent = true,
+    hidden = true,
+    nu = true,
+    relativenumber = true,
+    wrap = false,
+    backup = false,
+    clipboard = "unnamedplus",
+    scrolloff = 8,
+    showmode = false,
+    signcolumn = "yes",
+    swapfile = false,
+    mouse = "a",
+    pumheight = 10,
+    ignorecase = true,
+    smartcase = true,
+}
 
--- :help options
-set.syntax = "on"
-set.errorbells = false
-set.tabstop = 4
-set.softtabstop = 4
-set.shiftwidth = 4
-set.expandtab = true
-set.smarttab = true
-set.smartindent = true
-set.hidden = true
-set.nu = true
-set.relativenumber = true
-set.wrap = false
-set.backup = false
-set.clipboard = "unnamedplus"
-set.scrolloff = 8
-set.showmode = false
-set.signcolumn = "yes"
-set.swapfile = false
-set.mouse = "a" 
-set.pumheight = 10
--- set.showtabline = 2
+for key, value in pairs(options) do
+    vim.opt[key] = value
+end

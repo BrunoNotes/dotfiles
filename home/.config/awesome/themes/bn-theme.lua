@@ -21,8 +21,8 @@ local themes_path = gfs.get_themes_dir()
 
 local theme = {}
 
-theme.font     = "Ubuntu 9"
--- theme.font = "Noto Sans Nerd Font 8"
+theme.font     = "Ubuntu bold 10"
+-- theme.font     = "Noto Sans Nerd Font bold 10"
 local bg_white = "#ededed"
 -- local shape    = gears.shape.rounded_rect
 -- local shape    = gears.shape.rectangle

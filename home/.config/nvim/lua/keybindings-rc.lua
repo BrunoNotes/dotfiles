@@ -1,4 +1,4 @@
-local map = vim.api.nvim_set_keymap
+local map = vim.keymap.set
 local opts = { noremap = true, silent = true }
 
 map("", "<Space>", "<Nop>", opts)
@@ -19,18 +19,29 @@ vim.g.maplocalleader = " "
 -- Load config
 map("n", "<leader>rf", ":luafile %<cr>", opts)
 
+-- Better window navigation
+map("n", "<C-h>", "<C-w>h", opts)
+map("n", "<C-j>", "<C-w>j", opts)
+map("n", "<C-k>", "<C-w>k", opts)
+map("n", "<C-l>", "<C-w>l", opts)
+
+-- Resize with arrows
+map("n", "<C-Up>", ":resize -2<CR>", opts)
+map("n", "<C-Down>", ":resize +2<CR>", opts)
+map("n", "<C-Left>", ":vertical resize -2<CR>", opts)
+map("n", "<C-Right>", ":vertical resize +2<CR>", opts)
+
 -- Save
 map("n", "<C-s>", ":w<cr>", opts)
 
 -- Packer
 map("n", "<leader>ps", ":PackerSync<CR>", opts)
 
--- Telescope
+-- Telescop
 map("n", "<leader>.", ":Telescope find_files<CR>", opts)
-map("n", "<leader>bb", ":Telescope buffers<cr>", opts) -- list buffers
 map("n", "<leader><tab>", ":Telescope buffers<cr>", opts) -- list buffers
-map("n", "<leader>km", ":Telescope keymaps<cr>", opts) -- list keymaps
-map("n", "<leader>ff", ":Telescope current_buffer_fuzzy_find<cr>", opts) -- fuzzy find buffer
+map("n", "<leader>tk", ":Telescope keymaps<cr>", opts) -- list keymaps
+map("n", "<leader>tf", ":Telescope current_buffer_fuzzy_find<cr>", opts) -- fuzzy find buffer
 
 -- Buffers
 map("n", "<leader>bd", ":bd<cr>", opts) -- close buffer
@@ -40,7 +51,6 @@ map("n", "<S-l>", ":bnext<cr>", opts) -- next buffer
 map("n", "<S-h>", ":bprevious<cr>", opts) -- previous buffer
 
 -- File explorer
--- map("n", "<leader>e", ":Lex 30<cr>", opts)
 map("n", "<leader>e", ":NvimTreeToggle<cr>", opts)
 
 -- Stay in indent mode
@@ -57,10 +67,10 @@ map("x", "<A-k>", ":move '<-2<CR>gv", opts)
 map("v", "p", '"_dP', opts)
 
 -- comment
--- Linewise toggle current line using C-/
-vim.keymap.set('n', '<C-_>', '<CMD>lua require("Comment.api").toggle_current_linewise()<CR>')
--- Linewise toggle using C-/
-vim.keymap.set('x', '<C-_>', '<ESC><CMD>lua require("Comment.api").toggle_linewise_op(vim.fn.visualmode())<CR>')
+vim.keymap.set('n', '<C-_>', '<CMD>lua require("Comment.api").toggle_current_linewise()<CR>') -- Linewise toggle current line using C-/
+vim.keymap.set('x', '<C-_>', '<ESC><CMD>lua require("Comment.api").toggle_linewise_op(vim.fn.visualmode())<CR>') -- Linewise toggle using C-/
 
--- AutoFormat
-map("n", "<leader>f", ":Format<cr>", opts)
+-- LSP
+map("n", "<leader>li", ":LspInfo<cr>", opts)
+map("n", "<leader>lI", ":LspInstallInfo<cr>", opts)
+map("n", "<leader>lf", ":Format<cr>", opts) -- auto format
