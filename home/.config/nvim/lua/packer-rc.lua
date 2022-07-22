@@ -67,6 +67,7 @@ return require('packer').startup(function()
     use "windwp/nvim-autopairs" -- Autopairs, integrates with both cmp and treesitter
     use "numToStr/Comment.nvim" -- Easily comment stuff
     use 'simrat39/rust-tools.nvim'
+    use "lukas-reineke/indent-blankline.nvim"
 
     -- nvim tree
     use "kyazdani42/nvim-web-devicons"

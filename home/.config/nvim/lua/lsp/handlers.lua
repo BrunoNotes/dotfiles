@@ -75,10 +75,6 @@ M.on_attach = function(client, bufnr)
     -- if client.name == "tsserver" then
     --     client.resolved_capabilities.document_formatting = false
     -- end
-    --
-    -- if client.name == "sumneko_lua" then
-    --     client.resolved_capabilities.document_formatting = false
-    -- end
 
     lsp_keymaps(bufnr)
     local status_ok, illuminate = pcall(require, "illuminate")
@@ -89,4 +85,3 @@ M.on_attach = function(client, bufnr)
 end
 
 return M
-
