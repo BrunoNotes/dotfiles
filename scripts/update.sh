@@ -2,5 +2,6 @@
 
 sudo timeshift --create --comments "Before Upgrade"
 
-sudo dnf update -y
+sudo pacman -Syu --noconfirm
+sudo paru -Syu --noconfirm
 flatpak update -y
