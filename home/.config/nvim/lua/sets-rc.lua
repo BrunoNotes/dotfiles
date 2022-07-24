@@ -23,6 +23,8 @@ local options = {
     ignorecase = true,
     smartcase = true,
     background = nil,
+    -- foldmethod = "expr",
+    -- foldexpr = "nvim_treesitter#foldexpr()"
 }
 
 for key, value in pairs(options) do

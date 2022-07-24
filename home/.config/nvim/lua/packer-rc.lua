@@ -68,6 +68,7 @@ return require('packer').startup(function()
     use "numToStr/Comment.nvim" -- Easily comment stuff
     use 'simrat39/rust-tools.nvim'
     use "lukas-reineke/indent-blankline.nvim"
+    use "akinsho/toggleterm.nvim"
 
     -- nvim tree
     use "kyazdani42/nvim-web-devicons"

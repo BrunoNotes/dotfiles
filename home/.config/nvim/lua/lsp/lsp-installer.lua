@@ -54,6 +54,9 @@ for _, server in pairs(servers) do
                             enable = true,
                         },
                     },
+            checkOnSave = {
+              command = "clippy",
+            },
                 },
             },
         }
