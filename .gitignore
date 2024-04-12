@@ -1,0 +1,20 @@
+/home/.config/nvim/*
+!/home/.config/nvim/init.lua
+!/home/.config/nvim/lua
+!/home/.config/nvim/spell
+/home/.emacs.d/*
+!/home/.emacs.d/init.el
+!/home/.emacs.d/emacsrc
+!/home/.emacs.d/etc/yasnippet/snippets
+# /home/.local/
+/home/.config/Kvantum
+/home/.config/zsh/plugins/*
+/home/.config/zsh/.zcompdump
+
+/home/.config/lazygit/state.yml
+/home/.config/Code/*
+!/home/.config/Code/User
+/home/.config/Code/User/*
+!/home/.config/Code/User/keybindings.json
+!/home/.config/Code/User/settings.json
+.luarc.json

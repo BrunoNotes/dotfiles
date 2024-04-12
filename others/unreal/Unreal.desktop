@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Terminal=false
+Exec=/home/bruno/dotfiles/others/unreal/unreal
+Name=Unreal Engine
+Icon=/home/bruno/Pictures/Imagens/Unreal_Logo.svg
+Categories=Development

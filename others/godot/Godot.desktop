@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Godot
+Comment=Godot Game Engine
+Icon=/home/bruno/Pictures/Imagens/Godot_icon.png
+Exec=/home/bruno/dotfiles/others/godot/godot
+Terminal=true
+Categories=Game;Code
+

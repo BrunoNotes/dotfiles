@@ -1,0 +1,17 @@
+## Alias section
+alias cp="cp -i"                                                # Confirm before overwriting something
+alias df='df -h'                                                # Human-readable sizes
+alias free='free -m'                                            # Show sizes in MB
+alias ll='ls -al'
+alias sudo='sudo -E'
+alias tm="tmux a"
+alias grub-update='grub-mkconfig -o /boot/grub/grub.cfg'
+alias gs='lazygit' # git status
+alias note='nvim $HOME/notes/Default.md'
+
+## Scripts
+alias update=$HOME/dotfiles/scripts/update.sh
+alias bkp_sync=$HOME/dotfiles/scripts/sync.sh
+alias tmux-sessions=$HOME/dotfiles/scripts/tmux-sessions.sh
+alias snvim=$HOME/dotfiles/scripts/nvim_server.sh
+

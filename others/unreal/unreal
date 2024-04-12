@@ -1,0 +1,5 @@
+#!/bin/bash
+
+unreal=$HOME/Documents/apps/UnrealEngine/Engine/Binaries/Linux/UnrealEditor
+
+$unreal

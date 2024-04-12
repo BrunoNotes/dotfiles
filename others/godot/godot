@@ -1,0 +1,6 @@
+#!/bin/sh
+
+godot=$(find ~/Documents/apps/Godot/* -maxdepth 1 -executable -type f)
+echo $godot
+
+$godot
