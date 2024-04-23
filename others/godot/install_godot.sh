@@ -29,6 +29,8 @@ file_name="${fn_temp%%_*}"
 app_folder="$destination_dir/$file_name"
 exists=0
 
+godot=$(find ~/Documents/apps/Godot/* -maxdepth 1 -executable -type f)
+
 echo $zip_file
 
 download_app () {
@@ -45,19 +47,26 @@ install_app () {
 
     unzip "$temp_dir/$zip_file" -d "$app_folder"
     ln -s "$SCRIPT_DIR/godot" "$bin_folder/godot"
+
+    cp "$SCRIPT_DIR/Godot.desktop" "$HOME/.local/share/applications/"
+
+    echo "Exec=$godot" >> "$HOME/.local/share/applications/Godot.desktop"
 }
 
 if [ -d "$app_folder" ]; then
     echo "$app_folder exists"
     exists=1
-    while getopts "u" flag; do
+    while getopts "ut" flag; do
     case $flag in
         u) # -a update all
             rm -rf $app_folder
             rm -rf "$bin_folder/$file_name"
             download_app
             install_app
+        ;;
+        t) # test
             cp "$SCRIPT_DIR/Godot.desktop" "$HOME/.local/share/applications/"
+            echo "Exec=$godot" >> "$HOME/.local/share/applications/Godot.desktop"
         ;;
         \?) # Handle invalid options
             echo "Invalid Option"

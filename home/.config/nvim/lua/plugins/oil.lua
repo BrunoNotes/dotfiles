@@ -33,7 +33,7 @@ return {
             },
         })
 
-        -- nmap("<leader>fb", ":Oil <cr>", { "Opens oil file browser" })
-        nmap("<leader>fb", ":Oil --float<cr>", { "Opens oil file browser" })
+        nmap("<leader>fb", ":Oil <cr>", { "Opens oil file browser" })
+        -- nmap("<leader>fb", ":Oil --float<cr>", { "Opens oil file browser" })
     end
 }

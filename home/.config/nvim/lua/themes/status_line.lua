@@ -17,7 +17,7 @@ end
 local M = {}
 
 -- possible values are 'blank'
-local active_sep = 'line'
+local active_sep = 'blank'
 
 -- change them if you want to different separator
 M.separators = {

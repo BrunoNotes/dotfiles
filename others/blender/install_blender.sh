@@ -27,21 +27,25 @@ install_app () {
     tar xf "$blender_path_q" --directory="$app_folder"
 
     ln -s "$app_folder/$file_name/$app_name" "$bin_folder/$app_name"
-    if [ ! -f "$HOME/.local/share/applications/$app_name.desktop" ]; then
-        cp "$HOME/dotfiles/others/$app_name/$app_name.desktop" "$HOME/.local/share/applications/"
-    fi
+
+    cp "$HOME/dotfiles/others/$app_name/$app_name.desktop" "$HOME/.local/share/applications/"
+    echo "Exec=$app_folder/$file_name/$app_name" >> "$HOME/.local/share/applications/$app_name.desktop"
 }
 
 if [ -d "$app_folder" ]; then
     echo "$app_folder exists"
     exists=1
-    while getopts "u" flag; do
+    while getopts "ut" flag; do
     case $flag in
         u) # -a update all
             rm -rf $app_folder
             rm -rf "$bin_folder/$app_name"
 
             install_app
+        ;;
+        t) # test
+            cp "$HOME/dotfiles/others/$app_name/$app_name.desktop" "$HOME/.local/share/applications/"
+            echo "Exec=$app_folder/$file_name/$app_name" >> "$HOME/.local/share/applications/$app_name.desktop"
         ;;
         \?) # Handle invalid options
             echo "Invalid Option"

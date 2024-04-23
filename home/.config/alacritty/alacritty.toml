@@ -67,9 +67,11 @@ history = 5000
 
 [window]
 decorations = "full"
-opacity = 0.9
+opacity = 1.0
 startup_mode = "Maximized"
 title = "Alacritty"
+dynamic_padding = true
+padding = { x = 0, y = 0 }
 
 [window.class]
 general = "Alacritty"
