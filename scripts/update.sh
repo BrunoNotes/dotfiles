@@ -1,20 +1,24 @@
 #!/bin/bash
 
-# sudo timeshift --create --comments "Before Upgrade"
+# sudo timeshift --create --comments "Before Upgrade" --tags M
 
-# sudo paru -Syu --noconfirm
+apt=$(command -v apt || true)
+if [[ -n $apt ]]; then
+    sudo apt update -y && sudo apt dist-upgrade -y
+    sudo apt autoremove -y
+fi
 
-sudo dnf update --best --allowerasing -y
-sudo dnf autoremove -y
+dnf=$(command -v dnf || true)
+if [[ -n $dnf ]]; then
+    sudo dnf update --best --allowerasing -y
+    sudo dnf autoremove -y
+fi
 
-# sudo apt update -y && sudo apt dist-upgrade -y
-# sudo apt autoremove -y
-
-flatpak update -y
-flatpak remove --unused -y
-
-# update all cargo global binaries
-# cargo install $(cargo install --list | egrep '^[a-z0-9_-]+ v[0-9.]+:$' | cut -f1 -d' ')
+flatpak=$(command -v flatpak || true)
+if [[ -n $dnf ]]; then
+    flatpak update -y
+    flatpak remove --unused -y
+fi
 
 script_path="$HOME/dotfiles/ansible/roles/apps/files"
 
