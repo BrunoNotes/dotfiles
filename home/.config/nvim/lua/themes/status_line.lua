@@ -67,7 +67,8 @@ end
 
 M.get_line_col = function(self)
     if self:is_truncated(self.trunc_width.line_col) then return ' %l:%c ' end
-    return ' L:%l C:%c '
+    -- return ' L:%l C:%c '
+    return ' %l:%c '
 end
 
 M.set_active = function(self)
