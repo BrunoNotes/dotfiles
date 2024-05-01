@@ -1,61 +1,121 @@
 #!/bin/sh
+ICON_PATH="/home/bruno/Pictures/Imagens/blender.svg"
+TEMP_DIR="/tmp"
+APPS_DIR="$HOME/Documents/apps"
+BIN_DIR="$HOME/.local/bin"
 
-# the site doesnt allow automatic download
-read -p "Blender zip path: " blender_path_q
-# echo $blender_path_q
+read -p "APP zip path: " app_path_q
 
-destination_dir="$HOME/Documents/apps"
-bin_folder="$HOME/.local/bin"
-app_name="blender"
-
-zip_file=$(basename "$blender_path_q")
-remove_ext="${zip_file%.*}"
-file_name="${remove_ext%.*}"
-# file_name="${fn_temp%%-*}"
-app_folder="$destination_dir/$app_name"
-exists=0
-
-echo $app_name
-# echo $app_folder
+zip_file_name=$(basename $app_path_q)
+fn_temp="${zip_file_name%%.*}"
+file_name="${fn_temp%%-*}" # change _ to - depending on the zip file name
+file_extension="${zip_file_name##*.}"
+app_folder="$APPS_DIR/$file_name"
 
 install_app () {
     if [ ! -d "$app_folder" ]; then
         mkdir "$app_folder"
     fi
 
-    # unzip "$blender_path_q" -d "$app_folder"
-    tar xf "$blender_path_q" --directory="$app_folder"
+    if [ "$file_extension" == "zip" ]; then
+        unzip "$app_path_q" -d "$app_folder"
+    elif [ "$file_extension" == "xz" ]; then
+        tar xf $app_path_q --directory=$app_folder
+    fi
 
-    ln -s "$app_folder/$file_name/$app_name" "$bin_folder/$app_name"
+    program_folder=$(ls -d "$app_folder/"*)
+    # program_executable=$(find "$program_folder" -maxdepth 1 -executable -type f)
+    program_executable="${program_folder[0]}/$file_name"
 
-    cp "$HOME/dotfiles/others/$app_name/$app_name.desktop" "$HOME/.local/share/applications/"
-    echo "Exec=$app_folder/$file_name/$app_name" >> "$HOME/.local/share/applications/$app_name.desktop"
+    if [ -f "$BIN_DIR/$file_name" ]; then
+        if [ "$BIN_DIR/$file_name" != "$BIN_DIR" ]; then
+            rm -rf "$BIN_DIR/$file_name"
+        fi
+    fi
+    ln -s "$program_executable" "$BIN_DIR/$file_name"
 }
 
-if [ -d "$app_folder" ]; then
-    echo "$app_folder exists"
-    exists=1
-    while getopts "ut" flag; do
-    case $flag in
-        u) # -a update all
-            rm -rf $app_folder
-            rm -rf "$bin_folder/$app_name"
+desktop_entry () {
+    echo "Install desktop file?"
+    read -p "y/n: " install_desktop_file
 
+    if [ "$install_desktop_file" == "y" ]; then
+        program_folder=$(ls -d "$app_folder/"*)
+        # program_executable=$(find "$program_folder" -maxdepth 1 -executable -type f)
+        program_executable="${program_folder[0]}/$file_name"
+
+        desktop_file=(
+            "Type=Application"
+            "Name=$file_name"
+            "Comment=$file_name"
+            "Icon=$ICON_PATH"
+            "Terminal=false"
+            "Categories=Game;Code"
+            "Exec=$program_executable"
+        )
+
+        if [ -f "$TEMP_DIR/$file_name.desktop" ]; then
+            rm -rf "$TEMP_DIR/$file_name.desktop"
+        fi
+
+        touch "$TEMP_DIR/$file_name.desktop"
+
+        echo "[Desktop Entry]" >> "$TEMP_DIR/${file_name}.desktop"
+
+        for d in ${desktop_file[@]}; do
+            echo $d >> "$TEMP_DIR/${file_name}.desktop"
+        done
+
+        if [ -f "$TEMP_DIR/$file_name.desktop" ]; then
+            cp "$TEMP_DIR/${file_name}.desktop" "$HOME/.local/share/applications/"
+        fi
+    fi
+}
+
+delete_app () {
+    rm -rf "$HOME/.local/share/applications/${file_name}.desktop"
+    if [ "$BIN_DIR/$file_name" != "$BIN_DIR" ]; then
+        rm -rf "$BIN_DIR/$file_name"
+    fi
+    if [ "$app_folder" != "$APPS_DIR" ]; then
+        rm -rf $app_folder
+    fi
+}
+
+final_message () {
+    if [ -d "$app_folder" ]; then
+        echo "${file_name} Installed"
+    else
+        echo "${file_name} Uninstalled"
+    fi
+}
+
+while getopts "iutx" flag; do
+    case $flag in
+        i) # -i install
             install_app
-        ;;
+            desktop_entry
+            final_message
+            ;;
+        u) # -a update all
+            delete_app
+            install_app
+            desktop_entry
+            final_message
+            ;;
+        x) # -x delete
+            delete_app
+            final_message
+            ;;
         t) # test
-            cp "$HOME/dotfiles/others/$app_name/$app_name.desktop" "$HOME/.local/share/applications/"
-            echo "Exec=$app_folder/$file_name/$app_name" >> "$HOME/.local/share/applications/$app_name.desktop"
-        ;;
+            echo "Test"
+            # program_folder=$(find "$app_folder" -maxdepth 1 -type d)
+            program_folder=$(ls -d "$app_folder/"*)
+            program_executable="${program_folder[0]}/$file_name"
+            echo $program_executable
+            ;;
         \?) # Handle invalid options
             echo "Invalid Option"
-        ;;
+            ;;
     esac
 done
-else
-    echo "$app_folder dont exists"
-    exists=0
-
-    install_app
-fi
-

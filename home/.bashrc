@@ -50,4 +50,13 @@ export VISUAL="vim"
 export EDITOR="vim"
 export PATH="$HOME/.local/bin:$PATH"
 
+# Languages
+export PATH="$HOME/.local/local/go/bin:$PATH"
+export PATH="$HOME/go/bin:$PATH"
+export PATH="$HOME/.local/lang/zig:$PATH"
+export PATH="$HOME/.local/lang/Odin:$PATH"
+
+# User specific environment and startup programs
 . "$HOME/.cargo/env"
+. "$HOME/.config/asdf/asdf.sh"
+. "$HOME/.config/asdf/completions/asdf.bash"
