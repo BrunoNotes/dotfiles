@@ -4,42 +4,42 @@ SECRETS_PATH="$HOME/.secrets"
 VAULT_SECRET="$SECRETS_PATH/vault.secret"
 
 ## Drive backup
-arquivo=("Audio" "Design" "Faculdade" "Imagens" "Pessoal" "Code" "Video" "dotfiles" "config_backup")
-arquivo3=("Code")
+ARQUIVO=("Audio" "Design" "Faculdade" "Imagens" "Pessoal" "Code" "Video" "dotfiles" "config_backup")
+ARQUIVO3=("Code")
 
-origim_drive="arquivo"
-origim_drive2="arquivo3"
-destination_drive="arquivo2"
+ARQUIVO_DRIVE="arquivo"
+ARQUIVO2_DRIVE="arquivo2"
+ARQUIVO3_DRIVE="arquivo3"
 
-rm -rf "/mnt/$origim_drive/dotfiles"
+rm -rf "/mnt/$ARQUIVO_DRIVE/dotfiles"
 # rsync -av "$HOME/dotfiles" "/mnt/$origim_drive"
-cp -r "$HOME/dotfiles" "/mnt/$origim_drive"
-rsync -av "$HOME/.var/app/org.mozilla.Thunderbird/.thunderbird" "/mnt/$origim_drive/config_backup"
-rsync -av "$HOME/.var/app/org.kde.krita/config" "/mnt/$origim_drive/config_backup/krita"
+cp -r "$HOME/dotfiles" "/mnt/$ARQUIVO_DRIVE"
+rsync -av "$HOME/.var/app/org.mozilla.Thunderbird/.thunderbird" "/mnt/$ARQUIVO_DRIVE/config_backup"
+rsync -av "$HOME/.var/app/org.kde.krita/config" "/mnt/$ARQUIVO_DRIVE/config_backup/krita"
 
-if [ -d "/mnt/$destination_drive/backup" ]; then
-    mkdir "/mnt/$destination_drive/backup"
+if [ -d "/mnt/$ARQUIVO2_DRIVE/backup" ]; then
+    mkdir "/mnt/$ARQUIVO2_DRIVE/backup"
 fi
 
-if [ -d "/mnt/$destination_drive/backup2" ]; then
-    mkdir "/mnt/$destination_drive/backup2"
+if [ -d "/mnt/$ARQUIVO2_DRIVE/backup2" ]; then
+    mkdir "/mnt/$ARQUIVO2_DRIVE/backup2"
 fi
 
-for a in "${arquivo[@]}"; do
-    rsync -av "/mnt/$origim_drive/${a}" "/mnt/$destination_drive/backup"
+for a in "${ARQUIVO[@]}"; do
+    rsync -av "/mnt/$ARQUIVO_DRIVE/${a}" "/mnt/$ARQUIVO2_DRIVE/backup"
 done
 
-for a in "${arquivo3[@]}"; do
-    rsync -av "/mnt/$origim_drive2/${a}" "/mnt/$destination_drive/backup2"
+for a in "${ARQUIVO3[@]}"; do
+    rsync -av "/mnt/$ARQUIVO3_DRIVE/${a}" "/mnt/$ARQUIVO2_DRIVE/backup2"
 done
 
 ## Pass backup
-pass_path="$HOME/Documents/bruno/senhas/BrunoPasswords.kdbx"
-pass_ansible_path="$HOME/dotfiles/ansible/roles/user/files/BrunoPasswords.kdbx"
+PASS_PATH="$HOME/Documents/bruno/senhas/BrunoPasswords.kdbx"
+PASS_ANSIBLE_PATH="$HOME/dotfiles/ansible/roles/user/files/BrunoPasswords.kdbx"
 
-if [ -f "$pass_path" ] && [ -f "$VAULT_SECRET" ]; then
-    cp $pass_path $pass_ansible_path
-    ansible-vault encrypt --vault-password-file $VAULT_SECRET $pass_ansible_path
+if [ -f "$PASS_PATH" ] && [ -f "$VAULT_SECRET" ]; then
+    cp $PASS_PATH $PASS_ANSIBLE_PATH
+    ansible-vault encrypt --vault-password-file $VAULT_SECRET $PASS_ANSIBLE_PATH
 fi
 
 ## Firefox bookmarks backup (about:config | browser.bookmarks.autoExportHTML)
@@ -47,7 +47,7 @@ f_profille=$(ls "$HOME/.mozilla/firefox" | grep ".bruno")
 bookmark_path="$HOME/.mozilla/firefox/${f_profille}/bookmarks.html"
 
 if [ -f "$bookmark_path" ]; then
-    cp $bookmark_path "/mnt/arquivo/config_backup/"
+    cp $bookmark_path "/mnt/$ARQUIVO_DRIVE/config_backup/"
 fi
 
 # Crontab backup
