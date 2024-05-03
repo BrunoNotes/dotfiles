@@ -15,7 +15,7 @@ if [[ -n $dnf ]]; then
 fi
 
 flatpak=$(command -v flatpak || true)
-if [[ -n $dnf ]]; then
+if [[ -n $flatpak ]]; then
     flatpak update -y
     flatpak remove --unused -y
 fi
