@@ -2,6 +2,11 @@
 
 # alias gnvim='nvim --listen /tmp/godot.pipe'
 
+query_pipe () {
+    read -p "Pipe name: " query
+    nvim --listen "/tmp/$query.pipe"
+}
+
 while getopts "gu" flag; do
     case $flag in
         g) # godot
@@ -11,14 +16,12 @@ while getopts "gu" flag; do
             nvim --listen /tmp/unreal.pipe
             ;;
         \?) # Handle invalid options
-            read -p "Pipe name: " query
-            nvim --listen "/tmp/$query.pipe"
+            query_pipe
             ;;
     esac
 done
 
 # no options
-if [ $OPTIND -eq 1 ]; then 
-    read -p "Pipe name: " query
-    nvim --listen "/tmp/$query.pipe"
+if [ $OPTIND -eq 1 ]; then
+    query_pipe
 fi

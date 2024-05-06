@@ -1,7 +1,7 @@
 #!/bin/sh
 ICON_PATH="/home/bruno/Pictures/Imagens/blender.svg"
 TEMP_DIR="/tmp"
-APPS_DIR="$HOME/Documents/apps"
+APPS_DIR="$HOME/Apps"
 BIN_DIR="$HOME/.local/bin"
 
 read -p "APP zip path: " app_path_q

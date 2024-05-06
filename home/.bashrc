@@ -31,7 +31,7 @@ alias sudo='sudo -E'
 alias tm="tmux a"
 alias grub-update='grub-mkconfig -o /boot/grub/grub.cfg'
 alias gs='lazygit' # git status
-alias note='nvim $HOME/notes/default.md'
+alias note='$HOME/dotfiles/scripts/note.sh'
 alias snvim='$HOME/dotfiles/scripts/nvim_server.sh'
 
 xhost +local:root > /dev/null 2>&1
