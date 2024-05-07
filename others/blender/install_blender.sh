@@ -1,5 +1,5 @@
 #!/bin/sh
-ICON_PATH="/home/bruno/Pictures/Imagens/blender.svg"
+ICON_PATH="/home/bruno/Pictures/Images/blender.svg"
 TEMP_DIR="/tmp"
 APPS_DIR="$HOME/Apps"
 BIN_DIR="$HOME/.local/bin"
