@@ -5,23 +5,22 @@ sessions=(
 "Code/*/*"
 "Code/*"
 "Code"
-"Sandbox/Code/*/*"
-"Sandbox/Code/*"
-"Sandbox/Code"
-"Code/projects/*/*"
-"Code/godot/*/*"
-"notes"
-"dotfiles/ansible"
-"dotfiles/home/*"
-"dotfiles/home/.config/*"
 "dotfiles"
+"dotfiles/*"
+"dotfiles/*/*"
+"dotfiles/*/.*"
+"dotfiles/*/.*/*"
+"dotfiles/*/.*/.*"
+"dotfiles/*/*/*"
+"SharedConfig/notes"
 )
 n=1
 paths=()
 
 for s in ${sessions[@]}; do
-    paths+=($(ls -d $HOME/$s))
+    paths+=($(ls -d $HOME/${s}/))
 done
+
 
 paths+=($new)
 

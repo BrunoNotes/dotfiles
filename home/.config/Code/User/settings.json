@@ -22,4 +22,5 @@
     "editor.autoClosingComments": "never",
     "editor.autoClosingQuotes": "never",
     "sqltools.useNodeRuntime": true,
+    "godot.csharp.executablePath": "/home/bruno/Apps/Godot/Godot_v4.2.2-stable_mono_linux_x86_64/Godot_v4.2.2-stable_mono_linux.x86_64",
 }
