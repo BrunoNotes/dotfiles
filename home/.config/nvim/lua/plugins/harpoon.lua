@@ -18,7 +18,7 @@ return {
         local nmap = require("utils").nmap
 
         nmap("<leader>hf", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, { "menu" })
-        nmap("<leader>ha", function() harpoon:list():append() end, { "add" })
+        nmap("<leader>ha", function() harpoon:list():add() end, { "add" })
         nmap("<C-n>", function() harpoon:list():next() end, { "next" })
         nmap("<C-p>", function() harpoon:list():prev() end, { "previous" })
         nmap("<leader>1", function() harpoon:list():select(1) end, { "go to 1" })

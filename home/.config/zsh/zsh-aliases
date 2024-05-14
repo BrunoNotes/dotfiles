@@ -10,7 +10,7 @@ alias gs='lazygit' # git status
 
 ## Scripts
 alias update=$HOME/dotfiles/scripts/update.sh
-alias bkp_sync=$HOME/dotfiles/scripts/sync.sh
+alias bkp_sync=$HOME/dotfiles/ansible/sync.sh
 alias tmux-sessions=$HOME/dotfiles/scripts/tmux-sessions.sh
 alias snvim=$HOME/dotfiles/scripts/nvim_server.sh
 alias note=$HOME/dotfiles/scripts/note.sh
