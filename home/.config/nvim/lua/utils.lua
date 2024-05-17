@@ -44,4 +44,43 @@ M.tmap = function(keys, func, desc)
     vim.keymap.set("t", keys, func, { silent = true, desc = description(desc) })
 end
 
+M.icons = {
+    error = '',
+    warn = '',
+    hint = '',
+    info = '',
+    Text = "",
+    Method = "",
+    Function = "",
+    Constructor = "",
+    Field = "",
+    Variable = "",
+    Class = "",
+    Interface = "",
+    Module = "",
+    Property = "",
+    Unit = "",
+    Value = "",
+    Enum = "",
+    Keyword = "",
+    Snippet = "",
+    Color = "",
+    File = "",
+    Reference = "",
+    Folder = "",
+    EnumMember = "",
+    Constant = "",
+    Struct = "",
+    Event = "",
+    Operator = "",
+    TypeParameter = "",
+    Git = "",
+    Bug = "",
+    Circle = "",
+    BoldArrowDown = "",
+    BoldArrowLeft = "",
+    BoldArrowRight = "",
+    BoldArrowUp = "",
+}
+
 return M

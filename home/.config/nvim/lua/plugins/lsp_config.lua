@@ -1,4 +1,4 @@
-local icons = require("themes.icons").icons
+local icons = require("utils").icons
 
 local lang_config = function(lsp_config, lsp_capabilities, mason_lspconfig)
     mason_lspconfig.setup({
@@ -184,7 +184,7 @@ end
 return {
     "neovim/nvim-lspconfig",
     dependencies = {
-        {'williamboman/mason.nvim', commit = '751b1fcbf3d3b783fcf8d48865264a9bcd8f9b10'},
+        'williamboman/mason.nvim',
         "williamboman/mason-lspconfig.nvim",
         -- completion:
         "hrsh7th/nvim-cmp",
