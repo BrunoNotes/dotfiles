@@ -6,7 +6,7 @@ return {
         local trouble = require("trouble")
         local nmap = require("utils").nmap
 
-        nmap("<leader>to", function() trouble.toggle() end, { "Toggle" })
+        nmap("<leader>tb", function() trouble.toggle() end, { "Toggle" })
         nmap("<leader>tn", function() trouble.next({ skip_groups = true, jump = true }) end, { "Next item" })
         nmap("<leader>tp", function() trouble.previous({ skip_groups = true, jump = true }) end, { "Previous item" })
         nmap("<F9>", function() trouble.toggle() end, { "Toggle" })

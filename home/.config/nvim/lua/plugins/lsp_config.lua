@@ -39,6 +39,14 @@ local lang_config = function(lsp_config, lsp_capabilities, mason_lspconfig)
         }
     })
 
+    lsp_config.wgsl_analyzer.setup({})
+    vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+        pattern = "*.wgsl",
+        callback = function()
+            vim.bo.filetype = "wgsl"
+        end,
+    })
+
     lsp_config.tsserver.setup({
         ---@diagnostic disable-next-line: unused-local
         on_attach = function(client, bufnr)

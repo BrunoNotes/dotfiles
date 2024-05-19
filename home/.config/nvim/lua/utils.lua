@@ -24,6 +24,12 @@ M.find_buffer_by_name = function(name)
     return -1
 end
 
+M.table_size = function (table)
+    local size = 0
+    for _ in pairs(table) do size = size + 1 end
+    return size
+end
+
 M.nmap = function(keys, func, desc)
     vim.keymap.set("n", keys, func, { silent = true, desc = description(desc) })
 end
@@ -81,6 +87,51 @@ M.icons = {
     BoldArrowLeft = "",
     BoldArrowRight = "",
     BoldArrowUp = "",
+}
+
+
+M.icon_patterns = {
+    dots = {
+        "⠋",
+        "⠙",
+        "⠹",
+        "⠸",
+        "⠼",
+        "⠴",
+        "⠦",
+        "⠧",
+        "⠇",
+        "⠏",
+    },
+    dots_pulse = {
+        "∙∙∙",
+        "●∙∙",
+        "∙●∙",
+        "∙∙●",
+        "∙∙∙",
+    },
+    grow_vertical = {
+        "▁",
+        "▃",
+        "▄",
+        "▅",
+        "▆",
+        "▇",
+        "▆",
+        "▅",
+        "▄",
+        "▃",
+    },
+    moon = {
+        "🌑 ",
+        "🌒 ",
+        "🌓 ",
+        "🌔 ",
+        "🌕 ",
+        "🌖 ",
+        "🌗 ",
+        "🌘 ",
+    }
 }
 
 return M

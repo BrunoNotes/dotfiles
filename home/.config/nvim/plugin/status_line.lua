@@ -2,14 +2,14 @@
 local fn = vim.fn
 local api = vim.api
 local devicons_ok, devicons = pcall(require, "nvim-web-devicons")
-local icons = require("utils").icons
+local utils = require("utils")
 
 local get_devicon = function()
     if devicons_ok then
         local file_name, file_ext = fn.expand("%:t"), fn.expand("%:e")
         return devicons.get_icon(file_name, file_ext, { default = true })
     else
-        return icons.File
+        return utils.icons.File
     end
 end
 
@@ -20,7 +20,7 @@ local active_sep = 'blank'
 
 -- change them if you want to different separator
 M.separators = {
-    blank = { '', '' },
+    blank = { ' ', ' ' },
     line = { '|', '|' },
 }
 
@@ -46,9 +46,9 @@ M.get_git_status = function()
         local git_branch = vim.fn.system { "git", "branch", "--show-current" }:gsub("\n[^\n]*(\n?)$", "%1")
         local is_git_repo = vim.fn.system { "git", "rev-parse", "--is-inside-work-tree" }:gsub("\n[^\n]*(\n?)$", "%1")
         if (is_git_repo == "true") then
-            return string.format(' %s %s ', icons.Git, git_branch)
+            return string.format('%s %s', utils.icons.Git, git_branch)
         else
-            return string.format(' %s No repo ', icons.Git)
+            return ""
         end
     else
         return ""
@@ -58,40 +58,63 @@ end
 M.get_filename = function(self)
     local file_path = vim.fn.fnamemodify(vim.fn.expand("%"), ":~:.")
     if self:is_truncated(self.trunc_width.filename) then
-        return string.format(' %s', file_path)
+        return string.format('%s', file_path)
     end
-    return string.format(' %s', file_path)
+    return string.format('%s', file_path)
 end
 
 M.get_icon = function()
     local devicon_icon = get_devicon()
 
-    return string.format(' %s', devicon_icon)
+    return string.format('%s', devicon_icon)
 end
 
 M.get_line_col = function(self)
-    if self:is_truncated(self.trunc_width.line_col) then return ' %l:%c ' end
+    if self:is_truncated(self.trunc_width.line_col) then return '%l:%c' end
     -- return ' L:%l C:%c '
-    return ' %l:%c '
+    return '%l:%c'
+end
+
+M.get_lsp_name = function()
+    local lsp_clients = vim.lsp.get_client_by_id(1)
+    if lsp_clients ~= nil then
+        local lsp_name = lsp_clients.name
+        if (lsp_name ~= nil) then
+            return string.format('%s %s', utils.icons.info, lsp_name)
+        else
+            return ''
+        end
+    else
+        return ""
+    end
 end
 
 M.set_active = function(self)
     local git = self:get_git_status()
-    local separator_1 = self.separators[active_sep][1]
+    local separator = self.separators[active_sep]
     local filename = self:get_filename()
     local icon = self.get_icon()
     local line_col = self:get_line_col()
-    local separator_2 = self.separators[active_sep][2]
+    local lsp_client_name = self.get_lsp_name()
 
     return table.concat({
+        -- left
+        separator[1],
         icon,
+        separator[1],
         filename,
+        separator[1],
         "%=",
+        -- middle
         "%=",
-        separator_1,
+        -- right
+        separator[1],
+        lsp_client_name,
+        separator[1],
         git,
-        separator_2,
+        separator[1],
         line_col,
+        separator[1],
     })
 end
 
