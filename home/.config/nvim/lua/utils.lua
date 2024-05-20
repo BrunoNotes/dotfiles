@@ -30,6 +30,14 @@ M.table_size = function(table)
     return size
 end
 
+M.open_file_or_buffer = function(file_path, buffer)
+    if buffer == -1 then
+        vim.cmd(string.format(":e %s", file_path))
+    else
+        vim.cmd(string.format(":buffer %s", buffer))
+    end
+end
+
 M.nmap = function(keys, func, desc)
     vim.keymap.set("n", keys, func, { silent = true, desc = description(desc) })
 end

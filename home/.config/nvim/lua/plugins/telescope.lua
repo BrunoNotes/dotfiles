@@ -48,7 +48,7 @@ return {
                     cwd = vim.loop.cwd(),
                     -- cwd = vim.fn.expand("%:p:h"),
                     no_ignore = true,
-                    no_ignore_parent = false,
+                    no_ignore_parent = true,
                 },
                 git_files = pickers_config,
                 buffers = pickers_config,
@@ -108,7 +108,10 @@ return {
 
         local nmap = require("utils").nmap
 
-        nmap("<leader>.", ":Telescope find_files<CR>", { "find files" })
+        -- nmap("<leader>.", ":Telescope find_files<CR>", { "find files" })
+        nmap("<leader>.", function()
+            require("telescope.builtin").find_files({ cwd = vim.loop.cwd() })
+        end, { "find files" })
         -- nmap("<leader>fb", ":Telescope file_browser<CR><ESC>", { "file browser", category.telescope, category.file_manager })
         nmap("<leader>fg", ":Telescope git_files<CR>", { "git files" })
         nmap("<leader>kb", ":Telescope keymaps<cr>", { "keymaps" })                                          -- list keymaps
@@ -116,6 +119,7 @@ return {
         nmap("<leader>gp", ":Telescope live_grep<cr>", { "Telescope live grep on project dir" })
         nmap("<leader>bf", ":Telescope buffers<CR><ESC>", { "Telescope buffers" })
         nmap("<F1>", ":Telescope help_tags<cr>", { "Telescope help" })
+        nmap("<leader>hp", ":Telescope help_tags<cr>", { "Telescope help" })
         nmap("<leader>mp", ":Telescope man_pages<cr>", { "Telescope Man Page" })
         nmap("<leader>di", ":Telescope diagnostics<cr>", { "Telescope diagnostics (LSP)" })
     end,

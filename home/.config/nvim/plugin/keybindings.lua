@@ -75,7 +75,6 @@ M.spell = function()
 end
 
 M.custom_functions = function()
-    nmap("<leader>cm", "<cmd>!chmod +x %<cr>", { "Make file executable" })
     -- done in fugitive.nvim
     -- nmap("<leader>cc", function()
     --     local message = vim.fn.input("Commit message: ")
@@ -84,16 +83,6 @@ M.custom_functions = function()
     --         vim.api.nvim_feedkeys("<cr>", "n", false)
     --     }
     -- end, { "Quick commit", category.git })
-    nmap("<leader>nt", function()
-        local temp_note = "/tmp/temp.md"
-        local buffer = require("utils").find_buffer_by_name(temp_note)
-
-        if buffer == -1 then
-            vim.cmd(string.format(":e %s", temp_note))
-        else
-            vim.cmd(string.format(":buffer %s", buffer))
-        end
-    end, { "Opem tmp note" })
 end
 
 M.misk = function()
