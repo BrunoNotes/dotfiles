@@ -101,7 +101,7 @@ local cmp_config = function(cmp, luasnip)
                 i = cmp.mapping.abort(),
                 c = cmp.mapping.close(),
             }),
-            ["<C-l>"] = cmp.mapping(function(fallback)
+            ["<S-L>"] = cmp.mapping(function(fallback)
                 if luasnip.expandable() then
                     luasnip.expand()
                 elseif luasnip.expand_or_jumpable() then
@@ -113,7 +113,7 @@ local cmp_config = function(cmp, luasnip)
                 "i",
                 "s",
             }),
-            ["<C-h>"] = cmp.mapping(function(fallback)
+            ["<S-H>"] = cmp.mapping(function(fallback)
                 if luasnip.jumpable(-1) then
                     luasnip.jump(-1)
                 else
