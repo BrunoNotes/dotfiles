@@ -28,4 +28,3 @@ vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
 --         vim.cmd("lua vim.lsp.buf.formatting()")
 --     end
 -- })
-

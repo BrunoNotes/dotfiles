@@ -24,7 +24,7 @@ M.find_buffer_by_name = function(name)
     return -1
 end
 
-M.table_size = function (table)
+M.table_size = function(table)
     local size = 0
     for _ in pairs(table) do size = size + 1 end
     return size
@@ -87,6 +87,7 @@ M.icons = {
     BoldArrowLeft = "",
     BoldArrowRight = "",
     BoldArrowUp = "",
+    Check = "✔",
 }
 
 

@@ -79,11 +79,14 @@ local omnisharp_fix = function(event)
         return string.gsub(str, "%s*[- ]%s*", "_")
     end
 
+    ---@diagnostic disable-next-line: need-check-nil
     if client.name == 'omnisharp' then
+        ---@diagnostic disable-next-line: need-check-nil
         local tokenModifiers = client.server_capabilities.semanticTokensProvider.legend.tokenModifiers
         for i, v in ipairs(tokenModifiers) do
             tokenModifiers[i] = toSnakeCase(v)
         end
+        ---@diagnostic disable-next-line: need-check-nil
         local tokenTypes = client.server_capabilities.semanticTokensProvider.legend.tokenTypes
         for i, v in ipairs(tokenTypes) do
             tokenTypes[i] = toSnakeCase(v)
