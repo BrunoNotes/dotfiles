@@ -72,28 +72,6 @@ local lang_config = function(lsp_config, lsp_capabilities, mason_lspconfig)
     })
 end
 
--- C# token fix for omnisharp
-local omnisharp_fix = function(event)
-    local client = vim.lsp.get_client_by_id(event.data.client_id)
-    local function toSnakeCase(str)
-        return string.gsub(str, "%s*[- ]%s*", "_")
-    end
-
-    ---@diagnostic disable-next-line: need-check-nil
-    if client.name == 'omnisharp' then
-        ---@diagnostic disable-next-line: need-check-nil
-        local tokenModifiers = client.server_capabilities.semanticTokensProvider.legend.tokenModifiers
-        for i, v in ipairs(tokenModifiers) do
-            tokenModifiers[i] = toSnakeCase(v)
-        end
-        ---@diagnostic disable-next-line: need-check-nil
-        local tokenTypes = client.server_capabilities.semanticTokensProvider.legend.tokenTypes
-        for i, v in ipairs(tokenTypes) do
-            tokenTypes[i] = toSnakeCase(v)
-        end
-    end
-end
-
 local cmp_config = function(cmp, luasnip)
     require("luasnip.loaders.from_vscode").lazy_load()
 
@@ -235,7 +213,6 @@ return {
         vim.api.nvim_create_autocmd('LspAttach', {
             desc = 'LSP actions',
             callback = function(event)
-                omnisharp_fix(event)
                 -- Create your keybindings here...
                 local nmap = require("utils").nmap
 
