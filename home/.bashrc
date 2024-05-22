@@ -1,4 +1,3 @@
-#
 # ~/.bashrc
 #
 
@@ -58,6 +57,14 @@ export PATH="$HOME/.local/lang/zig:$PATH"
 export PATH="$HOME/.local/lang/Odin:$PATH"
 
 # User specific environment and startup programs
-. "$HOME/.cargo/env"
-. "$HOME/.config/asdf/asdf.sh"
-. "$HOME/.config/asdf/completions/asdf.bash"
+# Rust
+cargo=$(command -v cargo || true)
+if [[ -n $cargo ]]; then
+    . "$HOME/.cargo/env"
+fi
+
+asdf=$(command -v asdf || true)
+if [[ -n $asdf ]]; then
+    . "$HOME/.config/asdf/asdf.sh"
+    . "$HOME/.config/asdf/completions/asdf.bash"
+fi

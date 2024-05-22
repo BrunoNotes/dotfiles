@@ -23,13 +23,24 @@ export PATH="$HOME/.local/lang/go/bin:$PATH"
 export PATH="$HOME/go/bin:$PATH"
 export PATH="$HOME/.local/lang/zig:$PATH"
 export PATH="$HOME/.local/lang/Odin:$PATH"
-eval $(opam env)
+
+# Ocaml
+opam=$(command -v opam || true)
+if [[ -n $opam ]]; then
+    eval $(opam env)
+fi
 
 # Rust
-. "$HOME/.cargo/env"
+cargo=$(command -v cargo || true)
+if [[ -n $cargo ]]; then
+    . "$HOME/.cargo/env"
+fi
 
 # asdf - version control
-. $HOME/.config/asdf/asdf.sh
-fpath=(${ASDF_DIR}/completions $fpath)
+asdf=$(command -v asdf || true)
+if [[ -n $asdf ]]; then
+    . $HOME/.config/asdf/asdf.sh
+    fpath=(${ASDF_DIR}/completions $fpath)
+fi
 
 
