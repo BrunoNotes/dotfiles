@@ -23,7 +23,7 @@ autoload -U down-line-or-beginning-search
 zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
 
-# Theming section 
+# Theming section
 autoload -Uz colors && colors
 
 # Useful Functions
@@ -38,4 +38,3 @@ zsh_add_file "zsh-prompt"
 # Plugins
 zsh_add_plugin "zsh-users/zsh-autosuggestions"
 zsh_add_plugin "zsh-users/zsh-syntax-highlighting"
-

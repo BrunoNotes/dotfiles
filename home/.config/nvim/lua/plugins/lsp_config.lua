@@ -101,34 +101,16 @@ local cmp_config = function(cmp, luasnip)
                 i = cmp.mapping.abort(),
                 c = cmp.mapping.close(),
             }),
-            ["<S-L>"] = cmp.mapping(function(fallback)
-                if luasnip.expandable() then
-                    luasnip.expand()
-                elseif luasnip.expand_or_jumpable() then
-                    luasnip.expand_or_jump()
-                else
-                    fallback()
-                end
-            end, {
-                "i",
-                "s",
-            }),
-            ["<S-H>"] = cmp.mapping(function(fallback)
-                if luasnip.jumpable(-1) then
-                    luasnip.jump(-1)
-                else
-                    fallback()
-                end
-            end, {
-                "i",
-                "s",
-            }),
             -- Accept currently selected item. If none selected, `select` first item.
             -- Set `select` to `false` to only confirm explicitly selected items.
             ["<CR>"] = cmp.mapping.confirm({ select = false }),
             ["<Tab>"] = cmp.mapping(function(fallback)
                 if cmp.visible() then
                     cmp.select_next_item()
+                elseif luasnip.expandable() then
+                    luasnip.expand()
+                elseif luasnip.expand_or_jumpable() then
+                    luasnip.expand_or_jump()
                 elseif check_backspace() then
                     fallback()
                 else
@@ -141,6 +123,8 @@ local cmp_config = function(cmp, luasnip)
             ["<S-Tab>"] = cmp.mapping(function(fallback)
                 if cmp.visible() then
                     cmp.select_prev_item()
+                elseif luasnip.jumpable(-1) then
+                    luasnip.jump(-1)
                 else
                     fallback()
                 end
@@ -228,6 +212,7 @@ return {
 
         vim.api.nvim_create_autocmd('LspAttach', {
             desc = 'LSP actions',
+            ---@diagnostic disable-next-line: unused-local
             callback = function(event)
                 -- Create your keybindings here...
                 local nmap = require("utils").nmap

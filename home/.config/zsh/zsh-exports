@@ -23,6 +23,7 @@ export PATH="$HOME/.local/lang/go/bin:$PATH"
 export PATH="$HOME/go/bin:$PATH"
 export PATH="$HOME/.local/lang/zig:$PATH"
 export PATH="$HOME/.local/lang/Odin:$PATH"
+eval $(opam env)
 
 # Rust
 . "$HOME/.cargo/env"
@@ -30,4 +31,5 @@ export PATH="$HOME/.local/lang/Odin:$PATH"
 # asdf - version control
 . $HOME/.config/asdf/asdf.sh
 fpath=(${ASDF_DIR}/completions $fpath)
+
 
