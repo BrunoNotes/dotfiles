@@ -10,7 +10,7 @@ return {
                 vim.cmd(string.format(":Git commit -m '%s'", message)),
                 vim.api.nvim_feedkeys("<cr>", "n", false)
             }
-        end, { "Quick commit" })
-        nmap("<leader>gs", vim.cmd.Git, { "Open" })
+        end, "Fugitive: Quick commit")
+        nmap("<leader>gs", vim.cmd.Git, "Fugitive: Open")
     end
 }

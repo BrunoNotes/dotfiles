@@ -3,6 +3,6 @@ return {
     config = function()
         local nmap = require("utils").nmap
 
-        nmap("<leader>u", vim.cmd.UndotreeToggle, { "toggle" })
+        nmap("<leader>u", vim.cmd.UndotreeToggle, "UndoTree: toggle")
     end,
 }

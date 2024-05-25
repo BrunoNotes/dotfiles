@@ -17,13 +17,13 @@ return {
 
         local nmap = require("utils").nmap
 
-        nmap("<leader>hf", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, { "menu" })
-        nmap("<leader>ha", function() harpoon:list():add() end, { "add" })
-        nmap("<C-n>", function() harpoon:list():next() end, { "next" })
-        nmap("<C-p>", function() harpoon:list():prev() end, { "previous" })
-        nmap("<leader>1", function() harpoon:list():select(1) end, { "go to 1" })
-        nmap("<leader>2", function() harpoon:list():select(2) end, { "go to 2" })
-        nmap("<leader>3", function() harpoon:list():select(3) end, { "go to 3" })
-        nmap("<leader>4", function() harpoon:list():select(4) end, { "go to 4" })
+        nmap("<leader>hf", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, "Harpoon: menu")
+        nmap("<leader>ha", function() harpoon:list():add() end, "Harpoon: add")
+        nmap("<C-n>", function() harpoon:list():next() end, "Harpoon: next")
+        nmap("<C-p>", function() harpoon:list():prev() end, "Harpoon: previous")
+        for _, n in ipairs({ 1, 2, 3, 4, 5 }) do
+            nmap(string.format("<leader>%s", n), function() harpoon:list():select(n) end,
+                { string.format("Harpoon: go to list %s", n) })
+        end
     end,
 }

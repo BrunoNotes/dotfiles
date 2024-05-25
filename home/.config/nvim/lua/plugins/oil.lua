@@ -14,9 +14,10 @@ return {
                 ["<F1>"] = "actions.show_help",
                 ["<CR>"] = "actions.select",
                 ["<C-l>"] = "actions.select",
-                ["<C-s>"] = "actions.select_vsplit",
+                ["<C-s>"] = ":w<cr>",
+                -- ["<C-s>"] = "actions.select_vsplit",
                 -- ["<C-h>"] = "actions.select_split",
-                ["<C-t>"] = "actions.select_tab",
+                -- ["<C-t>"] = "actions.select_tab",
                 ["<C-p>"] = "actions.preview",
                 ["<C-c>"] = "actions.close",
                 ["<ESC>"] = "actions.close",
@@ -33,7 +34,7 @@ return {
             },
         })
 
-        nmap("<leader>fb", ":Oil <cr>", { "Opens oil file browser" })
-        -- nmap("<leader>fb", ":Oil --float<cr>", { "Opens oil file browser" })
+        nmap("<leader>fb", ":Oil <cr>", "Oil: opens file browser")
+        -- nmap("<leader>fb", ":Oil --float<cr>", { "Oil: opens file browser" })
     end
 }

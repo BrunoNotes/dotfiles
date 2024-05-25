@@ -1,14 +1,18 @@
 local description = function(descs)
-    local desc = ""
-    ---@diagnostic disable-next-line: unused-local
-    for i, v in ipairs(descs) do
-        if desc == "" then
-            desc = tostring(v)
-        else
-            desc = desc .. ", " .. tostring(v)
+    if type(descs) == "table" then
+        local desc = ""
+        ---@diagnostic disable-next-line: unused-local
+        for i, v in ipairs(descs) do
+            if desc == "" then
+                desc = tostring(v)
+            else
+                desc = desc .. ", " .. tostring(v)
+            end
         end
+        return desc
+    else
+        return descs
     end
-    return desc
 end
 
 local M = {}
