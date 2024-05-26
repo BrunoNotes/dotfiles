@@ -15,7 +15,7 @@ export LESS=-R
 # Environment variables set everywhere
 export VISUAL="vim"
 export EDITOR="vim"
-export TERMINAL="alacritty"
+export TERMINAL="wezterm"
 export PATH="$HOME/.local/bin:$PATH"
 
 # Languages
@@ -37,9 +37,10 @@ if [[ -n $cargo ]]; then
 fi
 
 # asdf - version control
+export PATH="$HOME/Apps/asdf/bin:$PATH"
 asdf=$(command -v asdf || true)
 if [[ -n $asdf ]]; then
-    . $HOME/.config/asdf/asdf.sh
+    . $HOME/Apps/asdf/asdf.sh
     fpath=(${ASDF_DIR}/completions $fpath)
 fi
 

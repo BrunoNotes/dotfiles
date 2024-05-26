@@ -63,8 +63,9 @@ if [[ -n $cargo ]]; then
     . "$HOME/.cargo/env"
 fi
 
+export PATH="$HOME/Apps/asdf/bin:$PATH"
 asdf=$(command -v asdf || true)
 if [[ -n $asdf ]]; then
-    . "$HOME/.config/asdf/asdf.sh"
-    . "$HOME/.config/asdf/completions/asdf.bash"
+    . "$HOME/Apps/asdf/asdf.sh"
+    . "$HOME/Apps/asdf/completions/asdf.bash"
 fi
