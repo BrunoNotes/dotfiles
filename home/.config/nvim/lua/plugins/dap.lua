@@ -54,6 +54,7 @@ local function adapters(dap)
             project = "${workspaceFolder}",
         }
     }
+
 end
 
 return {
