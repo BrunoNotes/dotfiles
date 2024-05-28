@@ -1,4 +1,5 @@
 local wezterm = require('wezterm')
+local mux = wezterm.mux
 local config = {}
 
 config.color_scheme = 'tokyonight_night'
@@ -29,6 +30,11 @@ config.keys = {
     { key = 'c',          mods = 'SHIFT|CTRL',     action = act.CopyTo 'Clipboard' },
     { key = 'C',          mods = 'SHIFT|CTRL',     action = act.CopyTo 'Clipboard' },
 }
+
+wezterm.on('gui-startup', function(cmd)
+  local tab, pane, window = mux.spawn_window(cmd or {})
+  window:gui_window():maximize()
+end)
 
 return config
 

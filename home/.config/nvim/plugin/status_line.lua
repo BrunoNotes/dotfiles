@@ -102,7 +102,7 @@ M.set_active                = function(self)
     local filename = self:get_filename()
     local icon = self.get_icon()
     local line_col = self:get_line_col()
-    local lsp_client_name = self.get_lsp_name()
+    -- local lsp_client_name = self.get_lsp_name()
 
     return table.concat({
         -- left
@@ -115,8 +115,6 @@ M.set_active                = function(self)
         -- middle
         "%=",
         -- right
-        separator[1],
-        lsp_client_name,
         separator[1],
         git,
         separator[1],
@@ -131,7 +129,7 @@ local statusline            = setmetatable(M, {
     end
 })
 
-vim.api.nvim_create_autocmd({ "BufWinEnter", "WinEnter", "LspAttach" }, {
+vim.api.nvim_create_autocmd({ "BufWinEnter", "WinEnter" }, {
     callback = function()
         vim.opt["statusline"] = statusline('active')
     end,

@@ -43,22 +43,6 @@ color = '#db4b4b'
 [font]
 size = 13
 
-[font.bold]
-family = "JetBrainsMono Nerd Font"
-style = "Bold"
-
-[font.bold_italic]
-family = "JetBrainsMono Nerd Font"
-style = "Bold Italic"
-
-[font.italic]
-family = "JetBrainsMono Nerd Font"
-style = "Italic"
-
-[font.normal]
-family = "JetBrainsMono Nerd Font"
-style = "Regular"
-
 [font.offset]
 x = 0
 y = 0
