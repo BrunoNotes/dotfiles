@@ -5,7 +5,7 @@ alias free='free -m'                                            # Show sizes in 
 alias ll='ls -al'
 alias sudo='sudo -E'
 alias tm="tmux a"
-alias grub-update='grub-mkconfig -o /boot/grub/grub.cfg'
+alias grub-update='grub2-mkconfig -o /boot/grub2/grub.cfg'
 alias gs='lazygit' # git status
 
 ## Scripts
