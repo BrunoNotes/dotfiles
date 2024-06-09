@@ -6,7 +6,7 @@ nmap("<leader><cr>", function()
     local buffer = require("utils").find_buffer_by_name("term://")
 
     if buffer == -1 then
-        vim.cmd(":terminal")
+        vim.cmd(":terminal zsh")
     else
         vim.cmd(string.format(":buffer %s", buffer))
     end

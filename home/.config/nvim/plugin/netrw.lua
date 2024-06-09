@@ -8,8 +8,8 @@ vim.api.nvim_create_autocmd("filetype", {
     pattern = "netrw",
     desc = "Better mappings for netrw",
     callback = function()
-        vim.keymap.set("n", "l", "<cr>", { remap = true, buffer = true, desc = "Edit file" })
-        vim.keymap.set("n", "h", "-", { remap = true, buffer = true, desc = "Go up a directory" })
+        -- vim.keymap.set("n", "l", "<cr>", { remap = true, buffer = true, desc = "Edit file" })
+        -- vim.keymap.set("n", "h", "-", { remap = true, buffer = true, desc = "Go up a directory" })
     end
 })
 

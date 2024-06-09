@@ -1,5 +1,5 @@
-#!/bin/sh
-ICON_PATH="/home/bruno/Pictures/Images/Godot_icon.png"
+#!/bin/bash
+ICON_PATH="/home/bruno/Pictures/Images/icons/Godot_icon.png"
 TEMP_DIR="/tmp"
 APPS_DIR="$HOME/Apps"
 BIN_DIR="$HOME/.local/bin"

@@ -25,10 +25,6 @@ local lang_config = function(lsp_config, lsp_capabilities, mason_lspconfig)
     require("neodev").setup({})
 
     lsp_config.rust_analyzer.setup({
-        cmd = {
-            -- "rustup", "run", "nightly", "rust-analyzer",
-            "rustup", "run", "stable", "rust-analyzer",
-        },
         settings = {
             ["rust-analyzer"] = {
                 -- enable clippy on save
