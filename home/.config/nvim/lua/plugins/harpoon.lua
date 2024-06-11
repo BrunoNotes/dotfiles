@@ -19,10 +19,8 @@ return {
 
         nmap("<leader>hf", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, "Harpoon: menu")
         nmap("<leader>ha", function() harpoon:list():add() end, "Harpoon: add")
-        -- nmap("<C-n>", function() harpoon:list():next() end, "Harpoon: next")
-        -- nmap("<C-p>", function() harpoon:list():prev() end, "Harpoon: previous")
-        -- nmap("<C-S-N>", function() harpoon:list():next() end, "Harpoon: next")
-        -- nmap("<C-S-P>", function() harpoon:list():prev() end, "Harpoon: previous")
+        nmap("<leader>n", function() harpoon:list():next() end, "Harpoon: next")
+        nmap("<leader>p", function() harpoon:list():prev() end, "Harpoon: previous")
         for _, n in ipairs({ 1, 2, 3, 4, 5 }) do
             nmap(string.format("<leader>%s", n), function() harpoon:list():select(n) end,
                 { string.format("Harpoon: go to list %s", n) })
