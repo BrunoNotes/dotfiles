@@ -97,6 +97,10 @@ local cmp_config = function(cmp, luasnip)
                 i = cmp.mapping.abort(),
                 c = cmp.mapping.close(),
             }),
+            ["<ESC>"] = cmp.mapping({
+                i = cmp.mapping.abort(),
+                c = cmp.mapping.close(),
+            }),
             -- Accept currently selected item. If none selected, `select` first item.
             -- Set `select` to `false` to only confirm explicitly selected items.
             ["<CR>"] = cmp.mapping.confirm({ select = false }),
@@ -120,6 +124,30 @@ local cmp_config = function(cmp, luasnip)
                 if cmp.visible() then
                     cmp.select_prev_item()
                 elseif luasnip.jumpable(-1) then
+                    luasnip.jump(-1)
+                else
+                    fallback()
+                end
+            end, {
+                "i",
+                "s",
+            }),
+            ["<C-l>"] = cmp.mapping(function(fallback)
+                if luasnip.expandable() then
+                    luasnip.expand()
+                elseif luasnip.expand_or_jumpable() then
+                    luasnip.expand_or_jump()
+                elseif check_backspace() then
+                    fallback()
+                else
+                    fallback()
+                end
+            end, {
+                "i",
+                "s",
+            }),
+            ["<C-h>"] = cmp.mapping(function(fallback)
+                if luasnip.jumpable(-1) then
                     luasnip.jump(-1)
                 else
                     fallback()
@@ -227,8 +255,8 @@ return {
                 nmap("<leader>la", "<cmd>lua vim.lsp.buf.code_action()<cr>", "LSP: Code action")
                 nmap("<leader>lj", "<cmd>lua vim.diagnostic.goto_next({buffer=0})<cr>", "LSP: Go to next definition")
                 nmap("<leader>lk", "<cmd>lua vim.diagnostic.goto_prev({buffer=0})<cr>", "LSP: Go to previous definition")
-                nmap("<leader>ls", "<cmd>lua vim.lsp.buf.signature_help()<CR>",  "LSP: Help" )
-                nmap("<leader>lq", "<cmd>lua vim.diagnostic.setloclist()<CR>",  "LSP: setloclist" )
+                nmap("<leader>ls", "<cmd>lua vim.lsp.buf.signature_help()<CR>", "LSP: Help")
+                nmap("<leader>lq", "<cmd>lua vim.diagnostic.setloclist()<CR>", "LSP: setloclist")
             end
         })
 
