@@ -1,4 +1,4 @@
-local env_path = vim.fn.getcwd() .. "/.nvim_env"
+local env_path = vim.fn.getcwd() .. "/.nvim_env.json"
 
 local env_table = {
     dap_executable_path = ""
