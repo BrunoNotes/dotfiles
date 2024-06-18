@@ -1,4 +1,4 @@
-local env_path = vim.fn.getcwd() .. "/.nvim_env.json"
+local env_path = vim.fn.getcwd() .. "/.nvim_env"
 
 local env_table = {
     dap_executable_path = ""
@@ -29,6 +29,11 @@ local read_json = function(path)
     return json
 end
 
+vim.api.nvim_create_user_command("NvimEnvGenerate", function()
+    local json = vim.json.encode(env_table)
+    write_file(env_path, json)
+end, { desc = "Generate empty nvim env file", nargs = '*' })
+
 
 local M = {}
 
@@ -36,8 +41,7 @@ M.get_env = function()
     if file_exists(env_path) then
         return read_json(env_path)
     else
-        write_file(env_path, vim.json.encode(env_table))
-        return read_json(env_path)
+        return nil
     end
 end
 

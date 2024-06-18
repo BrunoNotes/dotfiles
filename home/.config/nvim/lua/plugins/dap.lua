@@ -2,13 +2,19 @@ local env = require("nvim_env")
 
 local dap_executable = function(exec_text, exec_path)
     local nvim_env = env.get_env()
-    if nvim_env.dap_executable_path == "" then
-        local input = vim.fn.input(exec_text, exec_path, "file")
-        nvim_env.dap_executable_path = input
-        env.write_json_env(nvim_env)
-        return input
+
+    if nvim_env ~= nil then
+        if nvim_env.dap_executable_path == "" then
+            local input = vim.fn.input(exec_text, exec_path, "file")
+            nvim_env.dap_executable_path = input
+            env.write_json_env(nvim_env)
+            return input
+        else
+            return nvim_env.dap_executable_path
+        end
     else
-        return nvim_env.dap_executable_path
+        local input = vim.fn.input(exec_text, exec_path, "file")
+        return input
     end
 end
 
