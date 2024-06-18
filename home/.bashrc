@@ -69,3 +69,6 @@ if [[ -n $asdf ]]; then
     . "$HOME/Apps/asdf/asdf.sh"
     . "$HOME/Apps/asdf/completions/asdf.bash"
 fi
+
+# Vim mode
+set -o vi

@@ -1,3 +1,17 @@
+local env = require("nvim_env")
+
+local dap_executable = function(exec_text, exec_path)
+    local nvim_env = env.get_env()
+    if nvim_env.dap_executable_path == "" then
+        local input = vim.fn.input(exec_text, exec_path, "file")
+        nvim_env.dap_executable_path = input
+        env.write_json_env(nvim_env)
+        return input
+    else
+        return nvim_env.dap_executable_path
+    end
+end
+
 local function adapters(dap)
     local mason_folder = vim.fn.stdpath("data") .. "/mason"
 
@@ -14,7 +28,7 @@ local function adapters(dap)
             type = "gdb",
             request = "launch",
             program = function()
-                return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/target/debug/', 'file')
+                return dap_executable("Path to executable: ", vim.fn.getcwd() .. "/target/debug/")
             end,
             cwd = "${workspaceFolder}",
             stopAtBeginningOfMainSubprogram = false,
@@ -23,9 +37,9 @@ local function adapters(dap)
 
     -- dotnet
     dap.adapters.coreclr = {
-        type = 'executable',
+        type = "executable",
         command = mason_folder .. "/bin/netcoredbg",
-        args = { '--interpreter=vscode' }
+        args = { "--interpreter=vscode" }
     }
 
     dap.configurations.cs = {
@@ -34,7 +48,7 @@ local function adapters(dap)
             name = "launch - netcoredbg",
             request = "launch",
             program = function()
-                return vim.fn.input('Path to dll', vim.fn.getcwd() .. '/bin/Debug/', 'file')
+                return dap_executable("Path to dll", vim.fn.getcwd() .. "/bin/Debug/")
             end,
         },
     }
@@ -42,7 +56,7 @@ local function adapters(dap)
     -- godot
     dap.adapters.godot = {
         type = "server",
-        host = '127.0.0.1',
+        host = "127.0.0.1",
         port = 6006, -- Editor -> Editor Settings -> Network -> Debug Adapter
     }
 
@@ -54,7 +68,6 @@ local function adapters(dap)
             project = "${workspaceFolder}",
         }
     }
-
 end
 
 return {
