@@ -10,6 +10,11 @@ return {
 
         local pickers_config = {
             theme = "ivy",
+            layout_config = {
+                bottom_pane = {
+                    height = 0.2,
+                },
+            }
         }
 
         telescope.setup {
@@ -48,6 +53,7 @@ return {
                     -- cwd = vim.fn.expand("%:p:h"),
                     no_ignore = true,
                     no_ignore_parent = true,
+                    layout_config = pickers_config.layout_config,
                 },
                 git_files = pickers_config,
                 buffers = pickers_config,

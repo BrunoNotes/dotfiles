@@ -69,7 +69,9 @@ local lang_config = function(lsp_config, lsp_capabilities, mason_lspconfig)
 end
 
 local cmp_config = function(cmp, luasnip)
-    require("luasnip.loaders.from_vscode").lazy_load()
+    luasnip.add_snippets("html", require("snippets.html"));
+    luasnip.add_snippets("rust", require("snippets.rust"));
+    luasnip.add_snippets("markdown", require("snippets.markdown"));
 
     luasnip.filetype_extend("javascript", { "html" })
     luasnip.filetype_extend("javascriptreact", { "html" })
@@ -100,34 +102,34 @@ local cmp_config = function(cmp, luasnip)
             -- Accept currently selected item. If none selected, `select` first item.
             -- Set `select` to `false` to only confirm explicitly selected items.
             ["<CR>"] = cmp.mapping.confirm({ select = false }),
-            ["<Tab>"] = cmp.mapping(function(fallback)
-                if cmp.visible() then
-                    cmp.select_next_item()
-                elseif luasnip.expandable() then
-                    luasnip.expand()
-                elseif luasnip.expand_or_jumpable() then
-                    luasnip.expand_or_jump()
-                elseif check_backspace() then
-                    fallback()
-                else
-                    fallback()
-                end
-            end, {
-                "i",
-                "s",
-            }),
-            ["<S-Tab>"] = cmp.mapping(function(fallback)
-                if cmp.visible() then
-                    cmp.select_prev_item()
-                elseif luasnip.jumpable(-1) then
-                    luasnip.jump(-1)
-                else
-                    fallback()
-                end
-            end, {
-                "i",
-                "s",
-            }),
+            -- ["<Tab>"] = cmp.mapping(function(fallback)
+            --     if cmp.visible() then
+            --         cmp.select_next_item()
+            --     elseif luasnip.expandable() then
+            --         luasnip.expand()
+            --     elseif luasnip.expand_or_jumpable() then
+            --         luasnip.expand_or_jump()
+            --     elseif check_backspace() then
+            --         fallback()
+            --     else
+            --         fallback()
+            --     end
+            -- end, {
+            --     "i",
+            --     "s",
+            -- }),
+            -- ["<S-Tab>"] = cmp.mapping(function(fallback)
+            --     if cmp.visible() then
+            --         cmp.select_prev_item()
+            --     elseif luasnip.jumpable(-1) then
+            --         luasnip.jump(-1)
+            --     else
+            --         fallback()
+            --     end
+            -- end, {
+            --     "i",
+            --     "s",
+            -- }),
             ["<C-l>"] = cmp.mapping(function(fallback)
                 if luasnip.expandable() then
                     luasnip.expand()
@@ -206,7 +208,6 @@ return {
         -- snippets:
         "L3MON4D3/LuaSnip",
         'saadparwaiz1/cmp_luasnip',
-        "rafamadriz/friendly-snippets",
     },
     config = function()
         require('mason').setup()
