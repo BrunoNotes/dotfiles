@@ -12,7 +12,7 @@ return {
             theme = "ivy",
             layout_config = {
                 bottom_pane = {
-                    height = 0.2,
+                    height = 0.3,
                 },
             }
         }
