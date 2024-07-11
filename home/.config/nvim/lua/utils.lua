@@ -41,7 +41,7 @@ M.open_file_or_buffer = function(file_path, buffer)
         vim.cmd(string.format(":buffer %s", buffer))
     end
 end
-
+-- :h map-overview
 M.nmap = function(keys, func, desc)
     vim.keymap.set("n", keys, func, { silent = true, desc = description(desc) })
 end
@@ -58,8 +58,19 @@ M.xmap = function(keys, func, desc)
     vim.keymap.set("x", keys, func, { silent = true, desc = description(desc) })
 end
 
+-- terminal mode
 M.tmap = function(keys, func, desc)
     vim.keymap.set("t", keys, func, { silent = true, desc = description(desc) })
+end
+
+-- select mode
+M.smap = function(keys, func, desc)
+    vim.keymap.set("s", keys, func, { silent = true, desc = description(desc) })
+end
+
+-- command line
+M.cmap = function(keys, func, desc)
+    vim.keymap.set("c", keys, func, { silent = true, desc = description(desc) })
 end
 
 M.icons = {

@@ -1,4 +1,3 @@
-
 local options = {
     -- :help options
     syntax = "on",
