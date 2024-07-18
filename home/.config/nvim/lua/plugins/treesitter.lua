@@ -10,6 +10,7 @@ return {
         local languages = {
             "lua",
             "rust",
+            "sql",
         }
 
         configs.setup({
