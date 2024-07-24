@@ -59,6 +59,9 @@ local lang_config = function(lsp_config, lsp_capabilities, mason_lspconfig)
         }
     })
 
+    -- zig
+    vim.g.zig_fmt_autosave = 0
+
     mason_lspconfig.setup_handlers({
         function(server_name)
             lsp_config[server_name].setup({
