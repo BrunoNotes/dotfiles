@@ -36,12 +36,4 @@ if [[ -n $cargo ]]; then
     . "$HOME/.cargo/env"
 fi
 
-# asdf - version control
-export PATH="$HOME/Apps/asdf/bin:$PATH"
-asdf=$(command -v asdf || true)
-if [[ -n $asdf ]]; then
-    . $HOME/Apps/asdf/asdf.sh
-    fpath=(${ASDF_DIR}/completions $fpath)
-fi
-
 
