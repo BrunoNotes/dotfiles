@@ -8,14 +8,6 @@ return {
         local actions = require("telescope.actions")
         local builtin = require("telescope.builtin")
 
-        local pickers_config = {
-            theme = "ivy",
-            layout_config = {
-                bottom_pane = {
-                    height = 0.3,
-                },
-            }
-        }
 
         telescope.setup {
             defaults = {
@@ -43,26 +35,22 @@ return {
                 },
                 -- border = false,
                 winblend = 0,
-                preview = false,
+                preview = true,
             },
             pickers = {
                 -- Default configuration for builtin pickers goes here:
                 find_files = {
-                    theme = pickers_config.theme,
-                    cwd = vim.loop.cwd(),
+                    -- cwd = vim.loop.cwd(),
                     -- cwd = vim.fn.expand("%:p:h"),
                     no_ignore = true,
                     no_ignore_parent = true,
-                    layout_config = pickers_config.layout_config,
+                    -- theme = "ivy",
+                    -- layout_config = {
+                    --     bottom_pane = {
+                    --         height = 0.3,
+                    --     },
+                    -- }
                 },
-                git_files = pickers_config,
-                buffers = pickers_config,
-                keymaps = pickers_config,
-                live_grep = pickers_config,
-                current_buffer_fuzzy_find = pickers_config,
-                help_tags = pickers_config,
-                diagnostics = pickers_config,
-                man_pages = pickers_config
             },
             extensions = {},
         }

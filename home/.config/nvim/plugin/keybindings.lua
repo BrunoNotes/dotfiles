@@ -113,6 +113,13 @@ M.misk = function()
     nmap("<leader><leader>x", "<cmd>source %<cr>", "Execute current file")
 end
 
+M.quickfix_list = function()
+    nmap("<leader>qo", "<cmd>copen<cr>", "Open quickfix list")
+    nmap("<leader>qc", "<cmd>cclose<cr>", "Close quickfix list")
+    nmap("<C-n>", "<cmd>cnext<cr>zz", "Goes to next quickfix list item")
+    nmap("<C-p>", "<cmd>cprevious<cr>zz", "Goes to next quickfix list item")
+end
+
 return M.movement(),
     M.text(),
     M.copy_paste(),
@@ -120,4 +127,5 @@ return M.movement(),
     M.buffers(),
     M.spell(),
     M.custom_functions(),
-    M.misk()
+    M.misk(),
+    M.quickfix_list()
