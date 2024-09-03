@@ -5,8 +5,6 @@
     "workbench.colorCustomizations": {},
     "security.workspace.trust.startupPrompt": "never",
     "workbench.startupEditor": "none",
-    "vim.useSystemClipboard": true,
-    "vim.leader": "Space",
     "workbench.colorTheme": "Tokyo Night",
     "window.restoreWindows": "none",
     "extensions.ignoreRecommendations": true,
@@ -15,12 +13,62 @@
     "editor.rulers": [80],
     "editor.renderLineHighlight": "gutter",
     "explorer.compactFolders": false,
-    "breadcrumbs.enabled": false,
-    "sqltools.highlightQuery": false,
-    "files.hotExit": "off",
-    "editor.autoClosingBrackets": "never",
-    "editor.autoClosingComments": "never",
-    "editor.autoClosingQuotes": "never",
-    "sqltools.useNodeRuntime": true,
-    "godot.csharp.executablePath": "/home/bruno/Apps/Godot/Godot_v4.2.2-stable_mono_linux_x86_64/Godot_v4.2.2-stable_mono_linux.x86_64",
+    "vim.useSystemClipboard": false,
+    "vim.incsearch": true,
+    "vim.hlsearch": true,
+    "vim.leader": " ",
+    "vim.normalModeKeyBindings": [
+    {
+      "before": ["<leader>", "h", "a"],
+      "commands": ["vscode-harpoon.addEditor"]
+    },
+    {
+      "before": ["<leader>", "h", "e"],
+      "commands": ["vscode-harpoon.editEditors"]
+    },
+    {
+      "before": ["<leader>", "h", "f"],
+      "commands": ["vscode-harpoon.editorQuickPick"]
+    },
+    {
+      "before": ["<leader>", "1"],
+      "commands": ["vscode-harpoon.gotoEditor1"]
+    },
+    {
+      "before": ["<leader>", "2"],
+      "commands": ["vscode-harpoon.gotoEditor2"]
+    },
+    {
+      "before": ["<leader>", "3"],
+      "commands": ["vscode-harpoon.gotoEditor3"]
+    },
+    {
+      "before": ["<leader>", "4"],
+      "commands": ["vscode-harpoon.gotoEditor4"]
+    },
+    {
+      "before": ["<leader>", "5"],
+      "commands": ["vscode-harpoon.gotoEditor5"]
+    },
+    {
+      "before": ["<leader>", "Enter"],
+      "commands": ["workbench.action.terminal.toggleTerminal"]
+    },
+    {
+      "before": ["<leader>", "f", "b"],
+      "commands": ["workbench.view.explorer"]
+    },
+    {
+      "before": ["<leader>", "l", "f"],
+      "commands": ["editor.action.formatDocument"]
+    },
+    {
+      "before": ["<leader>", "."],
+      "commands": ["workbench.action.quickOpen"]
+    },
+    {
+      "before": ["ctrl", "w", "q"],
+      "commands": ["-workbench.action.closeActiveEditor"]
+    },
+  ]
 }
