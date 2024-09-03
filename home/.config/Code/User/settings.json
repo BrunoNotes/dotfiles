@@ -67,8 +67,20 @@
       "commands": ["workbench.action.quickOpen"]
     },
     {
+      "before": ["<leader>", "g", "d"],
+      "commands": ["workbench.action.findInFiles"]
+    },
+    {
       "before": ["ctrl", "w", "q"],
       "commands": ["-workbench.action.closeActiveEditor"]
+    },
+    {
+      "before": ["<leader>", "b", "l"],
+      "commands": ["workbench.action.quickOpenPreviousRecentlyUsedEditorInGroup"]
+    },
+    {
+      "before": ["<leader>", "b", "q"],
+      "commands": ["workbench.action.closeEditorsInGroup"]
     },
   ]
 }
