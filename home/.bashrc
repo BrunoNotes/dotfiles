@@ -55,6 +55,7 @@ export PATH="$HOME/.local/local/go/bin:$PATH"
 export PATH="$HOME/go/bin:$PATH"
 export PATH="$HOME/.local/lang/zig:$PATH"
 export PATH="$HOME/.local/lang/Odin:$PATH"
+export ASPNETCORE_ENVIRONMENT="Development"
 
 # User specific environment and startup programs
 # Rust

@@ -36,4 +36,6 @@ if [[ -n $cargo ]]; then
     . "$HOME/.cargo/env"
 fi
 
+# Csharp
+export ASPNETCORE_ENVIRONMENT="Development"
 
