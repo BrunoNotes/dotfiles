@@ -82,5 +82,9 @@
       "before": ["<leader>", "b", "q"],
       "commands": ["workbench.action.closeEditorsInGroup"]
     },
-  ]
+  ],
+  "terminal.external.linuxExec": "zsh",
+  "zig.path": "/home/bruno/.local/lang/zig/zig",
+  "zig.zls.path": "/home/bruno/.config/Code/User/globalStorage/ziglang.vscode-zig/zls_install/zls",
+  "zig.initialSetupDone": true
 }

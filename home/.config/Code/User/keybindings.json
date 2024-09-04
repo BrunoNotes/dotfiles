@@ -50,7 +50,11 @@
         "command": "workbench.action.closeSidebar",
         "when": "sideBarFocus"
     },
-
+    {
+        "key": "capslock",
+        "command": "workbench.action.closeSidebar",
+        "when": "sideBarFocus"
+    },
     {
         "key": "ctrl+j",
         "command": "repl.action.historyNext",
