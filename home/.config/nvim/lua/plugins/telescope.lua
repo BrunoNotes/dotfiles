@@ -8,7 +8,6 @@ return {
         local actions = require("telescope.actions")
         local builtin = require("telescope.builtin")
 
-
         telescope.setup {
             defaults = {
                 -- Default configuration for telescope goes here:

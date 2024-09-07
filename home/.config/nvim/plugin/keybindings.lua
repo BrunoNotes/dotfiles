@@ -88,7 +88,7 @@ end
 M.spell = function()
     nmap("<leader>sp", "<cmd>setlocal spell!<cr>", "Activate spell check") -- Activate spellcheck
     nmap("<leader>sr", "<cmd>spellr<cr>", "Repeat spell correction to matching words")
-    -- imap("<C-w>", "<C-x>s",  "Show spell suggestions" )                  -- show suggestions
+    imap("<C-x>s", "<C-x>s",  "Show spell suggestions" )                  -- show suggestions
 end
 
 M.custom_functions = function()

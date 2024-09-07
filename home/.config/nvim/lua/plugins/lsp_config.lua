@@ -4,10 +4,9 @@ local lang_config = function(lsp_config, lsp_capabilities, mason_lspconfig)
     mason_lspconfig.setup({
         ensure_installed = {
             -- Replace these with whatever servers you want to install
-            'rust_analyzer',
-            'taplo',
             'lua_ls',
-            'bashls'
+            'bashls',
+            'zls',
         }
     })
 
