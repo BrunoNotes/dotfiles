@@ -57,6 +57,7 @@ local lang_config = function(lsp_config, lsp_capabilities, mason_lspconfig)
     })
 
     -- zig
+    -- lsp_config.zls.setup({})
     vim.g.zig_fmt_autosave = 0
 
     mason_lspconfig.setup_handlers({
@@ -85,7 +86,8 @@ local cmp_config = function(cmp, luasnip)
             end,
         },
         preselect = cmp.PreselectMode.None,
-        completion = { completeopt = "menu,menuone,noselect" },
+        -- completion = { completeopt = "menu,menuone,noselect" },
+        completion = { completeopt = "noselect" },
         mapping = cmp.mapping.preset.insert({
             ["<C-k>"] = cmp.mapping.select_prev_item(),
             ["<C-j>"] = cmp.mapping.select_next_item(),
