@@ -63,7 +63,7 @@ return {
         nmap("<leader>kb", builtin.keymaps, "Telescope: keymaps")                                          -- list keymaps
         nmap("<leader>gf", builtin.current_buffer_fuzzy_find, "Telescope: fuzzy finder on current buffer") -- grep current file
         nmap("<leader>gp", builtin.live_grep, "Telescope: live grep on project dir")
-        nmap("<leader>bf", builtin.buffers, "Telescope: buffers")
+        nmap("<leader>bl", builtin.buffers, "Telescope: buffers")
         nmap("<leader>hp", builtin.help_tags, "Telescope: help")
         nmap("<leader>mp", builtin.man_pages, "Telescope: Man Page")
         nmap("<leader>di", builtin.diagnostics, "Telescope: LSP diagnostics")

@@ -111,7 +111,14 @@ M.misk = function()
     nmap("<C-s>", "<cmd>w<cr>", "Save file")
     nmap("<leader>x", "<cmd>. lua<cr>", "Execute current line")
     nmap("<leader><leader>x", "<cmd>source %<cr>", "Execute current file")
+
+    -- annoying
+    xmap("u", "<Nop>", "Disable lowercase")
+    vmap("u", "<Nop>", "Disable lowercase")
+    xmap("U", "<Nop>", "Disable uppercase")
+    vmap("U", "<Nop>", "Disable uppercase")
 end
+
 
 M.quickfix_list = function()
     nmap("<leader>qo", "<cmd>copen<cr>", "Open quickfix list")

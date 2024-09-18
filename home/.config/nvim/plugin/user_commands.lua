@@ -1,14 +1,16 @@
 local utils = require("utils")
 
-vim.api.nvim_create_user_command("LspStatus", function()
-    local status = vim.lsp.status()
-    if (status == nil or status == "") then
-        print("LSP Status: Loaded")
-    else
-        print(string.format("Lsp Status: Loading, %s", status))
-    end
-end, {})
+-- LspStatus
+-- vim.api.nvim_create_user_command("LspStatus", function()
+--     local status = vim.lsp.status()
+--     if (status == nil or status == "") then
+--         print("LSP Status: Loaded")
+--     else
+--         print(string.format("Lsp Status: Loading, %s", status))
+--     end
+-- end, {})
 
+-- Notes
 vim.api.nvim_create_user_command("Notes", function(opts)
     local default_note = "/notes/default.md"
     local temp_note = "/tmp/temp.md"
@@ -30,6 +32,7 @@ vim.api.nvim_create_user_command("Notes", function(opts)
     end
 end, { desc = "Open Notes", nargs = '*' })
 
+-- ChangeCWD
 vim.api.nvim_create_user_command("ChangeCWD", function()
     local file_cwd = vim.fn.expand("%:p:h")
     if (file_cwd ~= nil or file_cwd ~= "") then
@@ -43,6 +46,7 @@ vim.api.nvim_create_user_command("ChangeCWD", function()
     print(string.format("CWD changed to: %s", vim.loop.cwd()))
 end, { desc = "Change current working directory", nargs = '*' })
 
+-- MakeFileExecutable
 vim.api.nvim_create_user_command("MakeFileExecutable", function()
     vim.cmd(":!chmod +x %")
 end, { desc = "Make current file executable", nargs = '*' })

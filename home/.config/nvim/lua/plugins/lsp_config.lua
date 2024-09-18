@@ -5,8 +5,6 @@ local lang_config = function(lsp_config, lsp_capabilities, mason_lspconfig)
         ensure_installed = {
             -- Replace these with whatever servers you want to install
             'lua_ls',
-            'bashls',
-            'zls',
         }
     })
 
@@ -42,7 +40,7 @@ local lang_config = function(lsp_config, lsp_capabilities, mason_lspconfig)
         end,
     })
 
-    lsp_config.tsserver.setup({
+    lsp_config.ts_ls.setup({
         ---@diagnostic disable-next-line: unused-local
         on_attach = function(client, bufnr)
             client.server_capabilities.documentFormattingProvider = false
@@ -79,11 +77,6 @@ local cmp_config = function(cmp, luasnip)
     luasnip.filetype_extend("javascriptreact", { "html" })
     luasnip.filetype_extend("typescript", { "html" })
     luasnip.filetype_extend("typescriptreact", { "html" })
-
-    local check_backspace = function()
-        local col = vim.fn.col(".") - 1
-        return col == 0 or vim.fn.getline("."):sub(col, col):match("%s")
-    end
 
     cmp.setup({
         snippet = {

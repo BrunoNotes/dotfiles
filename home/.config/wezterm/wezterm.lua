@@ -5,7 +5,7 @@ local sessionizer = require("sessionizer")
 -- local mux = wezterm.mux
 local config = {}
 
-config.default_prog = { "/bin/zsh" }
+-- config.default_prog = { "/bin/zsh" }
 
 config.color_scheme = "tokyonight_night"
 
