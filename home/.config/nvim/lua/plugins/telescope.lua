@@ -67,5 +67,5 @@ return {
         nmap("<leader>hp", builtin.help_tags, "Telescope: help")
         nmap("<leader>mp", builtin.man_pages, "Telescope: Man Page")
         nmap("<leader>di", builtin.diagnostics, "Telescope: LSP diagnostics")
-    end,
+    end
 }

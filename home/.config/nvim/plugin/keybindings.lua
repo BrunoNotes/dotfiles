@@ -122,7 +122,7 @@ end
 
 M.quickfix_list = function()
     nmap("<leader>qo", "<cmd>copen<cr>", "Open quickfix list")
-    nmap("<leader>qc", "<cmd>cclose<cr>", "Close quickfix list")
+    nmap("<leader>qx", "<cmd>cclose<cr>", "Close quickfix list")
     nmap("<C-n>", "<cmd>cnext<cr>zz", "Goes to next quickfix list item")
     nmap("<C-p>", "<cmd>cprevious<cr>zz", "Goes to next quickfix list item")
 end

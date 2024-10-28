@@ -6,12 +6,12 @@ local i = luasnip.insert_node
 
 local M = {
     s("code", {
-        t("```"), i(1, "lang"),
+        t("```"),i(1),
         t({ "", "```" })
     }),
     -- inline
     s("code", {
-        t("`"), i(1, "code"), t("`")
+        t("`"), i(1), t("`")
     }),
 }
 

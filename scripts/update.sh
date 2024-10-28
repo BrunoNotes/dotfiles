@@ -37,3 +37,7 @@ while getopts "ab" flag; do
     esac
 done
 
+cd $HOME/dotfiles/ansible/idou
+
+$HOME/Code/projects/idou/zig-out/bin/idou $HOME/dotfiles/ansible/idou/backup.lua
+

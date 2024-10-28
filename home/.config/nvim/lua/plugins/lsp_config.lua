@@ -1,4 +1,17 @@
 local icons = require("utils").icons
+local utils = require("utils")
+local mason_folder = vim.fn.stdpath("data") .. "/mason"
+
+local get_bin_path = function(localPath, masonPath)
+    if utils.file_exists(vim.fn.expand(localPath)) then
+        print("exists")
+        return vim.fn.expand(localPath)
+    else
+        print("not exists")
+        return mason_folder .. masonPath
+    end
+end
+
 
 local lang_config = function(lsp_config, lsp_capabilities, mason_lspconfig)
     mason_lspconfig.setup({
@@ -12,7 +25,7 @@ local lang_config = function(lsp_config, lsp_capabilities, mason_lspconfig)
         settings = {
             Lua = {
                 completion = {
-                    callSnippet = "Replace"
+                    callSnippet = "Disable"
                 }
             }
         }
@@ -57,7 +70,17 @@ local lang_config = function(lsp_config, lsp_capabilities, mason_lspconfig)
     })
 
     -- zig
-    -- lsp_config.zls.setup({})
+    local zls_folder = get_bin_path("$HOME/opt/zls/zig-out/bin/zls", "/bin/zls")
+    lsp_config.zls.setup({
+        settings = {
+            zls = {
+                enable_snippets = false,
+            },
+        },
+        cmd = {
+            zls_folder
+        }
+    })
     vim.g.zig_fmt_autosave = 0
 
     mason_lspconfig.setup_handlers({
@@ -73,6 +96,7 @@ local cmp_config = function(cmp, luasnip)
     luasnip.add_snippets("html", require("snippets.html"));
     luasnip.add_snippets("rust", require("snippets.rust"));
     luasnip.add_snippets("markdown", require("snippets.markdown"));
+    luasnip.add_snippets("zig", require("snippets.zig"));
 
     luasnip.filetype_extend("javascript", { "html" })
     luasnip.filetype_extend("javascriptreact", { "html" })
@@ -86,11 +110,24 @@ local cmp_config = function(cmp, luasnip)
             end,
         },
         preselect = cmp.PreselectMode.None,
-        -- completion = { completeopt = "menu,menuone,noselect" },
-        completion = { completeopt = "noselect" },
+        completion = { completeopt = "noselect", autocomplete = false },
         mapping = cmp.mapping.preset.insert({
-            ["<C-k>"] = cmp.mapping.select_prev_item(),
-            ["<C-j>"] = cmp.mapping.select_next_item(),
+            -- ["<C-k>"] = cmp.mapping.select_prev_item(),
+            -- ["<C-j>"] = cmp.mapping.select_next_item(),
+            ["<C-k>"] = cmp.mapping(function(fallback)
+                if cmp.visible() then
+                    cmp.select_prev_item()
+                else
+                    cmp.complete()
+                end
+            end),
+            ["<C-j>"] = cmp.mapping(function(fallback)
+                if cmp.visible() then
+                    cmp.select_next_item()
+                else
+                    cmp.complete()
+                end
+            end),
             ["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-1), { "i", "c" }),
             ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(1), { "i", "c" }),
             ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
@@ -98,7 +135,8 @@ local cmp_config = function(cmp, luasnip)
                 i = cmp.mapping.abort(),
                 c = cmp.mapping.close(),
             }),
-            ["<CR>"] = cmp.mapping.confirm({ select = false }),
+            ["<CR>"] = cmp.mapping.confirm({ select = false, behavior = cmp.ConfirmBehavior.Replace }),
+            -- ["<CR>"] = cmp.mapping.close(),
         }),
         formatting = {
             fields = { "abbr", "menu", "kind" },

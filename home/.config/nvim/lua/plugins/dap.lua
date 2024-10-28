@@ -20,6 +20,7 @@ end
 
 local function adapters(dap)
     local mason_folder = vim.fn.stdpath("data") .. "/mason"
+    local nvim_env = env.get_env()
 
     -- GDB
     dap.adapters.gdb = {
@@ -41,23 +42,19 @@ local function adapters(dap)
         },
     }
 
-    -- dotnet
-    dap.adapters.coreclr = {
-        type = "executable",
-        command = mason_folder .. "/bin/netcoredbg",
-        args = { "--interpreter=vscode" }
-    }
-
-    dap.configurations.cs = {
+    dap.configurations.zig = {
         {
-            type = "coreclr",
-            name = "launch - netcoredbg",
+            name = "Launch",
+            type = "gdb",
             request = "launch",
             program = function()
-                return dap_executable("Path to dll", vim.fn.getcwd() .. "/bin/Debug/")
+                return dap_executable("Path to executable: ", vim.fn.getcwd() .. "/target/debug/")
             end,
+            cwd = "${workspaceFolder}",
+            stopAtBeginningOfMainSubprogram = false,
         },
     }
+
 
     -- godot
     dap.adapters.godot = {
@@ -74,6 +71,45 @@ local function adapters(dap)
             project = "${workspaceFolder}",
         }
     }
+
+    -- dotnet
+    dap.adapters.coreclr = {
+        type = "executable",
+        command = mason_folder .. "/bin/netcoredbg",
+        args = { "--interpreter=vscode" }
+    }
+
+    local cs_coreclr = {
+        type = "coreclr",
+        name = "launch - netcoredbg",
+        request = "launch",
+        program = function()
+            return dap_executable("Path to dll", vim.fn.getcwd() .. "/bin/Debug/")
+        end,
+    }
+
+    local cs_godot = {
+        type = "godot",
+        request = "launch",
+        name = "Launch scene",
+        project = "${workspaceFolder}",
+    }
+
+    if nvim_env ~= nil then
+        if nvim_env.dap_type == "godot" then
+            dap.configurations.cs = {
+                cs_godot,
+            }
+        else
+            dap.configurations.cs = {
+                cs_coreclr,
+            }
+        end
+    else
+        dap.configurations.cs = {
+            cs_coreclr,
+        }
+    end
 end
 
 return {
@@ -91,7 +127,44 @@ return {
             local nmap = require("utils").nmap
             local icons = require("utils").icons
 
-            ui.setup()
+            ---@diagnostic disable-next-line: missing-fields
+            ui.setup({
+                layouts = { {
+                    elements = {
+                        {
+                            id = "console",
+                            size = 0.25
+                        },
+                        {
+                            id = "scopes",
+                            size = 0.25
+                        },
+                        {
+                            id = "breakpoints",
+                            size = 0.25
+                        },
+                        {
+                            id = "stacks",
+                            size = 0.25
+                        },
+                    },
+                    position = "right",
+                    size = 40
+                }, {
+                    elements = {
+                        {
+                            id = "repl",
+                            size = 0.5
+                        },
+                        {
+                            id = "watches",
+                            size = 0.5
+                        },
+                    },
+                    position = "bottom",
+                    size = 10
+                } },
+            })
             require("nvim-dap-virtual-text").setup({})
 
             adapters(dap)

@@ -73,6 +73,31 @@ M.cmap = function(keys, func, desc)
     vim.keymap.set("c", keys, func, { silent = true, desc = description(desc) })
 end
 
+M.file_exists = function(file)
+    local f = io.open(file, "rb")
+    if f then f:close() end
+    return f ~= nil
+end
+
+M.read_file = function(path)
+    local file = assert(io.open(path, "rb"))
+    local content = file:read("*a")
+    file:close()
+    return content
+end
+
+M.write_file = function(path, content)
+    local file = assert(io.open(path, "w"))
+    file:write(content)
+    file:close()
+end
+
+M.read_json = function(path)
+    local content = M.read_file(path)
+    local json = vim.json.decode(content)
+    return json
+end
+
 M.icons = {
     error = '',
     warn = '',
