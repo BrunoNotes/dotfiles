@@ -14,13 +14,13 @@ sessions=(
 "dotfiles/*/*/*"
 "SharedConfig/notes"
 )
+
 n=1
 paths=()
 
 for s in ${sessions[@]}; do
     paths+=($(ls -d $HOME/${s}/))
 done
-
 
 paths+=($new)
 

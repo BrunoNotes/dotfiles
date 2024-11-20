@@ -19,3 +19,5 @@ if [[ -n $flatpak ]]; then
     flatpak update -y
     flatpak remove --unused -y
 fi
+
+bkp_sync

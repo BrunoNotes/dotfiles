@@ -4,10 +4,8 @@ draw_bold_text_with_bright_colors = true
 # TokyoNight Alacritty Colors
 # Default colors
 [colors.primary]
-# background = '#1a1b26'
-# background = '#0c0d0e'
-background = '#000000'
-foreground = '#c0caf5'
+background = '#121212'
+foreground = '#A9B0D5'
 
 # Normal colors
 [colors.normal]
@@ -52,7 +50,7 @@ history = 5000
 
 [window]
 decorations = "full"
-opacity = 0.90
+opacity = 1.00
 startup_mode = "Maximized"
 title = "Alacritty"
 dynamic_padding = true
