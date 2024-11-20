@@ -50,6 +50,10 @@ export EDITOR="vim"
 export PATH="$HOME/.local/bin:$PATH"
 
 export PATH="$HOME/Apps/lazygit:$PATH"
+export PATH="$HOME/Apps/blender:$PATH"
+export PATH="$HOME/Apps/neovide:$PATH"
+export PATH="$HOME/Apps/wezterm:$PATH"
+export PATH="$HOME/dotfiles/scripts/bin:$PATH"
 
 # Languages
 export PATH="$HOME/.local/local/go/bin:$PATH"
