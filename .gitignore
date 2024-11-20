@@ -1,0 +1,12 @@
+# /home/.local/
+/home/.config/nvim/lazy-lock.json
+/home/.config/zsh/plugins/*
+/home/.config/zsh/.zcompdump
+/home/.config/lazygit/state.yml
+/home/.config/Code/*
+!/home/.config/Code/User
+/home/.config/Code/User/*
+!/home/.config/Code/User/keybindings.json
+!/home/.config/Code/User/settings.json
+.luarc.json
+/home/.config/godot/recent_dirs

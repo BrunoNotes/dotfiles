@@ -1,0 +1,46 @@
+# History
+HISTSIZE=100
+SAVEHIST=100
+
+# Color man pages
+export LESS_TERMCAP_mb=$'\E[01;32m'
+export LESS_TERMCAP_md=$'\E[01;32m'
+export LESS_TERMCAP_me=$'\E[0m'
+export LESS_TERMCAP_se=$'\E[0m'
+export LESS_TERMCAP_so=$'\E[01;47;34m'
+export LESS_TERMCAP_ue=$'\E[0m'
+export LESS_TERMCAP_us=$'\E[01;36m'
+export LESS=-R
+
+# Environment variables set everywhere
+export VISUAL="vim"
+export EDITOR="vim"
+export TERMINAL="wezterm"
+export PATH="$HOME/.local/bin:$PATH"
+
+export PATH="$HOME/Apps/lazygit:$PATH"
+
+# Languages
+export PATH="$HOME/.local/lang/go/bin:$PATH"
+export PATH="$HOME/go/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$HOME/.local/lang/zig:$PATH"
+export PATH="$HOME/.local/lang/Odin:$PATH"
+export PATH="$HOME/.local/share/pnpm:$PATH"
+export PATH="$HOME/.deno/bin:$PATH"
+
+# Ocaml
+opam=$(command -v opam || true)
+if [[ -n $opam ]]; then
+    eval $(opam env)
+fi
+
+# Rust
+cargo=$(command -v cargo || true)
+if [[ -n $cargo ]]; then
+    . "$HOME/.cargo/env"
+fi
+
+# Csharp
+export ASPNETCORE_ENVIRONMENT="Development"
+
