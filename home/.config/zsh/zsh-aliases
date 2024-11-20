@@ -10,7 +10,7 @@ alias grub-update='grub2-mkconfig -o /boot/grub2/grub.cfg'
 
 ## Scripts
 alias update=$HOME/dotfiles/scripts/update.sh
-alias bkp_sync=$HOME/dotfiles/ansible/scripts/sync.sh
+alias bkp_sync=$HOME/dotfiles/pc_config/scripts/sync.sh
 alias snvim=$HOME/dotfiles/scripts/nvim_server.sh
 alias note=$HOME/dotfiles/scripts/note.sh
 

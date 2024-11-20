@@ -1,0 +1,3 @@
+[submodule "pc_config"]
+	path = pc_config
+	url = git@github.com:BrunoNotes/pc_config.git
