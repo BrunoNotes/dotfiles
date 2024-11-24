@@ -2,6 +2,7 @@ local utils = require("utils")
 
 local env_path = vim.fn.getcwd() .. "/.nvim_env"
 
+-- config options per project
 local env_table = {
     dap_executable_path = "",
     dap_type = "",
