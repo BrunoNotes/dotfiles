@@ -14,6 +14,7 @@ local html_tags = {
     "b",
     "body",
     "dialog",
+    "canvas",
     "div",
     "footer",
     "h1",

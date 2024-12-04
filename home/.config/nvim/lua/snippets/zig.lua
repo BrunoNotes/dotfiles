@@ -21,6 +21,18 @@ local M = {
     s("logdebug", {
         t("std.log.debug(\""), i(1), t("\", .{});")
     }),
+    s("fn", {
+        t("fn "), i(1), t("() !void {}")
+    }),
+    s("struct", {
+        t("const "), i(1), t(" = struct {}")
+    }),
+    s("std", {
+        t("const std = @import(\"std\");")
+    }),
+    s("builtin", {
+        t("const builtin = @import(\"builtin\");")
+    }),
 }
 
 return M
