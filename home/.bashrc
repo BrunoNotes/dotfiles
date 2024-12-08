@@ -1,5 +1,4 @@
 # ~/.bashrc
-#
 
 [[ $- != *i* ]] && return
 
@@ -12,26 +11,25 @@ reset=$(tput sgr0);
 
 ## Prompt
 PS1=""
-# PS1+="\[${blue}\]\[${bold}\]["      # Blue [
-# PS1+="\[${white}\]\u"                                 # Working Directory
-# PS1+="\[${blue}\]] "     # Blue ]
-# PS1+="\[${blue}\]\[${bold}\]["      # Blue [
 PS1+=" \[${white}\]\w"                                 # Working Directory
-# PS1+="\[${blue}\]]"     # Blue ]
 PS1+="\[${white}\] \[${reset}\]"
 export PS1
 
 ## Alias
 alias cp="cp -i"                                                # Confirm before overwriting something
-alias df='df -h'                                                # Human-readable sizes
-alias free='free -m'                                            # Show sizes in MB
-alias ll='ls -al'
-alias sudo='sudo -E'
-# alias tm="tmux a"
-alias grub-update='grub-mkconfig -o /boot/grub/grub.cfg'
-# alias gs='lazygit' # git status
-alias note='$HOME/dotfiles/scripts/note.sh'
-alias snvim='$HOME/dotfiles/scripts/nvim_server.sh'
+alias df="df -h"                                                # Human-readable sizes
+alias free="free -m"                                            # Show sizes in MB
+alias ll="ls -al"
+alias sudo="sudo -E"
+alias tm="tmux a"
+alias grub-update="grub-mkconfig -o /boot/grub/grub.cfg"
+alias gs="lazygit" # git status
+
+## Scripts
+alias update="$HOME/dotfiles/scripts/update.sh"
+alias bkp_sync="$HOME/dotfiles/pc_config/scripts/sync.sh"
+alias snvim="$HOME/dotfiles/scripts/nvim_server.sh"
+alias note="$HOME/dotfiles/scripts/note.sh"
 
 xhost +local:root > /dev/null 2>&1
 
@@ -47,6 +45,7 @@ shopt -s histappend
 
 export VISUAL="vim"
 export EDITOR="vim"
+export TERMINAL="wezterm"
 export PATH="$HOME/.local/bin:$PATH"
 
 export PATH="$HOME/Apps/lazygit:$PATH"
@@ -62,14 +61,21 @@ export PATH="$HOME/.local/lang/zig:$PATH"
 export PATH="$HOME/.local/lang/Odin:$PATH"
 export PATH="$HOME/.local/share/pnpm:$PATH"
 export PATH="$HOME/.deno/bin:$PATH"
-export ASPNETCORE_ENVIRONMENT="Development"
 
-# User specific environment and startup programs
+# Ocaml
+opam=$(command -v opam || true)
+if [[ -n $opam ]]; then
+    eval $(opam env)
+fi
+
 # Rust
 cargo=$(command -v cargo || true)
 if [[ -n $cargo ]]; then
     . "$HOME/.cargo/env"
 fi
+
+# Csharp
+export ASPNETCORE_ENVIRONMENT="Development"
 
 # Vim mode
 set -o vi

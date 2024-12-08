@@ -1,5 +1,3 @@
-# Add deno completions to search path
-if [[ ":$FPATH:" != *":/home/bruno/.config/zsh/completions:"* ]]; then export FPATH="/home/bruno/.config/zsh/completions:$FPATH"; fi
 #!/bin/bash
 
 export ZDOTDIR=$HOME/.config/zsh
