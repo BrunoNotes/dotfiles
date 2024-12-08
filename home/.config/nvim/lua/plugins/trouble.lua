@@ -7,7 +7,9 @@ return {
         local nmap = require("utils").nmap
 
         nmap("<leader>tt", function() trouble.toggle("diagnostics") end, "Trouble: toggle diagnostics")
+        ---@diagnostic disable-next-line: param-type-mismatch, missing-parameter
         nmap("<leader>tn", function() trouble.next("diagnostics") end, "Trouble: next diagnostics")
+        ---@diagnostic disable-next-line: param-type-mismatch, missing-parameter
         nmap("<leader>tp", function() trouble.prev("diagnostics") end, "Trouble: prev diagnostics")
 
         -- nmap("<F9>", function() trouble.toggle("diagnostics") end, "Trouble: toggle diagnostics")

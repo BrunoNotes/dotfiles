@@ -110,4 +110,4 @@ nmap("<leader>gs", function()
 end
 , { "Opens lazygit" })
 
-tmap("<Esc><Esc>", "<C-\\><C-n>", { "Exit terminal mode" })
+-- tmap("<Esc><Esc>", "<C-\\><C-n>", { "Exit terminal mode" })

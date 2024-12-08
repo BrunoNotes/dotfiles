@@ -5,8 +5,6 @@ return {
         local configs = require("nvim-treesitter.configs")
         local context_config = require("treesitter-context")
 
-        vim.filetype.add({ extension = { wgsl = "wgsl" } })
-
         local languages = {
             "lua",
         }

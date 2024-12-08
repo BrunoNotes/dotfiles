@@ -39,6 +39,10 @@ end
 M.text = function()
     vmap("<", "<gv", "Indent text left")
     vmap(">", ">gv", "Indent text right")
+    vmap("J", ":move '>+1<CR>gv=gv", "Move text down")
+    vmap("K", ":move '<-2<CR>gv=gv", "Move text up")
+    xmap("K", ":move '<-2<CR>gv=gv", "Move text up")
+    xmap("J", ":move '>+1<CR>gv=gv", "Move text down")
     xmap("p", [["_dP]], "Dont save deletion on buffer on paste")
     nmap("<leader>r", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], "Replaces word under cursor")
 end
@@ -46,6 +50,7 @@ end
 M.copy_paste = function()
     vmap("p", '"_dP', "Paste on top of a word without copying")
     vmap("<leader>y", "\"+y", "Copy to system clipboard")
+    vmap("<leader>Y", "\"+Y", "Copy to system clipboard")
     nmap("<leader>y", "\"+y", "Copy to system clipboard")
     nmap("<leader>Y", "\"+Y", "Copy to system clipboard")
 end
@@ -53,8 +58,8 @@ end
 M.window = function()
     nmap("<S-Up>", function() vim.cmd(":resize -2") end, "Resize window up")
     nmap("<S-Down>", function() vim.cmd(":resize +2") end, "Resize window down")
-    nmap("<S-Left>", function() vim.cmd(":vertical resize -2") end, "Resize window left")
-    nmap("<S-Right>", function() vim.cmd(":vertical resize +2") end, "Resize window rigt")
+    nmap("<S-Left>", function() vim.cmd(":vertical resize +2") end, "Resize window left")
+    nmap("<S-Right>", function() vim.cmd(":vertical resize -2") end, "Resize window rigt")
     nmap("<C-w>r", "<C-w><C-r>", "Swap windows position")
 end
 
