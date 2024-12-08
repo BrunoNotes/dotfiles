@@ -45,14 +45,6 @@ local lang_config = function(lsp_config, lsp_capabilities, mason_lspconfig)
         }
     })
 
-    lsp_config.wgsl_analyzer.setup({})
-    vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
-        pattern = "*.wgsl",
-        callback = function()
-            vim.bo.filetype = "wgsl"
-        end,
-    })
-
     lsp_config.ts_ls.setup({
         ---@diagnostic disable-next-line: unused-local
         on_attach = function(client, bufnr)
@@ -112,8 +104,6 @@ local cmp_config = function(cmp, luasnip)
         preselect = cmp.PreselectMode.None,
         completion = { completeopt = "noselect", autocomplete = false },
         mapping = cmp.mapping.preset.insert({
-            -- ["<C-k>"] = cmp.mapping.select_prev_item(),
-            -- ["<C-j>"] = cmp.mapping.select_next_item(),
             ["<C-k>"] = cmp.mapping(function(fallback)
                 if cmp.visible() then
                     cmp.select_prev_item()
@@ -136,12 +126,10 @@ local cmp_config = function(cmp, luasnip)
                 c = cmp.mapping.close(),
             }),
             ["<CR>"] = cmp.mapping.confirm({ select = false, behavior = cmp.ConfirmBehavior.Replace }),
-            -- ["<CR>"] = cmp.mapping.close(),
         }),
         formatting = {
             fields = { "abbr", "menu", "kind" },
             format = function(entry, vim_item)
-                -- vim_item.kind = string.format('%s %s', icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
                 vim_item.kind = string.format('| %s', vim_item.kind)
                 vim_item.menu = ({
                     nvim_lsp = "",
@@ -217,26 +205,40 @@ return {
         vim.api.nvim_create_autocmd('LspAttach', {
             desc = 'LSP actions',
             ---@diagnostic disable-next-line: unused-local
-            callback = function(event)
+            callback = function(args)
+                local client = vim.lsp.get_client_by_id(args.data.client_id)
+                if not client then return end
+
                 -- Create your keybindings here...
                 local nmap = require("utils").nmap
 
-                nmap("gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", "LSP: Go to declaration")
-                nmap("gd", "<cmd>lua vim.lsp.buf.definition()<CR>", "LSP: Go to definition")
-                nmap("K", "<cmd>lua vim.lsp.buf.hover()<CR>", "LSP: Hover")
-                nmap("gI", "<cmd>lua vim.lsp.buf.implementation()<CR>", "LSP: Go to implementation")
-                nmap("gr", "<cmd>lua vim.lsp.buf.references()<CR>", "LSP: Go to reference")
-                nmap("H", "<cmd>lua vim.diagnostic.open_float()<CR>", "LSP: Open diagnostic")
-                nmap("<F2>", "<cmd>lua vim.lsp.buf.rename()<cr>", "LSP: Rename")
-                nmap("<leader>lr", "<cmd>lua vim.lsp.buf.rename()<cr>", "LSP: Rename")
-                nmap("<leader>lf", "<cmd>lua vim.lsp.buf.format()<cr>", "LSP: Format file")
-                nmap("<leader>li", "<cmd>LspInfo<cr>", "LSP: Info")
-                nmap("<leader>lI", "<cmd>LspInstallInfo<cr>", "LSP: Install info")
-                nmap("<leader>la", "<cmd>lua vim.lsp.buf.code_action()<cr>", "LSP: Code action")
-                nmap("<leader>lj", "<cmd>lua vim.diagnostic.goto_next({buffer=0})<cr>", "LSP: Go to next definition")
-                nmap("<leader>lk", "<cmd>lua vim.diagnostic.goto_prev({buffer=0})<cr>", "LSP: Go to previous definition")
-                nmap("<leader>ls", "<cmd>lua vim.lsp.buf.signature_help()<CR>", "LSP: Help")
-                nmap("<leader>lq", "<cmd>lua vim.diagnostic.setloclist()<CR>", "LSP: setloclist")
+                nmap("gD", function() vim.lsp.buf.declaration() end, "LSP: Go to declaration")
+                nmap("gd", function() vim.lsp.buf.definition() end, "LSP: Go to definition")
+                nmap("K", function() vim.lsp.buf.hover() end, "LSP: Hover")
+                nmap("gI", function() vim.lsp.buf.implementation() end, "LSP: Go to implementation")
+                nmap("gr", function() vim.lsp.buf.references() end, "LSP: Go to reference")
+                nmap("H", function() vim.diagnostic.open_float() end, "LSP: Open diagnostic")
+                nmap("<F2>", function() vim.lsp.buf.rename() end, "LSP: Rename")
+                nmap("<leader>lr", function() vim.lsp.buf.rename() end, "LSP: Rename")
+                nmap("<leader>lf", function() vim.lsp.buf.format() end, "LSP: Format file")
+                nmap("<leader>li", function() vim.cmd(":LspInfo") end, "LSP: Info")
+                nmap("<leader>lI", function() vim.cmd(":LspInstallInfo") end, "LSP: Install info")
+                nmap("<leader>la", function() vim.lsp.buf.code_action() end, "LSP: Code action")
+                nmap("<leader>lj", function() vim.diagnostic.goto_next({ buffer = 0 }) end, "LSP: Go to next definition")
+                nmap("<leader>lk", function() vim.diagnostic.goto_prev({ buffer = 0 }) end,
+                    "LSP: Go to previous definition")
+                nmap("<leader>ls", function() vim.lsp.buf.signature_help() end, "LSP: Help")
+                nmap("<leader>lq", function() vim.diagnostic.setloclist() end, "LSP: setloclist")
+
+                -- format on save
+                if client.supports_method("textDocument/formatting") then
+                    vim.api.nvim_create_autocmd("BufWritePre", {
+                        buffer = args.buf,
+                        callback = function()
+                            vim.lsp.buf.format({ bufnr = args.buf, id = client.id })
+                        end,
+                    })
+                end
             end
         })
 
