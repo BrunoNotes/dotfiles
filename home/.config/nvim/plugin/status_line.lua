@@ -75,26 +75,26 @@ M.get_line_col              = function(self)
     return '%l:%c'
 end
 
-M.get_lsp_name              = function()
-    local lsp_clients = vim.lsp.get_clients()
-
-    if lsp_clients ~= nil then
-        local lsp_names = ""
-        for _, value in ipairs(lsp_clients) do
-            if lsp_names == "" then
-                lsp_names = tostring(value.name)
-            else
-                lsp_names = lsp_names .. ", " .. tostring(value.name)
-            end
-        end
-
-        if lsp_names ~= "" then
-            return string.format('%s %s', utils.icons.Constructor, lsp_names)
-        else
-            return ""
-        end
-    end
-end
+-- M.get_lsp_name              = function()
+--     local lsp_clients = vim.lsp.get_clients()
+--
+--     if lsp_clients ~= nil then
+--         local lsp_names = ""
+--         for _, value in ipairs(lsp_clients) do
+--             if lsp_names == "" then
+--                 lsp_names = tostring(value.name)
+--             else
+--                 lsp_names = lsp_names .. ", " .. tostring(value.name)
+--             end
+--         end
+--
+--         if lsp_names ~= "" then
+--             return string.format('%s %s', utils.icons.Constructor, lsp_names)
+--         else
+--             return ""
+--         end
+--     end
+-- end
 
 M.set_active                = function(self)
     local git = self:get_git_status()

@@ -11,19 +11,6 @@ vim.api.nvim_create_autocmd("TermOpen", {
     end,
 })
 
-local function openTerminal(shell)
-    local buffer = require("utils").find_buffer_by_name("term://")
-
-    if shell == nil then
-        shell = os.getenv("SHELL")
-    end
-
-    if buffer == -1 then
-        vim.cmd(":terminal " .. shell)
-    else
-        vim.cmd(":buffer %s" .. buffer)
-    end
-end
 
 local function run_on_terminal(opts)
     opts = opts or {}
@@ -63,34 +50,6 @@ local function run_on_terminal(opts)
     vim.cmd.startinsert()
 end
 
-vim.api.nvim_create_user_command("TermOpen", function(opts)
-    if opts.fargs[1] ~= nil then
-        openTerminal(opts.fargs[1])
-    else
-        openTerminal()
-    end
-end, { desc = "Open terminal buffer", nargs = '*' })
-
-vim.api.nvim_create_user_command("TermRun", function(opts)
-    if opts.fargs[1] ~= nil then
-        local cmd = ""
-        for _, args in ipairs(opts.fargs) do
-            if cmd == "" then
-                cmd = args
-            else
-                cmd = cmd .. " " .. args
-            end
-        end
-
-        if vim.fn.executable(cmd) == 0 then
-            print(cmd .. " is not a executable")
-            return
-        else
-            run_on_terminal(cmd)
-        end
-    end
-end, { desc = "Run cmd in a floating terminal", nargs = '*' })
-
 vim.api.nvim_create_user_command("LazyGit", function(opts)
     if vim.fn.executable("lazygit") == 0 then
         print("lazygit not found")
@@ -111,3 +70,43 @@ end
 , { "Opens lazygit" })
 
 -- tmap("<Esc><Esc>", "<C-\\><C-n>", { "Exit terminal mode" })
+
+-- local function openTerminal(shell)
+--     local buffer = require("utils").find_buffer_by_name("term://")
+--
+--     if shell == nil then
+--         shell = os.getenv("SHELL")
+--     end
+--
+--     if buffer == -1 then
+--         vim.cmd(":terminal " .. shell)
+--     else
+--         vim.cmd(":buffer %s" .. buffer)
+--     end
+-- end
+-- vim.api.nvim_create_user_command("TermOpen", function(opts)
+--     if opts.fargs[1] ~= nil then
+--         openTerminal(opts.fargs[1])
+--     else
+--         openTerminal()
+--     end
+-- end, { desc = "Open terminal buffer", nargs = '*' })
+-- vim.api.nvim_create_user_command("TermRun", function(opts)
+--     if opts.fargs[1] ~= nil then
+--         local cmd = ""
+--         for _, args in ipairs(opts.fargs) do
+--             if cmd == "" then
+--                 cmd = args
+--             else
+--                 cmd = cmd .. " " .. args
+--             end
+--         end
+--
+--         if vim.fn.executable(cmd) == 0 then
+--             print(cmd .. " is not a executable")
+--             return
+--         else
+--             run_on_terminal(cmd)
+--         end
+--     end
+-- end, { desc = "Run cmd in a floating terminal", nargs = '*' })
