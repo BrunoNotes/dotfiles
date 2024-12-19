@@ -1,6 +1,23 @@
 local tmap = require("utils").tmap
 local nmap = require("utils").nmap
 
+local function open_terminal()
+    local buffer = require("utils").find_buffer_by_name("term://")
+
+    if buffer == -1 then
+        vim.cmd.term()
+    else
+        -- vim.cmd(":buffer %s" .. buffer)
+        vim.cmd.buffer(buffer);
+    end
+end
+
+nmap("<space>st", function()
+    open_terminal()
+    vim.api.nvim_feedkeys("a", "n", false)
+end, "Opens terminal")
+tmap("<C-q><Esc>", "<C-\\><C-n>", { "Exit terminal mode" })
+
 -- Terminal local options
 vim.api.nvim_create_autocmd("TermOpen", {
     group = vim.api.nvim_create_augroup("custom-term-open", {}),
@@ -37,7 +54,7 @@ local function run_on_terminal(opts)
     -- Change to the window that is floating to ensure termopen uses correct size
     vim.api.nvim_set_current_win(win)
 
-    -- Launch top, and configure to close the window when the process exits
+    -- Launch, and configure to close the window when the process exits
     vim.fn.termopen({ opts }, {
         on_exit = function(_, _, _)
             if vim.api.nvim_win_is_valid(win) then
@@ -69,21 +86,7 @@ nmap("<leader>gs", function()
 end
 , { "Opens lazygit" })
 
--- tmap("<Esc><Esc>", "<C-\\><C-n>", { "Exit terminal mode" })
 
--- local function openTerminal(shell)
---     local buffer = require("utils").find_buffer_by_name("term://")
---
---     if shell == nil then
---         shell = os.getenv("SHELL")
---     end
---
---     if buffer == -1 then
---         vim.cmd(":terminal " .. shell)
---     else
---         vim.cmd(":buffer %s" .. buffer)
---     end
--- end
 -- vim.api.nvim_create_user_command("TermOpen", function(opts)
 --     if opts.fargs[1] ~= nil then
 --         openTerminal(opts.fargs[1])

@@ -20,4 +20,4 @@ if [[ -n $flatpak ]]; then
     flatpak remove --unused -y
 fi
 
-bkp_sync
+$HOME/dotfiles/pc_config/scripts/sync.sh

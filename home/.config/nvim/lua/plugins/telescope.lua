@@ -2,6 +2,7 @@ return {
     "nvim-telescope/telescope.nvim",
     dependencies = {
         "nvim-lua/plenary.nvim",
+        { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
     },
     config = function()
         local telescope = require("telescope")
@@ -39,16 +40,30 @@ return {
             pickers = {
                 -- Default configuration for builtin pickers goes here:
                 find_files = {
-                    -- cwd = vim.loop.cwd(),
-                    -- cwd = vim.fn.expand("%:p:h"),
                     no_ignore = true,
                     no_ignore_parent = true,
-                    -- theme = "ivy",
-                    -- layout_config = {
-                    --     bottom_pane = {
-                    --         height = 0.3,
-                    --     },
-                    -- }
+                    theme = "ivy",
+                    layout_config = {
+                        bottom_pane = {
+                            height = 0.5,
+                        },
+                    }
+                },
+                git_files = {
+                    theme = "ivy",
+                    layout_config = {
+                        bottom_pane = {
+                            height = 0.5,
+                        },
+                    }
+                },
+                buffers = {
+                    theme = "ivy",
+                    layout_config = {
+                        bottom_pane = {
+                            height = 0.5,
+                        },
+                    }
                 },
             },
             extensions = {},
@@ -57,7 +72,9 @@ return {
         local nmap = require("utils").nmap
 
         nmap("<leader>.", function()
-            builtin.find_files({ cwd = vim.loop.cwd() })
+            builtin.find_files({
+                cwd = vim.loop.cwd(),
+            })
         end, { "Telescope: find files" })
         nmap("<leader>fg", builtin.git_files, "Telescope: git files")
         nmap("<leader>kb", builtin.keymaps, "Telescope: keymaps")                                          -- list keymaps

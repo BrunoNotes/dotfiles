@@ -12,7 +12,7 @@ local imap = require("utils").imap
 local vmap = require("utils").vmap
 local xmap = require("utils").xmap
 local smap = require("utils").smap
--- local cmap = require("utils").cmap
+local cmap = require("utils").cmap
 -- local tmap = require("utils").tmap
 
 local M = {}
@@ -24,16 +24,16 @@ M.movement = function()
     nmap("<C-u>", "<C-u>zz", "Keeps the mouse in place while moving") -- Move half a page up (zz centers)
     nmap("J", "mzJ`z", "Leaves the mouse in place while moving text")
     -- command line
-    vim.cmd("cnoremap <c-k> <c-p>")
-    vim.cmd("cnoremap <c-j> <c-n>")
-    vim.cmd("cnoremap <c-h> <S-Left>")
-    vim.cmd("cnoremap <c-l> <S-Right>")
-    vim.cmd("cnoremap <c-p> <S-Up>")
-    vim.cmd("cnoremap <c-n> <S-Down>")
-    vim.cmd("cnoremap <c-0> <Home>")
-    vim.cmd("cnoremap <c-5> <End>")
-    vim.cmd("cnoremap <c-d> <c-u>")
-    vim.cmd("cnoremap <c-x> <c-w>")
+    cmap("<c-k>", "<c-p>", "")
+    cmap("<c-j>", "<c-n>", "")
+    cmap("<c-h>", "<S-Left>", "")
+    cmap("<c-l>", "<S-Right>", "")
+    cmap("<c-p>", "<S-Up>", "")
+    cmap("<c-n>", "<S-Down>", "")
+    cmap("<c-0>", "<Home>", "")
+    cmap("<c-5>", "<End>", "")
+    cmap("<c-d>", "<c-u>", "")
+    cmap("<c-x>", "<c-w>", "")
 end
 
 M.text = function()
@@ -49,6 +49,7 @@ end
 
 M.copy_paste = function()
     vmap("p", '"_dP', "Paste on top of a word without copying")
+    xmap("p", '"_dP', "Paste on top of a word without copying")
     vmap("<leader>y", "\"+y", "Copy to system clipboard")
     vmap("<leader>Y", "\"+Y", "Copy to system clipboard")
     nmap("<leader>y", "\"+y", "Copy to system clipboard")

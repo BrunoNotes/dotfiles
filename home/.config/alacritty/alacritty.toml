@@ -21,12 +21,12 @@ white = '#a9b1d6'
 # Bright colors
 [colors.bright]
 black = '#414868'
-red = '#f7768e'
-green = '#9ece6a'
-yellow = '#e0af68'
-blue = '#7aa2f7'
-magenta = '#bb9af7'
-cyan = '#7dcfff'
+red = '#ff899d'
+green = '#9fe044'
+yellow = '#faba4a'
+blue = '#8db0ff'
+magenta = '#c7a9ff'
+cyan = '#a4daff'
 white = '#c0caf5'
 
 # Indexed Colors
@@ -39,7 +39,11 @@ index = 17
 color = '#db4b4b'
 
 [font]
-size = 13
+size = 14
+normal = { family = "JetBrainsMonoNerdFont", style = "Regular" }
+bold = { family = "JetBrainsMonoNerdFont", style = "Bold" }
+italic = { family = "JetBrainsMonoNerdFont", style = "Italic" }
+bold_italic = { family = "JetBrainsMonoNerdFont", style = "Bold Italic" }
 
 [font.offset]
 x = 0
