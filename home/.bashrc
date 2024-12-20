@@ -45,13 +45,12 @@ shopt -s histappend
 
 export VISUAL="vim"
 export EDITOR="vim"
-export TERMINAL="wezterm"
+export TERMINAL="alacritty"
 export PATH="$HOME/.local/bin:$PATH"
 
 export PATH="$HOME/Apps/lazygit:$PATH"
 export PATH="$HOME/Apps/blender:$PATH"
 export PATH="$HOME/Apps/neovide:$PATH"
-export PATH="$HOME/Apps/wezterm:$PATH"
 export PATH="$HOME/dotfiles/scripts/bin:$PATH"
 
 # Languages

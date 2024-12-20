@@ -2,14 +2,14 @@
 local fn                    = vim.fn
 local api                   = vim.api
 local devicons_ok, devicons = pcall(require, "nvim-web-devicons")
-local utils                 = require("utils")
+local icons                 = require("utils").icons
 
 local get_devicon           = function()
     if devicons_ok then
         local file_name, file_ext = fn.expand("%:t"), fn.expand("%:e")
         return devicons.get_icon(file_name, file_ext, { default = true })
     else
-        return utils.icons.File
+        return icons.File
     end
 end
 
@@ -46,7 +46,7 @@ M.get_git_status            = function()
         local git_branch = vim.fn.system { "git", "branch", "--show-current" }:gsub("\n[^\n]*(\n?)$", "%1")
         local is_git_repo = vim.fn.system { "git", "rev-parse", "--is-inside-work-tree" }:gsub("\n[^\n]*(\n?)$", "%1")
         if (is_git_repo == "true") then
-            return string.format('%s %s', utils.icons.Git, git_branch)
+            return string.format('%s %s', icons.Git, git_branch)
         else
             return ""
         end
@@ -75,26 +75,26 @@ M.get_line_col              = function(self)
     return '%l:%c'
 end
 
--- M.get_lsp_name              = function()
---     local lsp_clients = vim.lsp.get_clients()
---
---     if lsp_clients ~= nil then
---         local lsp_names = ""
---         for _, value in ipairs(lsp_clients) do
---             if lsp_names == "" then
---                 lsp_names = tostring(value.name)
---             else
---                 lsp_names = lsp_names .. ", " .. tostring(value.name)
---             end
---         end
---
---         if lsp_names ~= "" then
---             return string.format('%s %s', utils.icons.Constructor, lsp_names)
---         else
---             return ""
---         end
---     end
--- end
+M.get_lsp_name              = function()
+    local lsp_clients = vim.lsp.get_clients()
+
+    if lsp_clients ~= nil then
+        local lsp_names = ""
+        for _, value in ipairs(lsp_clients) do
+            if lsp_names == "" then
+                lsp_names = tostring(value.name)
+            else
+                lsp_names = lsp_names .. ", " .. tostring(value.name)
+            end
+        end
+
+        if lsp_names ~= "" then
+            return string.format('%s %s', icons.Constructor, lsp_names)
+        else
+            return ""
+        end
+    end
+end
 
 M.set_active                = function(self)
     local git = self:get_git_status()

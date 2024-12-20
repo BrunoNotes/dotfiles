@@ -28,8 +28,15 @@ return {
                 ["g\\"] = "actions.toggle_trash",
             },
         })
+        local modes = require("utils").key_modes
 
-        nmap("<leader>fb", ":Oil <cr>", "Oil: opens file browser")
-        -- nmap("<leader>fb", ":Oil --float<cr>", { "Oil: opens file browser" })
+        local keybindings = {
+            { modes.normal, "<leader>fb", ":Oil <cr>", "Oil: opens file browser" },
+            -- { modes.normal, "<leader>fb", ":Oil --float<cr>", "Oil: opens file browser" },
+        }
+
+        for _, key in ipairs(keybindings) do
+            vim.keymap.set(key[1], key[2], key[3], { silent = true, desc = key[4] })
+        end
     end
 }

@@ -1,15 +1,3 @@
-local utils = require("utils")
-
--- LspStatus
--- vim.api.nvim_create_user_command("LspStatus", function()
---     local status = vim.lsp.status()
---     if (status == nil or status == "") then
---         print("LSP Status: Loaded")
---     else
---         print(string.format("Lsp Status: Loading, %s", status))
---     end
--- end, {})
-
 -- ChangeCWD
 vim.api.nvim_create_user_command("ChangeCWD", function()
     local file_cwd = vim.fn.expand("%:p:h")

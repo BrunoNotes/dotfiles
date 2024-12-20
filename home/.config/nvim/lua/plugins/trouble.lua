@@ -4,16 +4,17 @@ return {
     opts = {},
     config = function()
         local trouble = require("trouble")
-        local nmap = require("utils").nmap
 
-        nmap("<leader>tt", function() trouble.toggle("diagnostics") end, "Trouble: toggle diagnostics")
-        ---@diagnostic disable-next-line: param-type-mismatch, missing-parameter
-        nmap("<leader>tn", function() trouble.next("diagnostics") end, "Trouble: next diagnostics")
-        ---@diagnostic disable-next-line: param-type-mismatch, missing-parameter
-        nmap("<leader>tp", function() trouble.prev("diagnostics") end, "Trouble: prev diagnostics")
+        local modes = require("utils").key_modes
 
-        -- nmap("<F9>", function() trouble.toggle("diagnostics") end, "Trouble: toggle diagnostics")
-        -- nmap("<F10>", function() trouble.prev("diagnostics") end, "Trouble: prev diagnostics")
-        -- nmap("<F11>", function() trouble.next("diagnostics") end, "Trouble: next diagnostics")
+        local keybindings = {
+            { modes.normal, "<leader>tt", function() trouble.toggle("diagnostics") end, "Trouble: toggle diagnostics" },
+            { modes.normal, "<leader>tn", function() trouble.next("diagnostics") end,   "Trouble: next diagnostics" },
+            { modes.normal, "<leader>tp", function() trouble.prev("diagnostics") end,   "Trouble: prev diagnostics" },
+        }
+
+        for _, key in ipairs(keybindings) do
+            vim.keymap.set(key[1], key[2], key[3], { silent = true, desc = key[4] })
+        end
     end
 }

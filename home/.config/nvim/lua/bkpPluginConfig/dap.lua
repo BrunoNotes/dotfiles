@@ -124,7 +124,6 @@ return {
         config = function()
             local dap = require("dap")
             local ui = require("dapui")
-            local nmap = require("utils").nmap
             local icons = require("utils").icons
 
             ---@diagnostic disable-next-line: missing-fields
@@ -169,23 +168,31 @@ return {
 
             adapters(dap)
 
-            nmap("<leader>db", dap.toggle_breakpoint, "DAP: Toggle breakpoint")
-            nmap("<leader>dc", dap.run_to_cursor, "DAP: Run to cursor")
-            nmap("<leader>dv", function()
-                ui.eval(nil, { enter = true })
-            end, "DAP: Eval under cursor")
-            nmap("<F4>", dap.restart, "DAP: restart")
-            nmap("<F5>", dap.continue, "DAP: continue")
-            nmap("<F8>", dap.step_back, "DAP: step back")
-            nmap("<F9>", dap.step_out, "DAP: step out")
-            nmap("<F10>", dap.step_over, "DAP: step over")
-            nmap("<F11>", dap.step_into, "DAP step into")
-            nmap("<leader>do", function()
-                ui.open()
-            end, "DAP: Open ui")
-            nmap("<leader>dx", function()
-                ui.close()
-            end, "DAP: Close ui")
+            local modes = require("utils").key_modes
+
+            local keybindings = {
+                { modes.normal, "<leader>db", dap.toggle_breakpoint, "DAP: Toggle breakpoint" },
+                { modes.normal, "<leader>dc", dap.run_to_cursor,     "DAP: Run to cursor" },
+                { modes.normal, "<leader>dv", function()
+                    ui.eval(nil, { enter = true })
+                end, "DAP: Eval under cursor" },
+                { modes.normal, "<F4>",  dap.restart,   "DAP: restart" },
+                { modes.normal, "<F5>",  dap.continue,  "DAP: continue" },
+                { modes.normal, "<F8>",  dap.step_back, "DAP: step back" },
+                { modes.normal, "<F9>",  dap.step_out,  "DAP: step out" },
+                { modes.normal, "<F10>", dap.step_over, "DAP: step over" },
+                { modes.normal, "<F11>", dap.step_into, "DAP step into" },
+                { modes.normal, "<leader>do", function()
+                    ui.open()
+                end, "DAP: Open ui" },
+                { modes.normal, "<leader>dx", function()
+                    ui.close()
+                end, "DAP: Close ui" },
+            }
+
+            for _, key in ipairs(keybindings) do
+                vim.keymap.set(key[1], key[2], key[3], { silent = true, desc = key[4] })
+            end
 
             vim.fn.sign_define("DapBreakpoint", {
                 text = icons.Circle,

@@ -68,21 +68,26 @@ return {
             },
             extensions = {},
         }
+        local modes = require("utils").key_modes
 
-        local nmap = require("utils").nmap
+        local keybindings = {
+            { modes.normal, "<leader>.", function()
+                builtin.find_files({
+                    cwd = vim.loop.cwd(),
+                })
+            end, "Telescope: find files" },
+            { modes.normal, "<leader>fg", builtin.git_files,                 "Telescope: git files" },
+            { modes.normal, "<leader>kb", builtin.keymaps,                   "Telescope: keymaps" },                        -- list keymaps
+            { modes.normal, "<leader>gf", builtin.current_buffer_fuzzy_find, "Telescope: fuzzy finder on current buffer" }, -- grep current file
+            { modes.normal, "<leader>gp", builtin.live_grep,                 "Telescope: live grep on project dir" },
+            { modes.normal, "<leader>bl", builtin.buffers,                   "Telescope: buffers" },
+            { modes.normal, "<leader>hp", builtin.help_tags,                 "Telescope: help" },
+            { modes.normal, "<leader>mp", builtin.man_pages,                 "Telescope: Man Page" },
+            { modes.normal, "<leader>di", builtin.diagnostics,               "Telescope: LSP diagnostics" },
+        }
 
-        nmap("<leader>.", function()
-            builtin.find_files({
-                cwd = vim.loop.cwd(),
-            })
-        end, { "Telescope: find files" })
-        nmap("<leader>fg", builtin.git_files, "Telescope: git files")
-        nmap("<leader>kb", builtin.keymaps, "Telescope: keymaps")                                          -- list keymaps
-        nmap("<leader>gf", builtin.current_buffer_fuzzy_find, "Telescope: fuzzy finder on current buffer") -- grep current file
-        nmap("<leader>gp", builtin.live_grep, "Telescope: live grep on project dir")
-        nmap("<leader>bl", builtin.buffers, "Telescope: buffers")
-        nmap("<leader>hp", builtin.help_tags, "Telescope: help")
-        nmap("<leader>mp", builtin.man_pages, "Telescope: Man Page")
-        nmap("<leader>di", builtin.diagnostics, "Telescope: LSP diagnostics")
+        for _, key in ipairs(keybindings) do
+            vim.keymap.set(key[1], key[2], key[3], { silent = true, desc = key[4] })
+        end
     end
 }

@@ -15,15 +15,25 @@ return {
             }
         })
 
-        local nmap = require("utils").nmap
+        local modes = require("utils").key_modes
+        local keybindings = {
+            { modes.normal, "<leader>hf", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, "Harpoon: menu" },
+            { modes.normal, "<leader>ha", function() harpoon:list():add() end,                         "Harpoon: add" },
+            { modes.normal, "<leader>n",  function() harpoon:list():next() end,                        "Harpoon: next" },
+            { modes.normal, "<leader>p",  function() harpoon:list():prev() end,                        "Harpoon: previous" },
+        }
 
-        nmap("<leader>hf", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, "Harpoon: menu")
-        nmap("<leader>ha", function() harpoon:list():add() end, "Harpoon: add")
-        nmap("<leader>n", function() harpoon:list():next() end, "Harpoon: next")
-        nmap("<leader>p", function() harpoon:list():prev() end, "Harpoon: previous")
+        for _, key in ipairs(keybindings) do
+            vim.keymap.set(key[1], key[2], key[3], { silent = true, desc = key[4] })
+        end
+
         for _, n in ipairs({ 1, 2, 3, 4, 5 }) do
-            nmap(string.format("<leader>%s", n), function() harpoon:list():select(n) end,
-                { string.format("Harpoon: go to list %s", n) })
+            vim.keymap.set(
+                modes.normal,
+                "<leader>" .. n,
+                function() harpoon:list():select(n) end,
+                { silent = true, desc = "Harpoon: go to list " .. n }
+            )
         end
     end,
 }

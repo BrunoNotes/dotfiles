@@ -1,20 +1,3 @@
-local description = function(descs)
-    if type(descs) == "table" then
-        local desc = ""
-        ---@diagnostic disable-next-line: unused-local
-        for i, v in ipairs(descs) do
-            if desc == "" then
-                desc = tostring(v)
-            else
-                desc = desc .. ", " .. tostring(v)
-            end
-        end
-        return desc
-    else
-        return descs
-    end
-end
-
 local M = {}
 
 M.find_buffer_by_name = function(name)
@@ -40,37 +23,6 @@ M.open_file_or_buffer = function(file_path, buffer)
     else
         vim.cmd(string.format(":buffer %s", buffer))
     end
-end
--- :h map-overview
-M.nmap = function(keys, func, desc)
-    vim.keymap.set("n", keys, func, { silent = true, desc = description(desc) })
-end
-
-M.imap = function(keys, func, desc)
-    vim.keymap.set("i", keys, func, { silent = true, desc = description(desc) })
-end
-
-M.vmap = function(keys, func, desc)
-    vim.keymap.set("v", keys, func, { silent = true, desc = description(desc) })
-end
-
-M.xmap = function(keys, func, desc)
-    vim.keymap.set("x", keys, func, { silent = true, desc = description(desc) })
-end
-
--- terminal mode
-M.tmap = function(keys, func, desc)
-    vim.keymap.set("t", keys, func, { silent = true, desc = description(desc) })
-end
-
--- select mode
-M.smap = function(keys, func, desc)
-    vim.keymap.set("s", keys, func, { silent = true, desc = description(desc) })
-end
-
--- command line
-M.cmap = function(keys, func, desc)
-    vim.keymap.set("c", keys, func, { silent = true, desc = description(desc) })
 end
 
 M.file_exists = function(file)
@@ -137,6 +89,16 @@ M.icon_patterns = {
         "🌗 ",
         "🌘 ",
     }
+}
+
+M.key_modes = {
+    normal = "n",
+    insert = "i",
+    visual = "v",
+    visual_block = "x",
+    term = "t",
+    command = "c",
+    select = "s",
 }
 
 return M

@@ -1,5 +1,5 @@
 -- csharp
-local utils = require("utils")
+local write_file = require("utils").write_file;
 
 local editorconfig_path = vim.fn.getcwd() .. "/.editorconfig"
 
@@ -20,7 +20,7 @@ csharp_new_line_between_query_expression_clauses = false
 ]]
 
 vim.api.nvim_create_user_command("GenCSharpEditorConfig", function()
-    utils.write_file(editorconfig_path, editorconfig)
+    write_file(editorconfig_path, editorconfig)
 end, { desc = "Generate .editorconfig for C#", nargs = '*' })
 
 local omnisharp_path = vim.fn.getcwd() .. "/omnisharp.json"
@@ -45,5 +45,5 @@ local omnisharp_json = [[
 ]]
 
 vim.api.nvim_create_user_command("GenCSharpOmnisharpJson", function()
-    utils.write_file(omnisharp_path, omnisharp_json)
+    write_file(omnisharp_path, omnisharp_json)
 end, { desc = "Generate omnisharp.json for C#", nargs = '*' })

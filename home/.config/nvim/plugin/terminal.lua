@@ -1,5 +1,4 @@
-local tmap = require("utils").tmap
-local nmap = require("utils").nmap
+local modes = require("utils").key_modes
 
 local function open_terminal()
     local buffer = require("utils").find_buffer_by_name("term://")
@@ -11,12 +10,6 @@ local function open_terminal()
         vim.cmd.buffer(buffer);
     end
 end
-
-nmap("<space>st", function()
-    open_terminal()
-    vim.api.nvim_feedkeys("a", "n", false)
-end, "Opens terminal")
-tmap("<C-q><Esc>", "<C-\\><C-n>", { "Exit terminal mode" })
 
 -- Terminal local options
 vim.api.nvim_create_autocmd("TermOpen", {
@@ -38,7 +31,7 @@ local function run_on_terminal(opts)
     vim.api.nvim_set_option_value("modifiable", false, { buf = buf })
 
     -- Create a floating window using the scratch buffer positioned in the middle
-    local screen_size = 0.8
+    local screen_size = 0.9
     local height = math.ceil(vim.o.lines * screen_size)
     local width = math.ceil(vim.o.columns * screen_size)
     local win = vim.api.nvim_open_win(buf, true, {
@@ -48,7 +41,7 @@ local function run_on_terminal(opts)
         height = height,
         row = math.ceil((vim.o.lines - height) / 2),
         col = math.ceil((vim.o.columns - width) / 2),
-        border = "none",
+        border = "rounded",
     })
 
     -- Change to the window that is floating to ensure termopen uses correct size
@@ -76,40 +69,25 @@ vim.api.nvim_create_user_command("LazyGit", function(opts)
     end
 end, { desc = "Run lazygit in a floating terminal", nargs = '*' })
 
-nmap("<leader>gs", function()
-    if vim.fn.executable("lazygit") == 0 then
-        print("lazygit not found")
-        return
-    else
-        run_on_terminal("lazygit")
+local keybindings = {
+    { modes.normal, "<space>st", function()
+        open_terminal()
+        vim.api.nvim_feedkeys("a", "n", false)
+    end, "Opens terminal" },
+
+    { modes.normal, "<C-q><Esc>", "<C-\\><C-n>", "Exit terminal mode" },
+
+    { modes.normal, "<leader>gs", function()
+        if vim.fn.executable("lazygit") == 0 then
+            print("lazygit not found")
+            return
+        else
+            run_on_terminal("lazygit")
+        end
     end
+    , "Opens lazygit" },
+}
+
+for _, key in ipairs(keybindings) do
+    vim.keymap.set(key[1], key[2], key[3], { silent = true, desc = key[4] })
 end
-, { "Opens lazygit" })
-
-
--- vim.api.nvim_create_user_command("TermOpen", function(opts)
---     if opts.fargs[1] ~= nil then
---         openTerminal(opts.fargs[1])
---     else
---         openTerminal()
---     end
--- end, { desc = "Open terminal buffer", nargs = '*' })
--- vim.api.nvim_create_user_command("TermRun", function(opts)
---     if opts.fargs[1] ~= nil then
---         local cmd = ""
---         for _, args in ipairs(opts.fargs) do
---             if cmd == "" then
---                 cmd = args
---             else
---                 cmd = cmd .. " " .. args
---             end
---         end
---
---         if vim.fn.executable(cmd) == 0 then
---             print(cmd .. " is not a executable")
---             return
---         else
---             run_on_terminal(cmd)
---         end
---     end
--- end, { desc = "Run cmd in a floating terminal", nargs = '*' })

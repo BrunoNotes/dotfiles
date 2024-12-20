@@ -4,10 +4,8 @@ local mason_folder = vim.fn.stdpath("data") .. "/mason"
 
 local get_bin_path = function(localPath, masonPath)
     if utils.file_exists(vim.fn.expand(localPath)) then
-        print("exists")
         return vim.fn.expand(localPath)
     else
-        print("not exists")
         return mason_folder .. masonPath
     end
 end
@@ -210,25 +208,29 @@ return {
                 if not client then return end
 
                 -- Create your keybindings here...
-                local nmap = require("utils").nmap
+                local modes = require("utils").key_modes
+                local keybindings = {
+                    { modes.normal, "gD",         function() vim.lsp.buf.declaration() end,                "LSP: Go to declaration" },
+                    { modes.normal, "gd",         function() vim.lsp.buf.definition() end,                 "LSP: Go to definition" },
+                    { modes.normal, "K",          function() vim.lsp.buf.hover() end,                      "LSP: Hover" },
+                    { modes.normal, "gI",         function() vim.lsp.buf.implementation() end,             "LSP: Go to implementation" },
+                    { modes.normal, "gr",         function() vim.lsp.buf.references() end,                 "LSP: Go to reference" },
+                    { modes.normal, "H",          function() vim.diagnostic.open_float() end,              "LSP: Open diagnostic" },
+                    { modes.normal, "<F2>",       function() vim.lsp.buf.rename() end,                     "LSP: Rename" },
+                    { modes.normal, "<leader>lr", function() vim.lsp.buf.rename() end,                     "LSP: Rename" },
+                    { modes.normal, "<leader>lf", function() vim.lsp.buf.format() end,                     "LSP: Format file" },
+                    { modes.normal, "<leader>li", function() vim.cmd(":LspInfo") end,                      "LSP: Info" },
+                    { modes.normal, "<leader>lI", function() vim.cmd(":LspInstallInfo") end,               "LSP: Install info" },
+                    { modes.normal, "<leader>la", function() vim.lsp.buf.code_action() end,                "LSP: Code action" },
+                    { modes.normal, "<leader>lj", function() vim.diagnostic.goto_next({ buffer = 0 }) end, "LSP: Go to next definition" },
+                    { modes.normal, "<leader>lk", function() vim.diagnostic.goto_prev({ buffer = 0 }) end, "LSP: Go to previous definition" },
+                    { modes.normal, "<leader>ls", function() vim.lsp.buf.signature_help() end,             "LSP: Help" },
+                    { modes.normal, "<leader>lq", function() vim.diagnostic.setloclist() end,              "LSP: setloclist" },
+                }
 
-                nmap("gD", function() vim.lsp.buf.declaration() end, "LSP: Go to declaration")
-                nmap("gd", function() vim.lsp.buf.definition() end, "LSP: Go to definition")
-                nmap("K", function() vim.lsp.buf.hover() end, "LSP: Hover")
-                nmap("gI", function() vim.lsp.buf.implementation() end, "LSP: Go to implementation")
-                nmap("gr", function() vim.lsp.buf.references() end, "LSP: Go to reference")
-                nmap("H", function() vim.diagnostic.open_float() end, "LSP: Open diagnostic")
-                nmap("<F2>", function() vim.lsp.buf.rename() end, "LSP: Rename")
-                nmap("<leader>lr", function() vim.lsp.buf.rename() end, "LSP: Rename")
-                nmap("<leader>lf", function() vim.lsp.buf.format() end, "LSP: Format file")
-                nmap("<leader>li", function() vim.cmd(":LspInfo") end, "LSP: Info")
-                nmap("<leader>lI", function() vim.cmd(":LspInstallInfo") end, "LSP: Install info")
-                nmap("<leader>la", function() vim.lsp.buf.code_action() end, "LSP: Code action")
-                nmap("<leader>lj", function() vim.diagnostic.goto_next({ buffer = 0 }) end, "LSP: Go to next definition")
-                nmap("<leader>lk", function() vim.diagnostic.goto_prev({ buffer = 0 }) end,
-                    "LSP: Go to previous definition")
-                nmap("<leader>ls", function() vim.lsp.buf.signature_help() end, "LSP: Help")
-                nmap("<leader>lq", function() vim.diagnostic.setloclist() end, "LSP: setloclist")
+                for _, key in ipairs(keybindings) do
+                    vim.keymap.set(key[1], key[2], key[3], { silent = true, desc = key[4] })
+                end
 
                 -- format on save
                 if client.supports_method("textDocument/formatting") then

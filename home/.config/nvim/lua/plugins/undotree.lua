@@ -1,8 +1,14 @@
 return {
     "mbbill/undotree",
     config = function()
-        local nmap = require("utils").nmap
+        local modes = require("utils").key_modes
 
-        nmap("<leader>u", vim.cmd.UndotreeToggle, "UndoTree: toggle")
+        local keybindings = {
+            { modes.normal, "<leader>u", vim.cmd.UndotreeToggle, "UndoTree: toggle" },
+        }
+
+        for _, key in ipairs(keybindings) do
+            vim.keymap.set(key[1], key[2], key[3], { silent = true, desc = key[4] })
+        end
     end,
 }
