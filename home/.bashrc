@@ -46,6 +46,7 @@ shopt -s histappend
 export VISUAL="vim"
 export EDITOR="vim"
 export TERMINAL="alacritty"
+# export TERMINAL="ghostty"
 export PATH="$HOME/.local/bin:$PATH"
 
 export PATH="$HOME/Apps/lazygit:$PATH"

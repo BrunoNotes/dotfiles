@@ -55,7 +55,6 @@ local function adapters(dap)
         },
     }
 
-
     -- godot
     dap.adapters.godot = {
         type = "server",

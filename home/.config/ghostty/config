@@ -1,0 +1,11 @@
+font-family = "JetBrainsMono Nerd Font"
+font-size = "13"
+font-feature = "-calt"
+font-feature = "-liga"
+font-feature = "-dlig"
+
+theme = "tokyonight_night"
+
+background = "#121212"
+foreground = "#A9B0D5"
+

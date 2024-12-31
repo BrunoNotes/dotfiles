@@ -7,7 +7,7 @@ local i = luasnip.insert_node
 
 local M = {
     s("print", {
-        t("std.debug.print(\""), i(1), t("\", .{});")
+        t("std.debug.print(\""), i(1), t("\\n\", .{});")
     }),
     s("loginfo", {
         t("std.log.info(\""), i(1), t("\", .{});")
