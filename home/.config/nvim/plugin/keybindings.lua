@@ -73,8 +73,8 @@ local keybindings = {
 
     { modes.normal,       "<leader>qo",        function() vim.cmd(":copen") end,     "Open quickfix list" },
     { modes.normal,       "<leader>qx",        function() vim.cmd(":cclose") end,    "Close quickfix list" },
-    { modes.normal,       "<C-n>",             function() vim.cmd(":cnext") end,     "Goes to next quickfix list item" },
-    { modes.normal,       "<C-p>",             function() vim.cmd(":cprevious") end, "Goes to next quickfix list item" },
+    { modes.normal,       "<leader>n",         function() vim.cmd(":cnext") end,     "Goes to next quickfix list item" },
+    { modes.normal,       "<leader>p",         function() vim.cmd(":cprevious") end, "Goes to next quickfix list item" },
 }
 
 for _, key in ipairs(keybindings) do

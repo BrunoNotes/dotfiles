@@ -25,7 +25,7 @@ local M = {
         t("fn "), i(1), t("() !void {}")
     }),
     s("struct", {
-        t("const "), i(1), t(" = struct {}")
+        t("const "), i(1), t(" = struct {};")
     }),
     s("std", {
         t("const std = @import(\"std\");")

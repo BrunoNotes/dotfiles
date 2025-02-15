@@ -2,6 +2,8 @@ local write_file = require("utils").write_file
 local read_json = require("utils").read_json
 local file_exists = require("utils").file_exists
 
+-- a json file to configure some options per project
+
 local env_path = vim.fn.getcwd() .. "/.nvim_env"
 
 -- config options per project

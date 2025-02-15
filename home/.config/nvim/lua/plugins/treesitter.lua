@@ -2,18 +2,11 @@ return {
     "nvim-treesitter/nvim-treesitter",
     dependencies = { { "nvim-treesitter/nvim-treesitter-context" } },
     config = function()
-        local configs = require("nvim-treesitter.configs")
-        local context_config = require("treesitter-context")
-
-        local languages = {
-            "lua",
-        }
-
-        configs.setup({
+        require("nvim-treesitter.configs").setup({
             -- ensure_installed = "all", -- one of "all" or a list of languages
-            ensure_installed = languages, -- one of "all" or a list of languages
+            ensure_installed = {},   -- one of "all" or a list of languages
             sync_install = false,
-            ignore_install = { "" },      -- List of parsers to ignore installing
+            ignore_install = { "" }, -- List of parsers to ignore installing
             auto_install = true,
             modules = {},
             highlight = {
@@ -27,7 +20,7 @@ return {
             indent = { enable = true, disable = { "" } },
         })
 
-        context_config.setup {
+        require("treesitter-context").setup {
             enable = true,            -- Enable this plugin (Can be enabled/disabled later via commands)
             max_lines = 0,            -- How many lines the window should span. Values <= 0 mean no limit.
             min_window_height = 0,    -- Minimum editor window height to enable context. Values <= 0 mean no limit.

@@ -8,7 +8,7 @@ return {
         local modes = require("utils").key_modes
 
         local keybindings = {
-            { modes.normal, "<leader>tt", function() trouble.toggle("diagnostics") end, "Trouble: toggle diagnostics" },
+            { modes.normal, "<leader>tb", function() trouble.toggle("diagnostics") end, "Trouble: toggle diagnostics" },
             { modes.normal, "<leader>tn", function() trouble.next("diagnostics") end,   "Trouble: next diagnostics" },
             { modes.normal, "<leader>tp", function() trouble.prev("diagnostics") end,   "Trouble: prev diagnostics" },
         }

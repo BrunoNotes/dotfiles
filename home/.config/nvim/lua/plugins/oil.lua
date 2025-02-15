@@ -2,8 +2,6 @@ return {
     'stevearc/oil.nvim',
     dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
-        local nmap = require("utils").nmap
-
         require("oil").setup({
             default_file_explorer = true,
             columns = {

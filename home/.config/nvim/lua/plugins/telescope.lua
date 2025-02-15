@@ -5,11 +5,10 @@ return {
         { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
     },
     config = function()
-        local telescope = require("telescope")
         local actions = require("telescope.actions")
         local builtin = require("telescope.builtin")
 
-        telescope.setup {
+        require("telescope").setup {
             defaults = {
                 -- Default configuration for telescope goes here:
                 path_display = { "smart" },
