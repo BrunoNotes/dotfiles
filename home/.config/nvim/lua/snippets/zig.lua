@@ -24,6 +24,9 @@ local M = {
     s("fn", {
         t("fn "), i(1), t("() !void {}")
     }),
+    s("fn", {
+        t("fn "), i(1), t("(self: *@This()) !void { _ = self; }")
+    }),
     s("struct", {
         t("const "), i(1), t(" = struct {};")
     }),

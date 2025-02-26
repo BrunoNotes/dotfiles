@@ -18,9 +18,9 @@ return {
         local modes = require("utils").key_modes
         local keybindings = {
             { modes.normal, "<leader>hf", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, "Harpoon: menu" },
-            { modes.normal, "<leader>ha", function() harpoon:list():add() end,                         "Harpoon: add" },
-            { modes.normal, "<C-n>",      function() harpoon:list():next() end,                        "Harpoon: next" },
-            { modes.normal, "<C-p>",      function() harpoon:list():prev() end,                        "Harpoon: previous" },
+            { modes.normal, "<leader>ha", function() harpoon:list():add() end, "Harpoon: add" },
+            { modes.normal, "<leader>hn", function() harpoon:list():next() end, "Harpoon: next" },
+            { modes.normal, "<leader>hp", function() harpoon:list():prev() end, "Harpoon: previous" },
         }
 
         for _, key in ipairs(keybindings) do

@@ -34,7 +34,7 @@ return {
                 },
                 -- border = false,
                 winblend = 0,
-                preview = true,
+                preview = false,
             },
             pickers = {
                 -- Default configuration for builtin pickers goes here:
@@ -72,17 +72,18 @@ return {
         local keybindings = {
             { modes.normal, "<leader>.", function()
                 builtin.find_files({
-                    cwd = vim.loop.cwd(),
+                    -- cwd = vim.loop.cwd(),
+                    cwd = vim.fn.getcwd(),
                 })
             end, "Telescope: find files" },
-            { modes.normal, "<leader>fg", builtin.git_files,                 "Telescope: git files" },
-            { modes.normal, "<leader>kb", builtin.keymaps,                   "Telescope: keymaps" },                        -- list keymaps
+            { modes.normal, "<leader>,", builtin.git_files, "Telescope: git files" },
+            { modes.normal, "<leader>gk", builtin.keymaps, "Telescope: keymaps" },                                          -- list keymaps
             { modes.normal, "<leader>gf", builtin.current_buffer_fuzzy_find, "Telescope: fuzzy finder on current buffer" }, -- grep current file
-            { modes.normal, "<leader>gp", builtin.live_grep,                 "Telescope: live grep on project dir" },
-            { modes.normal, "<leader>bl", builtin.buffers,                   "Telescope: buffers" },
-            { modes.normal, "<leader>hp", builtin.help_tags,                 "Telescope: help" },
-            { modes.normal, "<leader>mp", builtin.man_pages,                 "Telescope: Man Page" },
-            { modes.normal, "<leader>di", builtin.diagnostics,               "Telescope: LSP diagnostics" },
+            { modes.normal, "<leader>gp", builtin.live_grep, "Telescope: live grep on project dir" },
+            { modes.normal, "<leader>gb", builtin.buffers, "Telescope: buffers" },
+            { modes.normal, "<leader>gh", builtin.help_tags, "Telescope: help" },
+            { modes.normal, "<leader>gm", builtin.man_pages, "Telescope: Man Page" },
+            { modes.normal, "<leader>dd", builtin.diagnostics, "Telescope: LSP diagnostics" },
         }
 
         for _, key in ipairs(keybindings) do

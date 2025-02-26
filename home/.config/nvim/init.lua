@@ -6,7 +6,7 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
 require("utils")
-require("nvim_env")
+-- require("nvim_env")
 
 -- Auto install lazy
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"

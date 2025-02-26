@@ -1,10 +1,10 @@
 -- Credits: https://elianiva.my.id/post/neovim-lua-statusline
-local fn                    = vim.fn
-local api                   = vim.api
+local fn = vim.fn
+local api = vim.api
 local devicons_ok, devicons = pcall(require, "nvim-web-devicons")
-local icons                 = require("utils").icons
+local icons = require("utils").icons
 
-local get_devicon           = function()
+local get_devicon = function()
     if devicons_ok then
         local file_name, file_ext = fn.expand("%:t"), fn.expand("%:e")
         return devicons.get_icon(file_name, file_ext, { default = true })
@@ -13,34 +13,34 @@ local get_devicon           = function()
     end
 end
 
-local M                     = {}
+local M = {}
 
 -- possible values are 'blank'
-local active_sep            = 'blank'
+local active_sep = 'blank'
 
 -- change them if you want to different separator
-M.separators                = {
+M.separators = {
     blank = { ' ', ' ' },
     line = { '|', '|' },
 }
 
-M.trunc_width               = setmetatable({
-    mode       = 80,
+M.trunc_width = setmetatable({
+    mode = 80,
     git_status = 90,
-    filename   = 140,
-    line_col   = 60,
+    filename = 140,
+    line_col = 60,
 }, {
     __index = function()
         return 80
     end
 })
 
-M.is_truncated              = function(_, width)
+M.is_truncated = function(_, width)
     local current_width = api.nvim_win_get_width(0)
     return current_width < width
 end
 
-M.get_git_status            = function()
+M.get_git_status = function()
     -- check if git exists
     if vim.fn.executable("git") == 1 then
         local git_branch = vim.fn.system { "git", "branch", "--show-current" }:gsub("\n[^\n]*(\n?)$", "%1")
@@ -55,7 +55,7 @@ M.get_git_status            = function()
     end
 end
 
-M.get_filename              = function(self)
+M.get_filename = function(self)
     local file_path = vim.fn.fnamemodify(vim.fn.expand("%"), ":~:.")
     if self:is_truncated(self.trunc_width.filename) then
         return string.format('%s', file_path)
@@ -63,19 +63,19 @@ M.get_filename              = function(self)
     return string.format('%s', file_path)
 end
 
-M.get_icon                  = function()
+M.get_icon = function()
     local devicon_icon = get_devicon()
 
     return string.format('%s', devicon_icon)
 end
 
-M.get_line_col              = function(self)
+M.get_line_col = function(self)
     if self:is_truncated(self.trunc_width.line_col) then return '%l:%c' end
     -- return ' L:%l C:%c '
     return '%l:%c'
 end
 
-M.get_lsp_name              = function()
+M.get_lsp_name = function()
     local lsp_clients = vim.lsp.get_clients()
 
     if lsp_clients ~= nil then
@@ -96,7 +96,7 @@ M.get_lsp_name              = function()
     end
 end
 
-M.set_active                = function(self)
+M.set_active = function(self)
     local git = self:get_git_status()
     local separator = self.separators[active_sep]
     local filename = self:get_filename()
@@ -123,7 +123,7 @@ M.set_active                = function(self)
     })
 end
 
-local statusline            = setmetatable(M, {
+local statusline = setmetatable(M, {
     __call = function(statusline, mode)
         if mode == "active" then return statusline:set_active() end
     end

@@ -1,8 +1,9 @@
 local env = require("nvim_env")
 
-local dap_executable = function(exec_text, exec_path)
-    local nvim_env = env.get_env()
+local mason_folder = vim.fn.stdpath("data") .. "/mason"
+local nvim_env = env.get_env()
 
+local dap_executable = function(exec_text, exec_path)
     if nvim_env ~= nil then
         if nvim_env.dap_executable_path == "" then
             local input = vim.fn.input(exec_text, exec_path, "file")
@@ -19,9 +20,6 @@ local dap_executable = function(exec_text, exec_path)
 end
 
 local function adapters(dap)
-    local mason_folder = vim.fn.stdpath("data") .. "/mason"
-    local nvim_env = env.get_env()
-
     -- GDB
     dap.adapters.gdb = {
         type = "executable",
@@ -171,14 +169,14 @@ return {
 
             local keybindings = {
                 { modes.normal, "<leader>db", dap.toggle_breakpoint, "DAP: Toggle breakpoint" },
-                { modes.normal, "<leader>dc", dap.run_to_cursor,     "DAP: Run to cursor" },
+                { modes.normal, "<leader>dc", dap.run_to_cursor, "DAP: Run to cursor" },
                 { modes.normal, "<leader>dv", function()
                     ui.eval(nil, { enter = true })
                 end, "DAP: Eval under cursor" },
-                { modes.normal, "<F4>",  dap.restart,   "DAP: restart" },
-                { modes.normal, "<F5>",  dap.continue,  "DAP: continue" },
-                { modes.normal, "<F8>",  dap.step_back, "DAP: step back" },
-                { modes.normal, "<F9>",  dap.step_out,  "DAP: step out" },
+                { modes.normal, "<F4>", dap.restart, "DAP: restart" },
+                { modes.normal, "<F5>", dap.continue, "DAP: continue" },
+                { modes.normal, "<F8>", dap.step_back, "DAP: step back" },
+                { modes.normal, "<F9>", dap.step_out, "DAP: step out" },
                 { modes.normal, "<F10>", dap.step_over, "DAP: step over" },
                 { modes.normal, "<F11>", dap.step_into, "DAP step into" },
                 { modes.normal, "<leader>do", function()

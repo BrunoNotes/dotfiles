@@ -24,7 +24,7 @@ local lang_config = function(lsp_config, lsp_capabilities, mason_lspconfig)
             Lua = {
                 completion = {
                     callSnippet = "Disable"
-                }
+                },
             }
         }
     })
@@ -188,9 +188,9 @@ return {
 
         local signs = {
             { icon = icons.error, hl = 'DiagnosticSignError' },
-            { icon = icons.warn,  hl = 'DiagnosticSignWarn' },
-            { icon = icons.hint,  hl = 'DiagnosticSignHint' },
-            { icon = icons.info,  hl = 'DiagnosticSignInfo' }
+            { icon = icons.warn, hl = 'DiagnosticSignWarn' },
+            { icon = icons.hint, hl = 'DiagnosticSignHint' },
+            { icon = icons.info, hl = 'DiagnosticSignInfo' }
         }
 
         for _, sign in ipairs(signs) do
@@ -210,22 +210,22 @@ return {
                 -- Create your keybindings here...
                 local modes = require("utils").key_modes
                 local keybindings = {
-                    { modes.normal, "gD",         function() vim.lsp.buf.declaration() end,                "LSP: Go to declaration" },
-                    { modes.normal, "gd",         function() vim.lsp.buf.definition() end,                 "LSP: Go to definition" },
-                    { modes.normal, "K",          function() vim.lsp.buf.hover() end,                      "LSP: Hover" },
-                    { modes.normal, "gI",         function() vim.lsp.buf.implementation() end,             "LSP: Go to implementation" },
-                    { modes.normal, "gr",         function() vim.lsp.buf.references() end,                 "LSP: Go to reference" },
-                    { modes.normal, "H",          function() vim.diagnostic.open_float() end,              "LSP: Open diagnostic" },
-                    { modes.normal, "<F2>",       function() vim.lsp.buf.rename() end,                     "LSP: Rename" },
-                    { modes.normal, "<leader>lr", function() vim.lsp.buf.rename() end,                     "LSP: Rename" },
-                    { modes.normal, "<leader>lf", function() vim.lsp.buf.format() end,                     "LSP: Format file" },
-                    { modes.normal, "<leader>li", function() vim.cmd(":LspInfo") end,                      "LSP: Info" },
-                    { modes.normal, "<leader>lI", function() vim.cmd(":LspInstallInfo") end,               "LSP: Install info" },
-                    { modes.normal, "<leader>la", function() vim.lsp.buf.code_action() end,                "LSP: Code action" },
+                    { modes.normal, "gD", function() vim.lsp.buf.declaration() end, "LSP: Go to declaration" },
+                    { modes.normal, "gd", function() vim.lsp.buf.definition() end, "LSP: Go to definition" },
+                    { modes.normal, "K", function() vim.lsp.buf.hover() end, "LSP: Hover" },
+                    { modes.normal, "gI", function() vim.lsp.buf.implementation() end, "LSP: Go to implementation" },
+                    { modes.normal, "gr", function() vim.lsp.buf.references() end, "LSP: Go to reference" },
+                    { modes.normal, "H", function() vim.diagnostic.open_float() end, "LSP: Open diagnostic" },
+                    { modes.normal, "<F2>", function() vim.lsp.buf.rename() end, "LSP: Rename" },
+                    { modes.normal, "<leader>lr", function() vim.lsp.buf.rename() end, "LSP: Rename" },
+                    { modes.normal, "<leader>lf", function() vim.lsp.buf.format() end, "LSP: Format file" },
+                    { modes.normal, "<leader>li", function() vim.cmd(":LspInfo") end, "LSP: Info" },
+                    { modes.normal, "<leader>lI", function() vim.cmd(":LspInstallInfo") end, "LSP: Install info" },
+                    { modes.normal, "<leader>la", function() vim.lsp.buf.code_action() end, "LSP: Code action" },
                     { modes.normal, "<leader>lj", function() vim.diagnostic.goto_next({ buffer = 0 }) end, "LSP: Go to next definition" },
                     { modes.normal, "<leader>lk", function() vim.diagnostic.goto_prev({ buffer = 0 }) end, "LSP: Go to previous definition" },
-                    { modes.normal, "<leader>ls", function() vim.lsp.buf.signature_help() end,             "LSP: Help" },
-                    { modes.normal, "<leader>lq", function() vim.diagnostic.setloclist() end,              "LSP: setloclist" },
+                    { modes.normal, "<leader>ls", function() vim.lsp.buf.signature_help() end, "LSP: Help" },
+                    { modes.normal, "<leader>lq", function() vim.diagnostic.setloclist() end, "LSP: setloclist" },
                 }
 
                 for _, key in ipairs(keybindings) do

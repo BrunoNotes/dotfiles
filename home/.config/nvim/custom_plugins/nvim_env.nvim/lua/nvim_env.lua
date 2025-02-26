@@ -9,7 +9,7 @@ local env_path = vim.fn.getcwd() .. "/.nvim_env"
 -- config options per project
 local env_table = {
     dap_executable_path = "",
-    dap_type = "",
+    dap_type = "", -- like godot for c#
 }
 
 vim.api.nvim_create_user_command("GenNvimEnv", function()
