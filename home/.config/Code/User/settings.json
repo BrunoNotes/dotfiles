@@ -10,7 +10,9 @@
     "extensions.ignoreRecommendations": true,
     "omnisharp.enableEditorConfigSupport": false,
     "editor.fontFamily": "'JetBrainsMono Nerd Font'",
-    "editor.rulers": [80],
+    "editor.rulers": [
+        80
+    ],
     "editor.renderLineHighlight": "gutter",
     "explorer.compactFolders": false,
     "vim.useSystemClipboard": false,
@@ -18,73 +20,162 @@
     "vim.hlsearch": true,
     "vim.leader": " ",
     "vim.normalModeKeyBindings": [
-    {
-      "before": ["<leader>", "h", "a"],
-      "commands": ["vscode-harpoon.addEditor"]
-    },
-    {
-      "before": ["<leader>", "h", "e"],
-      "commands": ["vscode-harpoon.editEditors"]
-    },
-    {
-      "before": ["<leader>", "h", "f"],
-      "commands": ["vscode-harpoon.editorQuickPick"]
-    },
-    {
-      "before": ["<leader>", "1"],
-      "commands": ["vscode-harpoon.gotoEditor1"]
-    },
-    {
-      "before": ["<leader>", "2"],
-      "commands": ["vscode-harpoon.gotoEditor2"]
-    },
-    {
-      "before": ["<leader>", "3"],
-      "commands": ["vscode-harpoon.gotoEditor3"]
-    },
-    {
-      "before": ["<leader>", "4"],
-      "commands": ["vscode-harpoon.gotoEditor4"]
-    },
-    {
-      "before": ["<leader>", "5"],
-      "commands": ["vscode-harpoon.gotoEditor5"]
-    },
-    {
-      "before": ["<leader>", "Enter"],
-      "commands": ["workbench.action.terminal.toggleTerminal"]
-    },
-    {
-      "before": ["<leader>", "f", "b"],
-      "commands": ["workbench.view.explorer"]
-    },
-    {
-      "before": ["<leader>", "l", "f"],
-      "commands": ["editor.action.formatDocument"]
-    },
-    {
-      "before": ["<leader>", "."],
-      "commands": ["workbench.action.quickOpen"]
-    },
-    {
-      "before": ["<leader>", "g", "d"],
-      "commands": ["workbench.action.findInFiles"]
-    },
-    {
-      "before": ["ctrl", "w", "q"],
-      "commands": ["-workbench.action.closeActiveEditor"]
-    },
-    {
-      "before": ["<leader>", "b", "l"],
-      "commands": ["workbench.action.quickOpenPreviousRecentlyUsedEditorInGroup"]
-    },
-    {
-      "before": ["<leader>", "b", "q"],
-      "commands": ["workbench.action.closeEditorsInGroup"]
-    },
-  ],
-  "terminal.external.linuxExec": "zsh",
-  "zig.path": "/home/bruno/.local/lang/zig/zig",
-  "zig.zls.path": "/home/bruno/.config/Code/User/globalStorage/ziglang.vscode-zig/zls_install/zls",
-  "zig.initialSetupDone": true
+        {
+            "before": [
+                "<leader>",
+                "h",
+                "a"
+            ],
+            "commands": [
+                "vscode-harpoon.addEditor"
+            ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "h",
+                "e"
+            ],
+            "commands": [
+                "vscode-harpoon.editEditors"
+            ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "h",
+                "f"
+            ],
+            "commands": [
+                "vscode-harpoon.editorQuickPick"
+            ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "1"
+            ],
+            "commands": [
+                "vscode-harpoon.gotoEditor1"
+            ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "2"
+            ],
+            "commands": [
+                "vscode-harpoon.gotoEditor2"
+            ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "3"
+            ],
+            "commands": [
+                "vscode-harpoon.gotoEditor3"
+            ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "4"
+            ],
+            "commands": [
+                "vscode-harpoon.gotoEditor4"
+            ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "5"
+            ],
+            "commands": [
+                "vscode-harpoon.gotoEditor5"
+            ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "Enter"
+            ],
+            "commands": [
+                "workbench.action.terminal.toggleTerminal"
+            ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "f",
+                "b"
+            ],
+            "commands": [
+                "workbench.view.explorer"
+            ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "l",
+                "f"
+            ],
+            "commands": [
+                "editor.action.formatDocument"
+            ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "."
+            ],
+            "commands": [
+                "workbench.action.quickOpen"
+            ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "g",
+                "d"
+            ],
+            "commands": [
+                "workbench.action.findInFiles"
+            ]
+        },
+        {
+            "before": [
+                "ctrl",
+                "w",
+                "q"
+            ],
+            "commands": [
+                "-workbench.action.closeActiveEditor"
+            ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "b",
+                "l"
+            ],
+            "commands": [
+                "workbench.action.quickOpenPreviousRecentlyUsedEditorInGroup"
+            ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "b",
+                "q"
+            ],
+            "commands": [
+                "workbench.action.closeEditorsInGroup"
+            ]
+        }
+    ],
+    "terminal.external.linuxExec": "zsh",
+    "zig.path": "/home/bruno/.local/lang/zig/zig",
+    "zig.zls.path": "/home/bruno/.config/Code/User/globalStorage/ziglang.vscode-zig/zls_install/zls",
+    "zig.initialSetupDone": true
 }

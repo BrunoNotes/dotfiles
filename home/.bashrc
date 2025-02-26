@@ -62,6 +62,8 @@ export PATH="$HOME/.local/lang/Odin:$PATH"
 export PATH="$HOME/.local/share/pnpm:$PATH"
 export PATH="$HOME/.deno/bin:$PATH"
 
+export ASPNETCORE_ENVIRONMENT="Development" # csharp
+
 # Ocaml
 opam=$(command -v opam || true)
 if [[ -n $opam ]]; then
@@ -73,9 +75,6 @@ cargo=$(command -v cargo || true)
 if [[ -n $cargo ]]; then
     . "$HOME/.cargo/env"
 fi
-
-# Csharp
-export ASPNETCORE_ENVIRONMENT="Development"
 
 # Vim mode
 set -o vi

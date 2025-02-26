@@ -1,30 +1,18 @@
 # Load version control information
 autoload -Uz vcs_info
 
-zstyle ':vcs_info:*' enable git 
+zstyle ':vcs_info:*' enable git
 precmd() { vcs_info }
 setopt prompt_subst
-
-# Check changes in repo
-# zstyle ':vcs_info:git*+set-message:*' hooks git-untracked 
-# +vi-git-untracked(){
-#     if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) == 'true' ]] && \
-#         git status --porcelain | grep '??' &> /dev/null ; then
-#         # This will show the marker if there are any untracked files in repo.
-#         hook_com[staged]+='!' # signify new files with a bang
-#     fi
-# }
-# zstyle ':vcs_info:*' check-for-changes true
 
 # Format the vcs_info_msg_0_ variable
 # %b - Branch information, like master
 # %m - In case of Git, show information about stashes
 # %u - Show unstaged changes in the repository
 # %c - Show staged changes in the repository
-# zstyle ':vcs_info:git:*' formats "%F{014}[%f%F{red}%m%u%c%f%F{6}  %F{yellow}%b%f%F{014}]%f"
-# zstyle ':vcs_info:git:*' formats "%{$fg[blue]%}(%{$fg[red]%}%m%u%c%{$fg[yellow]%}%{$fg[yellow]%} %b%{$fg[blue]%})"
+# zstyle ':vcs_info:git:*' formats "%{$fg[blue]%}(%{$fg[yellow]%}%{$fg[yellow]%} %b%{$fg[blue]%})"
 zstyle ':vcs_info:git:*' formats "%{$fg[blue]%}(%{$fg[yellow]%}%{$fg[yellow]%} %b%{$fg[blue]%})"
- 
+
 # Set up the prompt (with git branch name)
 PROMPT=''
 # PROMPT+='%B%F{012}[%F{white}%n%F{12}]%f%b' # User name
