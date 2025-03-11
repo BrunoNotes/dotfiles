@@ -70,12 +70,12 @@ vim.api.nvim_create_user_command("LazyGit", function(opts)
 end, { desc = "Run lazygit in a floating terminal", nargs = '*' })
 
 local keybindings = {
-    { modes.normal, "<space>st", function()
+    { modes.normal, "<leader>st", function()
         open_terminal()
         vim.api.nvim_feedkeys("a", "n", false)
     end, "Opens terminal" },
 
-    { modes.term, "<C-q><Esc>", "<C-\\><C-n>", "Exit terminal mode" },
+    { modes.term, "<Esc><Esc>", "<C-\\><C-n>", "Exit terminal mode" },
 
     { modes.normal, "<leader>gs", function()
         if vim.fn.executable("lazygit") == 0 then
