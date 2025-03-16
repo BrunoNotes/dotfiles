@@ -1,4 +1,4 @@
-local write_file = require("utils").write_file;
+local utils = require("utils");
 
 -- ChangeCWD
 vim.api.nvim_create_user_command("ChangeCWD", function()
@@ -47,5 +47,5 @@ csharp_new_line_before_members_in_object_initializers = false
 csharp_new_line_before_members_in_anonymous_types = false
 csharp_new_line_between_query_expression_clauses = false
 ]]
-    write_file(editorconfig_path, editorconfig)
+    utils.writeFile(editorconfig_path, editorconfig)
 end, { desc = "Generate .editorconfig", nargs = '*' })

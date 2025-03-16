@@ -1,113 +1,4 @@
-local env = require("nvim_env")
-
 local mason_folder = vim.fn.stdpath("data") .. "/mason"
-local nvim_env = env.get_env()
-
-local dap_executable = function(exec_text, exec_path)
-    if nvim_env ~= nil then
-        if nvim_env.dap_executable_path == "" then
-            local input = vim.fn.input(exec_text, exec_path, "file")
-            nvim_env.dap_executable_path = input
-            env.write_json_env(nvim_env)
-            return input
-        else
-            return nvim_env.dap_executable_path
-        end
-    else
-        local input = vim.fn.input(exec_text, exec_path, "file")
-        return input
-    end
-end
-
-local function adapters(dap)
-    -- GDB
-    dap.adapters.gdb = {
-        type = "executable",
-        command = "gdb",
-        args = { "-i", "dap" }
-    }
-
-    dap.configurations.rust = {
-        {
-            name = "Launch",
-            type = "gdb",
-            request = "launch",
-            program = function()
-                return dap_executable("Path to executable: ", vim.fn.getcwd() .. "/target/debug/")
-            end,
-            cwd = "${workspaceFolder}",
-            stopAtBeginningOfMainSubprogram = false,
-        },
-    }
-
-    dap.configurations.zig = {
-        {
-            name = "Launch",
-            type = "gdb",
-            request = "launch",
-            program = function()
-                return dap_executable("Path to executable: ", vim.fn.getcwd() .. "/zig-out/bin/")
-            end,
-            cwd = "${workspaceFolder}",
-            stopAtBeginningOfMainSubprogram = false,
-        },
-    }
-
-    -- godot
-    dap.adapters.godot = {
-        type = "server",
-        host = "127.0.0.1",
-        port = 6006, -- Editor -> Editor Settings -> Network -> Debug Adapter
-    }
-
-    dap.configurations.gdscript = {
-        {
-            type = "godot",
-            request = "launch",
-            name = "Launch scene",
-            project = "${workspaceFolder}",
-        }
-    }
-
-    -- dotnet
-    dap.adapters.coreclr = {
-        type = "executable",
-        command = mason_folder .. "/bin/netcoredbg",
-        args = { "--interpreter=vscode" }
-    }
-
-    local cs_coreclr = {
-        type = "coreclr",
-        name = "launch - netcoredbg",
-        request = "launch",
-        program = function()
-            return dap_executable("Path to dll", vim.fn.getcwd() .. "/bin/Debug/")
-        end,
-    }
-
-    local cs_godot = {
-        type = "godot",
-        request = "launch",
-        name = "Launch scene",
-        project = "${workspaceFolder}",
-    }
-
-    if nvim_env ~= nil then
-        if nvim_env.dap_type == "godot" then
-            dap.configurations.cs = {
-                cs_godot,
-            }
-        else
-            dap.configurations.cs = {
-                cs_coreclr,
-            }
-        end
-    else
-        dap.configurations.cs = {
-            cs_coreclr,
-        }
-    end
-end
 
 return {
     {
@@ -163,7 +54,87 @@ return {
             })
             require("nvim-dap-virtual-text").setup({})
 
-            adapters(dap)
+            -- adapters --
+
+            -- GDB
+            dap.adapters.gdb = {
+                type = "executable",
+                command = "gdb",
+                args = { "-i", "dap" }
+            }
+
+            dap.configurations.rust = {
+                {
+                    name = "Launch",
+                    type = "gdb",
+                    request = "launch",
+                    program = function()
+                        local text = "Path to executable: "
+                        local path = vim.fn.getcwd() .. "/target/debug/"
+                        return vim.fn.input(text, path, "file")
+                    end,
+                    cwd = "${workspaceFolder}",
+                    stopAtBeginningOfMainSubprogram = false,
+                },
+            }
+
+            dap.configurations.zig = {
+                {
+                    name = "Launch",
+                    type = "gdb",
+                    request = "launch",
+                    program = function()
+                        local text = "Path to executable: "
+                        local path = vim.fn.getcwd() .. "/zig-out/bin/"
+                        return vim.fn.input(text, path, "file")
+                    end,
+                    cwd = "${workspaceFolder}",
+                    stopAtBeginningOfMainSubprogram = false,
+                },
+            }
+
+            -- godot
+            dap.adapters.godot = {
+                type = "server",
+                host = "127.0.0.1",
+                port = 6006, -- Editor -> Editor Settings -> Network -> Debug Adapter
+            }
+
+            dap.configurations.gdscript = {
+                {
+                    type = "godot",
+                    request = "launch",
+                    name = "Launch scene",
+                    project = "${workspaceFolder}",
+                }
+            }
+
+            -- dap.configurations.cs = {
+            --     type = "godot",
+            --     request = "launch",
+            --     name = "Launch scene",
+            --     project = "${workspaceFolder}",
+            -- }
+
+            -- dotnet
+            dap.adapters.coreclr = {
+                type = "executable",
+                command = mason_folder .. "/bin/netcoredbg",
+                args = { "--interpreter=vscode" }
+            }
+
+            dap.configurations.cs = {
+                type = "coreclr",
+                name = "launch - netcoredbg",
+                request = "launch",
+                program = function()
+                    local text = "Path to executable: "
+                    local path = vim.fn.getcwd() .. "/bin/Debug/"
+                    return vim.fn.input(text, path, "file")
+                end,
+            }
+
+            -- end adapters --
 
             local modes = require("utils").key_modes
 

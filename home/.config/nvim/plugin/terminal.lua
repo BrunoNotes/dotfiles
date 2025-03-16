@@ -1,7 +1,8 @@
-local modes = require("utils").key_modes
+local utils = require("utils")
+local modes = utils.key_modes
 
-local function open_terminal()
-    local buffer = require("utils").find_buffer_by_name("term://")
+local function openTerminal()
+    local buffer = utils.findBufferByName("term://")
 
     if buffer == -1 then
         vim.cmd.term()
@@ -71,7 +72,7 @@ end, { desc = "Run lazygit in a floating terminal", nargs = '*' })
 
 local keybindings = {
     { modes.normal, "<leader>st", function()
-        open_terminal()
+        openTerminal()
         vim.api.nvim_feedkeys("a", "n", false)
     end, "Opens terminal" },
 

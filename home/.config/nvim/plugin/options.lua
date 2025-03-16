@@ -30,7 +30,7 @@ local options = {
     updatetime = 50,
     colorcolumn = "80",
     inccommand = "split",
-    -- Spell
+
     -- spell = true,
     spelllang = "pt_br,en_us,cjk",
 }

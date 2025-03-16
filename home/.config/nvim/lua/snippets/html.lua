@@ -4,7 +4,7 @@ local sn = luasnip.snippet_node
 local t = luasnip.text_node
 local i = luasnip.insert_node
 
-local function html_snip(element)
+local function htmlSnip(element)
     return s(element, {
         t("<" .. element .. ">"), i(1), t("</" .. element .. ">")
     })
@@ -112,7 +112,7 @@ local M = {
 }
 
 for _, value in ipairs(html_tags) do
-    table.insert(M, html_snip(value))
+    table.insert(M, htmlSnip(value))
 end
 
 return M

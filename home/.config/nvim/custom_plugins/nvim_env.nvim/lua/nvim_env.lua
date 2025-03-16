@@ -1,6 +1,7 @@
-local write_file = require("utils").write_file
-local read_json = require("utils").read_json
-local file_exists = require("utils").file_exists
+local utils = require("utils")
+local write_file = utils.writeFile
+local read_json = utils.readJson
+local file_exists = utils.fileExists
 
 -- a json file to configure some options per project
 
