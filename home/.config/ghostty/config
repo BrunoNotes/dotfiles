@@ -11,6 +11,8 @@ foreground = "#A9B0D5"
 
 maximize = true
 
+keybind = ctrl+enter=unbind
+
 keybind = ctrl+b>enter=new_tab
 keybind = ctrl+b>n=next_tab
 keybind = ctrl+b>p=previous_tab

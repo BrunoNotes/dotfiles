@@ -43,10 +43,23 @@ local keybindings = {
     { modes.normal, "<C-p>", function() vim.cmd(":bprevious") end, "Previous buffer" },
     { modes.normal, "<C-n>", function() vim.cmd(":bnext") end, "Next buffer" },
     { modes.normal, "<leader>bx", function() vim.cmd(":bd!") end, "Close buffers" },
-    { modes.normal, "<leader>bq", function() vim.cmd(":w|%bd!|e#|bd#") end, "Closes other buffers, leaves current buffer open" }, -- :w saves, :%bd! deletes all buffers, bd# delete unnamed buffer
-    { modes.normal, "<leader>sp", function() vim.cmd(":setlocal spell!") end, "Activate spell check" },                           -- Activate spellcheck
+    { modes.normal, "<leader>bq", function()
+        -- vim.cmd(":w|%bd!|e#|bd#")
+        local current_buf = vim.api.nvim_get_current_buf()
+        local count = 0
+        for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+            if (current_buf ~= buf) then
+                -- vim.api.nvim_buf_delete(buf, { force = true })
+                vim.api.nvim_buf_delete(buf, {})
+                count = count + 1
+            end
+        end
+
+        print("closed " .. count .. " buffers")
+    end, "Closes other buffers, leaves current buffer open" },                                          -- :w saves, :%bd! deletes all buffers, bd# delete unnamed buffer
+    { modes.normal, "<leader>sp", function() vim.cmd(":setlocal spell!") end, "Activate spell check" }, -- Activate spellcheck
     { modes.normal, "<leader>sr", function() vim.cmd(":spellr") end, "Repeat spell correction to matching words" },
-    { modes.insert, "<C-x>s", "<C-x>s", "Show spell suggestions" },                                                               -- show suggestions
+    { modes.insert, "<C-x>s", "<C-x>s", "Show spell suggestions" },                                     -- show suggestions
 
     { modes.normal, "<leader>cc", function()
         local message = vim.fn.input("Commit message: ")

@@ -3,10 +3,37 @@ return {
     dependencies = {
         "nvim-lua/plenary.nvim",
         { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
+        { dir = "~/.config/nvim/custom_plugins/session.nvim" },
     },
     config = function()
         local actions = require("telescope.actions")
         local builtin = require("telescope.builtin")
+        local session = require("session")
+
+        local session_paths = {
+            "Code/*/*",
+            "Code/*",
+            "Code",
+            "dotfiles",
+            "dotfiles/*",
+            "dotfiles/*/*",
+            "dotfiles/*/.*",
+            "dotfiles/*/.*/*",
+            "dotfiles/*/.*/.*",
+            "dotfiles/*/*/*",
+            "SharedConfig/notes",
+        }
+
+        session.setup({
+            paths = session_paths,
+            telescope_opts = require("telescope.themes").get_ivy {
+                layout_config = {
+                    bottom_pane = {
+                        height = 0.5,
+                    },
+                }
+            },
+        })
 
         require("telescope").setup {
             defaults = {
@@ -71,6 +98,7 @@ return {
 
         local is_inside_work_tree = {} -- cache
 
+
         local keybindings = {
             { modes.normal, "<leader>.", function()
                 -- Falling back to find_files if git_files can't find a .git directory
@@ -101,6 +129,10 @@ return {
             { modes.normal, "<leader>gm", builtin.man_pages, "Telescope: Man Page" },
             { modes.normal, "<leader>gd", builtin.diagnostics, "Telescope: LSP diagnostics" },
             { modes.normal, "<leader>gc", builtin.commands, "Telescope: commands" },
+            -- customs
+            { modes.normal, "<leader>fs", function()
+                session.findSession()
+            end, "Telescope (custom): find sessions" },
         }
 
         for _, key in ipairs(keybindings) do
