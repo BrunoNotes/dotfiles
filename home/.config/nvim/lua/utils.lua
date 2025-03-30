@@ -94,6 +94,7 @@ M.key_modes = {
     visual_block = "x",
     term = "t",
     command = "c",
+    lang = "l",
     select = "s",
 }
 

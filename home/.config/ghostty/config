@@ -13,23 +13,23 @@ maximize = true
 
 keybind = ctrl+enter=unbind
 
-keybind = ctrl+b>enter=new_tab
-keybind = ctrl+b>n=next_tab
-keybind = ctrl+b>p=previous_tab
-keybind = ctrl+b>w=toggle_tab_overview
-keybind = ctrl+b>v=new_split:right
-keybind = ctrl+b>s=new_split:down
-keybind = ctrl+b>h=goto_split:left
-keybind = ctrl+b>j=goto_split:down
-keybind = ctrl+b>k=goto_split:up
-keybind = ctrl+b>l=goto_split:right
+keybind = ctrl+a>enter=new_tab
+keybind = ctrl+a>n=next_tab
+keybind = ctrl+a>p=previous_tab
+keybind = ctrl+a>w=toggle_tab_overview
+keybind = ctrl+a>v=new_split:right
+keybind = ctrl+a>s=new_split:down
+keybind = ctrl+a>h=goto_split:left
+keybind = ctrl+a>j=goto_split:down
+keybind = ctrl+a>k=goto_split:up
+keybind = ctrl+a>l=goto_split:right
 
-keybind = ctrl+b>i=inspector:toggle
+keybind = ctrl+a>i=inspector:toggle
 
 keybind = alt+shift+left=resize_split:left,10
 keybind = alt+shift+down=resize_split:down,10
 keybind = alt+shift+up=resize_split:up,10
 keybind = alt+shift+right=resize_split:right,10
 
-keybind = ctrl+b>r=reload_config
-keybind = ctrl+b>x=close_surface
+keybind = ctrl+a>r=reload_config
+keybind = ctrl+a>x=close_surface

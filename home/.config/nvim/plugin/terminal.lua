@@ -1,33 +1,27 @@
 local utils = require("utils")
 local modes = utils.key_modes
 
-local function openTerminal()
-    local buffer = utils.findBufferByName("term://")
+local term_buf = nil
 
-    if buffer == -1 then
-        vim.cmd.term()
+local function openTerminal(opts)
+    opts = opts or {}
+
+    local ok, _ = pcall(vim.api.nvim_buf_get_name, term_buf)
+
+    if ok and term_buf ~= nil then
+        vim.api.nvim_set_current_buf(term_buf)
     else
-        -- vim.cmd(":buffer %s" .. buffer)
-        vim.cmd.buffer(buffer);
+        vim.cmd.term()
+        term_buf = vim.api.nvim_get_current_buf()
     end
 end
 
--- Terminal local options
-vim.api.nvim_create_autocmd("TermOpen", {
-    group = vim.api.nvim_create_augroup("custom-term-open", {}),
-    callback = function()
-        vim.opt_local.number = false
-        vim.opt_local.relativenumber = false
-        vim.opt_local.scrolloff = 0
-    end,
-})
-
-
-local function run_on_terminal(opts)
+local function runOnTerminal(opts)
     opts = opts or {}
 
     -- Create an immutable scratch buffer that is wiped once hidden
     local buf = vim.api.nvim_create_buf(false, true)
+
     vim.api.nvim_set_option_value("bufhidden", "wipe", { buf = buf })
     vim.api.nvim_set_option_value("modifiable", false, { buf = buf })
 
@@ -61,32 +55,38 @@ local function run_on_terminal(opts)
     vim.cmd.startinsert()
 end
 
-vim.api.nvim_create_user_command("LazyGit", function(opts)
+local function runLazyGit()
     if vim.fn.executable("lazygit") == 0 then
         print("lazygit not found")
         return
     else
-        run_on_terminal("lazygit")
+        runOnTerminal("lazygit")
     end
+end
+
+vim.api.nvim_create_user_command("LazyGit", function(opts)
+    runLazyGit()
 end, { desc = "Run lazygit in a floating terminal", nargs = '*' })
 
+-- Terminal local options
+vim.api.nvim_create_autocmd("TermOpen", {
+    group = vim.api.nvim_create_augroup("custom-term-open", {}),
+    callback = function(buf)
+        vim.opt_local.number = false
+        vim.opt_local.relativenumber = false
+        vim.opt_local.scrolloff = 0
+    end,
+})
+
 local keybindings = {
-    { modes.normal, "<leader>st", function()
+    { modes.term, "<Esc><Esc>", "<C-\\><C-n>", "Exit terminal mode" },
+    { modes.normal, "<leader><CR>", function()
         openTerminal()
-        vim.api.nvim_feedkeys("a", "n", false)
+        -- vim.api.nvim_feedkeys("a", "n", false)
+        vim.cmd.startinsert()
     end, "Opens terminal" },
 
-    { modes.term, "<Esc><Esc>", "<C-\\><C-n>", "Exit terminal mode" },
-
-    { modes.normal, "<leader>gs", function()
-        if vim.fn.executable("lazygit") == 0 then
-            print("lazygit not found")
-            return
-        else
-            run_on_terminal("lazygit")
-        end
-    end
-    , "Opens lazygit" },
+    { modes.normal, "<leader>gs", function() runLazyGit() end, "Opens lazygit" },
 }
 
 for _, key in ipairs(keybindings) do

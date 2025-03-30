@@ -9,14 +9,6 @@ local keybindings = {
     -- command line
     { modes.command, "<c-k>", "<c-p>", "" },
     { modes.command, "<c-j>", "<c-n>", "" },
-    { modes.command, "<c-h>", "<S-Left>", "" },
-    { modes.command, "<c-l>", "<S-Right>", "" },
-    { modes.command, "<c-p>", "<S-Up>", "" },
-    { modes.command, "<c-n>", "<S-Down>", "" },
-    { modes.command, "<c-0>", "<Home>", "" },
-    { modes.command, "<c-5>", "<End>", "" },
-    { modes.command, "<c-d>", "<c-u>", "" },
-    { modes.command, "<c-x>", "<c-w>", "" },
 
     { modes.visual, "<", "<gv", "Indent text left" },
     { modes.visual, ">", ">gv", "Indent text right" },
@@ -34,10 +26,10 @@ local keybindings = {
     { modes.normal, "<leader>y", "\"+y", "Copy to system clipboard" },
     { modes.normal, "<leader>Y", "\"+Y", "Copy to system clipboard" },
 
-    { modes.normal, "<S-Up>", function() vim.cmd(":resize -2") end, "Resize window up" },
-    { modes.normal, "<S-Down>", function() vim.cmd(":resize +2") end, "Resize window down" },
-    { modes.normal, "<S-Left>", function() vim.cmd(":vertical resize +2") end, "Resize window left" },
-    { modes.normal, "<S-Right>", function() vim.cmd(":vertical resize -2") end, "Resize window rigt" },
+    { modes.normal, "<A-Up>", function() vim.cmd(":resize -2") end, "Resize window up" },
+    { modes.normal, "<A-Down>", function() vim.cmd(":resize +2") end, "Resize window down" },
+    { modes.normal, "<A-Left>", function() vim.cmd(":vertical resize +2") end, "Resize window left" },
+    { modes.normal, "<A-Right>", function() vim.cmd(":vertical resize -2") end, "Resize window rigt" },
     { modes.normal, "<C-w>r", "<C-w><C-r>", "Swap windows position" },
 
     { modes.normal, "<C-p>", function() vim.cmd(":bprevious") end, "Previous buffer" },
@@ -49,8 +41,9 @@ local keybindings = {
         local count = 0
         for _, buf in ipairs(vim.api.nvim_list_bufs()) do
             if (current_buf ~= buf) then
-                -- vim.api.nvim_buf_delete(buf, { force = true })
-                vim.api.nvim_buf_delete(buf, {})
+                vim.api.nvim_buf_delete(buf, { force = true })
+                -- vim.api.nvim_buf_delete(buf, { unload = true })
+                -- vim.api.nvim_buf_delete(buf, {})
                 count = count + 1
             end
         end

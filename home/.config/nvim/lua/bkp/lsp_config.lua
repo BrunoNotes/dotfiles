@@ -2,8 +2,6 @@ local icons = require("utils").icons
 local utils = require("utils")
 local mason_folder = vim.fn.stdpath("data") .. "/mason"
 
-local _border = "rounded"
-
 local getBinPath = function(localPath, masonPath)
     if utils.fileExists(vim.fn.expand(localPath)) then
         return vim.fn.expand(localPath)
@@ -17,9 +15,17 @@ return {
     dependencies = {
         'williamboman/mason.nvim',
         "williamboman/mason-lspconfig.nvim",
-        -- "hrsh7th/nvim-cmp",
-        'saghen/blink.cmp',
+        -- completion:
+        "hrsh7th/nvim-cmp",
+        "hrsh7th/cmp-buffer",
+        "hrsh7th/cmp-path",
+        "hrsh7th/cmp-nvim-lsp",
+        "hrsh7th/cmp-cmdline",
+        "hrsh7th/cmp-nvim-lua",
         "folke/neodev.nvim",
+        -- snippets:
+        "L3MON4D3/LuaSnip",
+        'saadparwaiz1/cmp_luasnip',
     },
     config = function()
         require('mason').setup()
@@ -28,10 +34,102 @@ return {
                 border = 'rounded'
             }
         })
+        local luasnip = require("luasnip");
+        local cmp = require("cmp");
         local lsp_config = require("lspconfig")
-        -- local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
-        local lsp_capabilities = require('blink.cmp').get_lsp_capabilities()
+        local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
         local mason_lspconfig = require("mason-lspconfig")
+
+        local signs = {
+            { icon = icons.error, hl = 'DiagnosticSignError' },
+            { icon = icons.warn, hl = 'DiagnosticSignWarn' },
+            { icon = icons.hint, hl = 'DiagnosticSignHint' },
+            { icon = icons.info, hl = 'DiagnosticSignInfo' }
+        }
+
+        for _, sign in ipairs(signs) do
+            vim.fn.sign_define(sign.hl, { texthl = sign.hl, text = sign.icon, numhl = '' })
+        end
+
+        -- cmp --
+        luasnip.add_snippets("html", require("snippets.html"));
+        luasnip.add_snippets("rust", require("snippets.rust"));
+        luasnip.add_snippets("markdown", require("snippets.markdown"));
+        luasnip.add_snippets("zig", require("snippets.zig"));
+
+        luasnip.filetype_extend("javascript", { "html" })
+        luasnip.filetype_extend("javascriptreact", { "html" })
+        luasnip.filetype_extend("typescript", { "html" })
+        luasnip.filetype_extend("typescriptreact", { "html" })
+
+        cmp.setup({
+            snippet = {
+                expand = function(args)
+                    luasnip.lsp_expand(args.body) -- For `luasnip` users.
+                end,
+            },
+            preselect = cmp.PreselectMode.None,
+            completion = { completeopt = "noselect", autocomplete = false },
+            mapping = cmp.mapping.preset.insert({
+                ["<C-k>"] = cmp.mapping(function(fallback)
+                    if cmp.visible() then
+                        cmp.select_prev_item()
+                    else
+                        cmp.complete()
+                    end
+                end),
+                ["<C-j>"] = cmp.mapping(function(fallback)
+                    if cmp.visible() then
+                        cmp.select_next_item()
+                    else
+                        cmp.complete()
+                    end
+                end),
+                ["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-1), { "i", "c" }),
+                ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(1), { "i", "c" }),
+                ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
+                ["<C-e>"] = cmp.mapping({
+                    i = cmp.mapping.abort(),
+                    c = cmp.mapping.close(),
+                }),
+                ["<CR>"] = cmp.mapping.confirm({ select = false, behavior = cmp.ConfirmBehavior.Replace }),
+            }),
+            formatting = {
+                fields = { "abbr", "menu", "kind" },
+                format = function(entry, vim_item)
+                    vim_item.kind = string.format('| %s', vim_item.kind)
+                    vim_item.menu = ({
+                        nvim_lsp = "",
+                        nvim_lua = "",
+                        luasnip = "",
+                        buffer = "",
+                        path = "",
+                        emoji = "",
+                    })[entry.source.name]
+                    return vim_item
+                end,
+            },
+            sources = {
+                { name = "nvim_lsp" },
+                { name = "nvim_lua" },
+                { name = "luasnip" },
+                { name = "buffer" },
+                { name = "path" },
+            },
+            confirm_opts = {
+                behavior = cmp.ConfirmBehavior.Replace,
+                select = false,
+            },
+            window = {
+                completion = cmp.config.window.bordered(),
+                documentation = cmp.config.window.bordered(),
+            },
+            experimental = {
+                ghost_text = false,
+            },
+        })
+
+        -- end cmp --
 
         -- langs --
         mason_lspconfig.setup({
@@ -114,9 +212,6 @@ return {
                 -- Create your keybindings here...
                 local modes = utils.key_modes
                 local keybindings = {
-                    { modes.normal, "K", function() vim.lsp.buf.hover({ border = _border }) end, "LSP: Hover" },
-                    { modes.normal, "H", function() vim.diagnostic.open_float() end, "LSP: diagnostics" },
-                    { modes.insert, "<C-S>", function() vim.lsp.buf.signature_help({ border = _border }) end, "LSP: Signature help" },
                     { modes.normal, "gD", function() vim.lsp.buf.declaration() end, "LSP: Go to declaration" },
                     { modes.normal, "gd", function() vim.lsp.buf.definition() end, "LSP: Go to definition" },
                     { modes.normal, "<F2>", function() vim.lsp.buf.rename() end, "LSP: Rename" },
@@ -141,16 +236,7 @@ return {
             end
         })
 
-
         vim.diagnostic.config({
-            signs = {
-                text = {
-                    [vim.diagnostic.severity.ERROR] = icons.error,
-                    [vim.diagnostic.severity.WARN] = icons.warn,
-                    [vim.diagnostic.severity.HINT] = icons.hint,
-                    [vim.diagnostic.severity.INFO] = icons.info,
-                },
-            },
             -- virtual_lines or virtual_text
             virtual_text = {
                 -- source = "always",  -- Or "if_many"
@@ -174,9 +260,14 @@ return {
                     return diagnostic.message
                 end,
             },
+            signs = {
+                active = signs
+            },
             float = {
-                border = _border
+                border = "rounded"
             }
         })
+
+        vim.o.winborder = "rounded"
     end,
 }
