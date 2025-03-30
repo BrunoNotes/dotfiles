@@ -91,7 +91,7 @@ return {
             },
             cmd = {
                 zls_folder
-            }
+            },
         })
         vim.g.zig_fmt_autosave = 0
 
