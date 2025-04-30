@@ -21,10 +21,10 @@ local M = {
     s("logdebug", {
         t("std.log.debug(\""), i(1), t("\", .{});")
     }),
-    s("fn", {
+    s("fnvoid", {
         t("fn "), i(1), t("() !void {}")
     }),
-    s("fn", {
+    s("fnself", {
         t("fn "), i(1), t("(self: *@This()) !void { _ = self; }")
     }),
     s("struct", {
@@ -35,6 +35,9 @@ local M = {
     }),
     s("builtin", {
         t("const builtin = @import(\"builtin\");")
+    }),
+    s("assert", {
+        t("const assert = std.debug.assert;")
     }),
 }
 

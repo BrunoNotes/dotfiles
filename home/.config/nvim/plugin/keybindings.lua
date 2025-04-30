@@ -32,8 +32,8 @@ local keybindings = {
     { modes.normal, "<A-Right>", function() vim.cmd(":vertical resize -2") end, "Resize window rigt" },
     { modes.normal, "<C-w>r", "<C-w><C-r>", "Swap windows position" },
 
-    { modes.normal, "<C-p>", function() vim.cmd(":bprevious") end, "Previous buffer" },
-    { modes.normal, "<C-n>", function() vim.cmd(":bnext") end, "Next buffer" },
+    { modes.normal, "<leader>bp", function() vim.cmd(":bprevious") end, "Previous buffer" },
+    { modes.normal, "<leader>bn", function() vim.cmd(":bnext") end, "Next buffer" },
     { modes.normal, "<leader>bx", function() vim.cmd(":bd!") end, "Close buffers" },
     { modes.normal, "<leader>bq", function()
         -- vim.cmd(":w|%bd!|e#|bd#")
@@ -67,7 +67,7 @@ local keybindings = {
     { modes.visual, "<Esc>", "<Esc>", "Fix ESC changing buffer" },
     { modes.select, "<Esc>", "<Esc>", "Fix ESC changing buffer" },
     { modes.normal, "<Esc>", "<Esc>", "Fix ESC changing buffer" },
-    { modes.normal, "<C-s>", function() vim.cmd(":w") end, "Save file" },
+    { modes.normal, "<C-s>", function() vim.cmd.w() end, "Save file" },
     { modes.normal, "<leader>x", function() vim.cmd(":. lua") end, "Execute current line" },
     { modes.normal, "<leader><leader>x", function() vim.cmd(":source %") end, "Execute current file" },
 
@@ -77,10 +77,15 @@ local keybindings = {
     { modes.visual, "u", "<Nop>", "Disable lowercase" },
     { modes.visual, "U", "<Nop>", "Disable uppercase" },
 
-    { modes.normal, "<leader>qo", function() vim.cmd(":copen") end, "Open quickfix list" },
-    { modes.normal, "<leader>qx", function() vim.cmd(":cclose") end, "Close quickfix list" },
-    { modes.normal, "<leader>qn", function() vim.cmd(":cnext") end, "Goes to next quickfix list item" },
-    { modes.normal, "<leader>qp", function() vim.cmd(":cprevious") end, "Goes to next quickfix list item" },
+    { modes.normal, "<leader>qo", function() vim.cmd.copen() end, "Open quickfix list" },
+    { modes.normal, "<leader>qx", function() vim.cmd.cclose() end, "Close quickfix list" },
+    { modes.normal, "<leader>qn", function() vim.cmd.cnext() end, "Goes to next quickfix list item" },
+    { modes.normal, "<leader>qp", function() vim.cmd.cprevious() end, "Goes to next quickfix list item" },
+
+    { modes.normal, "<leader>cj", function()
+        vim.cmd.cle()
+        print("Cleared jump list")
+    end, "Clear jump list" },
 }
 
 for _, key in ipairs(keybindings) do

@@ -48,7 +48,8 @@ return {
                         callSnippet = "Disable"
                     },
                 }
-            }
+            },
+            capabilities = lsp_capabilities,
         })
         -- vim lua completion
         -- vim.api.nvim_get_runtime_file("lua", true) -- neovim api completion without plugin
@@ -62,14 +63,16 @@ return {
                         command = "clippy",
                     }
                 }
-            }
+            },
+            capabilities = lsp_capabilities,
         })
 
         lsp_config.ts_ls.setup({
             ---@diagnostic disable-next-line: unused-local
             on_attach = function(client, bufnr)
                 client.server_capabilities.documentFormattingProvider = false
-            end
+            end,
+            capabilities = lsp_capabilities,
         })
 
         lsp_config.gdscript.setup({
@@ -78,7 +81,8 @@ return {
             end,
             flags = {
                 debounce_text_changes = 150,
-            }
+            },
+            capabilities = lsp_capabilities,
         })
 
         -- zig
@@ -92,6 +96,7 @@ return {
             cmd = {
                 zls_folder
             },
+            capabilities = lsp_capabilities,
         })
         vim.g.zig_fmt_autosave = 0
 

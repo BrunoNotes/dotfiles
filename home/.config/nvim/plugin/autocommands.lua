@@ -22,6 +22,7 @@ vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
     end,
 })
 
+-- change cwd on ender
 vim.api.nvim_create_autocmd({ "VimEnter" }, {
     callback = function()
         local file_cwd = vim.fn.expand("%:p:h")
@@ -34,5 +35,18 @@ vim.api.nvim_create_autocmd({ "VimEnter" }, {
         end
 
         print(string.format("CWD changed to: %s", vim.loop.cwd()))
+    end,
+})
+
+-- clear jump list
+vim.api.nvim_create_autocmd({ "VimEnter" }, {
+    callback = function()
+        vim.cmd.cle();
+    end,
+})
+
+vim.api.nvim_create_autocmd({ "VimLeave" }, {
+    callback = function()
+        vim.cmd.cle();
     end,
 })

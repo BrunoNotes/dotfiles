@@ -27,7 +27,7 @@ alias gs="lazygit" # git status
 
 ## Scripts
 alias update="$HOME/dotfiles/scripts/update.sh"
-alias bkp_sync="$HOME/dotfiles/pc_config/scripts/sync.sh"
+alias bkp_sync="$HOME/dotfiles/pc_config/bash/backup.sh"
 alias snvim="$HOME/dotfiles/scripts/nvim_server.sh"
 alias note="$HOME/dotfiles/scripts/note.sh"
 

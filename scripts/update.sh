@@ -20,4 +20,4 @@ if [[ -n $flatpak ]]; then
     flatpak remove --unused -y
 fi
 
-$HOME/dotfiles/pc_config/scripts/sync.sh
+$HOME/dotfiles/pc_config/bash/backup.sh
