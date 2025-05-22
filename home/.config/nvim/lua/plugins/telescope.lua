@@ -114,7 +114,8 @@ return {
                 end
 
                 if is_inside_work_tree[cwd] then
-                    builtin.git_files(opts)
+                    -- builtin.git_files(opts)
+                    builtin.find_files(opts)
                 else
                     builtin.find_files(opts)
                 end

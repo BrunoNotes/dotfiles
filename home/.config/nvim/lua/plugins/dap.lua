@@ -109,30 +109,30 @@ return {
                 }
             }
 
-            -- dap.configurations.cs = {
-            --     type = "godot",
-            --     request = "launch",
-            --     name = "Launch scene",
-            --     project = "${workspaceFolder}",
-            -- }
+            dap.configurations.cs = {
+                type = "godot",
+                request = "launch",
+                name = "Launch scene",
+                project = "${workspaceFolder}",
+            }
 
             -- dotnet
-            dap.adapters.coreclr = {
-                type = "executable",
-                command = mason_folder .. "/bin/netcoredbg",
-                args = { "--interpreter=vscode" }
-            }
+            -- dap.adapters.coreclr = {
+            --     type = "executable",
+            --     command = mason_folder .. "/bin/netcoredbg",
+            --     args = { "--interpreter=vscode" }
+            -- }
 
-            dap.configurations.cs = {
-                type = "coreclr",
-                name = "launch - netcoredbg",
-                request = "launch",
-                program = function()
-                    local text = "Path to executable: "
-                    local path = vim.fn.getcwd() .. "/bin/Debug/"
-                    return vim.fn.input(text, path, "file")
-                end,
-            }
+            -- dap.configurations.cs = {
+            --     type = "coreclr",
+            --     name = "launch - netcoredbg",
+            --     request = "launch",
+            --     program = function()
+            --         local text = "Path to executable: "
+            --         local path = vim.fn.getcwd() .. "/bin/Debug/"
+            --         return vim.fn.input(text, path, "file")
+            --     end,
+            -- }
 
             -- end adapters --
 
