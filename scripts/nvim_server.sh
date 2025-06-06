@@ -13,6 +13,7 @@ while getopts "guh" flag; do
             nvim --listen /tmp/godot.pipe
             ;;
         u) # unreal
+            # --server /tmp/godot.pipe --remote-send "<esc>:e {file}<CR>:call cursor({line},{col})<CR>"
             nvim --listen /tmp/unreal.pipe
             ;;
         h) # unreal
