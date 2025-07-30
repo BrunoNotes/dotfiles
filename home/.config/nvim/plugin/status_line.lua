@@ -1,18 +1,7 @@
 -- Credits: https://elianiva.my.id/post/neovim-lua-statusline
-local fn = vim.fn
 local api = vim.api
-local devicons_ok, devicons = pcall(require, "nvim-web-devicons")
 
 local icons = require("utils").icons
-
-local getDevicon = function()
-    if devicons_ok then
-        local file_name, file_ext = fn.expand("%:t"), fn.expand("%:e")
-        return devicons.get_icon(file_name, file_ext, { default = true })
-    else
-        return icons.File
-    end
-end
 
 local M = {}
 
@@ -64,12 +53,6 @@ M.getFilename = function(self)
     return string.format('%s', file_path)
 end
 
-M.getIcon = function()
-    local devicon_icon = getDevicon()
-
-    return string.format('%s', devicon_icon)
-end
-
 M.getLineCol = function(self)
     if self:isTruncated(self.trunc_width.line_col) then return '%l:%c' end
     -- return ' L:%l C:%c '
@@ -101,14 +84,11 @@ M.setActive = function(self)
     local git = self:getGitStatus()
     local separator = self.separators[active_sep]
     local filename = self:getFilename()
-    local icon = self.getIcon()
     local line_col = self:getLineCol()
     -- local lsp_client_name = self.get_lsp_name()
 
     return table.concat({
         -- left
-        separator[1],
-        icon,
         separator[1],
         filename,
         separator[1],

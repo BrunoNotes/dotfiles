@@ -1,6 +1,6 @@
 return {
     "folke/trouble.nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
+    dependencies = {},
     opts = {},
     config = function()
         local trouble = require("trouble")
@@ -9,8 +9,8 @@ return {
 
         local keybindings = {
             { modes.normal, "<leader>tb", function() trouble.toggle("diagnostics") end, "Trouble: toggle diagnostics" },
-            { modes.normal, "<leader>tn", function() trouble.next("diagnostics") end,   "Trouble: next diagnostics" },
-            { modes.normal, "<leader>tp", function() trouble.prev("diagnostics") end,   "Trouble: prev diagnostics" },
+            { modes.normal, "<leader>tn", function() trouble.next("diagnostics") end, "Trouble: next diagnostics" },
+            { modes.normal, "<leader>tp", function() trouble.prev("diagnostics") end, "Trouble: prev diagnostics" },
         }
 
         for _, key in ipairs(keybindings) do

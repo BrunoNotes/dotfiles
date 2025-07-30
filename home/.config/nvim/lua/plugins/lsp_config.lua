@@ -17,8 +17,6 @@ return {
     dependencies = {
         'williamboman/mason.nvim',
         "williamboman/mason-lspconfig.nvim",
-        -- "hrsh7th/nvim-cmp",
-        'saghen/blink.cmp',
         "folke/neodev.nvim",
     },
     config = function()
@@ -29,8 +27,6 @@ return {
             }
         })
         local lsp_config = require("lspconfig")
-        -- local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
-        local lsp_capabilities = require('blink.cmp').get_lsp_capabilities()
         local mason_lspconfig = require("mason-lspconfig")
 
         -- langs --
@@ -49,7 +45,6 @@ return {
                     },
                 }
             },
-            capabilities = lsp_capabilities,
         })
         -- vim lua completion
         -- vim.api.nvim_get_runtime_file("lua", true) -- neovim api completion without plugin
@@ -64,7 +59,6 @@ return {
                     }
                 }
             },
-            capabilities = lsp_capabilities,
         })
 
         lsp_config.ts_ls.setup({
@@ -72,7 +66,6 @@ return {
             on_attach = function(client, bufnr)
                 client.server_capabilities.documentFormattingProvider = false
             end,
-            capabilities = lsp_capabilities,
         })
 
         lsp_config.gdscript.setup({
@@ -82,7 +75,6 @@ return {
             flags = {
                 debounce_text_changes = 150,
             },
-            capabilities = lsp_capabilities,
         })
 
         -- zig
@@ -96,15 +88,12 @@ return {
             cmd = {
                 zls_folder
             },
-            capabilities = lsp_capabilities,
         })
         vim.g.zig_fmt_autosave = 0
 
         mason_lspconfig.setup_handlers({
             function(server_name)
-                lsp_config[server_name].setup({
-                    capabilities = lsp_capabilities,
-                })
+                lsp_config[server_name].setup({})
             end,
         })
 
