@@ -26,10 +26,10 @@ return {
                 ["g\\"] = "actions.toggle_trash",
             },
         })
-        local modes = require("utils").key_modes
+        local key_modes = require("utils").key_modes
 
         local keybindings = {
-            { modes.normal, "<leader>fb", ":Oil <cr>", "Oil: opens file browser" },
+            { key_modes.normal, "<leader>fb", ":Oil <cr>", "Oil: opens file browser" },
             -- { modes.normal, "<leader>fb", ":Oil --float<cr>", "Oil: opens file browser" },
         }
 

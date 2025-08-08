@@ -1,5 +1,9 @@
 local M = {}
 
+M.home = vim.fn.expand("~")
+M.nvim_config = vim.fn.stdpath("config")
+M.nvim_data = vim.fn.stdpath("data")
+
 M.findBufferByName = function(name)
     for _, buf in ipairs(vim.api.nvim_list_bufs()) do
         local buf_name = vim.api.nvim_buf_get_name(buf)

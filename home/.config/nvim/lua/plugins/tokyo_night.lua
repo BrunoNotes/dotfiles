@@ -38,6 +38,6 @@ return {
         })
 
         vim.cmd("colorscheme tokyonight")
-        vim.api.nvim_set_hl(0, 'StatusLine', { fg = "#A9B0D5", bg = "#121212" })
+        -- vim.api.nvim_set_hl(0, 'StatusLine', { fg = "#A9B0D5", bg = "#121212" })
     end,
 }

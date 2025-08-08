@@ -1,39 +1,15 @@
+local utils = require("utils")
+local key_modes = utils.key_modes
+
 return {
     "nvim-telescope/telescope.nvim",
     dependencies = {
         "nvim-lua/plenary.nvim",
         { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
-        { dir = "~/.config/nvim/custom_plugins/session.nvim" },
     },
     config = function()
         local actions = require("telescope.actions")
         local builtin = require("telescope.builtin")
-        local session = require("session")
-
-        local session_paths = {
-            "Code/*/*",
-            "Code/*",
-            "Code",
-            "dotfiles",
-            "dotfiles/*",
-            "dotfiles/*/*",
-            "dotfiles/*/.*",
-            "dotfiles/*/.*/*",
-            "dotfiles/*/.*/.*",
-            "dotfiles/*/*/*",
-            "SharedConfig/notes",
-        }
-
-        session.setup({
-            paths = session_paths,
-            telescope_opts = require("telescope.themes").get_ivy {
-                layout_config = {
-                    bottom_pane = {
-                        height = 0.5,
-                    },
-                }
-            },
-        })
 
         require("telescope").setup {
             defaults = {
@@ -94,46 +70,19 @@ return {
             },
             extensions = {},
         }
-        local modes = require("utils").key_modes
-
-        local is_inside_work_tree = {} -- cache
-
 
         local keybindings = {
-            { modes.normal, "<leader>.", function()
-                -- Falling back to find_files if git_files can't find a .git directory
-                local opts = {
-                    -- cwd = vim.loop.cwd(),
-                    cwd = vim.fn.getcwd(),
-                }
-
-                local cwd = vim.fn.getcwd()
-                if is_inside_work_tree[cwd] == nil then
-                    vim.fn.system("git rev-parse --is-inside-work-tree")
-                    is_inside_work_tree[cwd] = vim.v.shell_error == 0
-                end
-
-                if is_inside_work_tree[cwd] then
-                    -- builtin.git_files(opts)
-                    builtin.find_files(opts)
-                else
-                    builtin.find_files(opts)
-                end
-            end, "Telescope: git|find files" },
-            { modes.normal, "<leader>ff", builtin.find_files, "Telescope: find files" },
-            { modes.normal, "<leader>fg", builtin.git_files, "Telescope: git files" },
-            { modes.normal, "<leader>gk", builtin.keymaps, "Telescope: keymaps" },                                          -- list keymaps
-            { modes.normal, "<leader>gf", builtin.current_buffer_fuzzy_find, "Telescope: fuzzy finder on current buffer" }, -- grep current file
-            { modes.normal, "<leader>gp", builtin.live_grep, "Telescope: live grep on project dir" },
-            { modes.normal, "<leader>gb", builtin.buffers, "Telescope: buffers" },
-            { modes.normal, "<leader>gh", builtin.help_tags, "Telescope: help" },
-            { modes.normal, "<leader>gm", builtin.man_pages, "Telescope: Man Page" },
-            { modes.normal, "<leader>gd", builtin.diagnostics, "Telescope: LSP diagnostics" },
-            { modes.normal, "<leader>gc", builtin.commands, "Telescope: commands" },
-            -- customs
-            { modes.normal, "<leader>fs", function()
-                session.findSession()
-            end, "Telescope (custom): find sessions" },
+            { key_modes.normal, "<leader>.", builtin.find_files, "Telescope: find files" },
+            { key_modes.normal, "<leader>ff", builtin.find_files, "Telescope: find files" },
+            { key_modes.normal, "<leader>fg", builtin.git_files, "Telescope: git files" },
+            { key_modes.normal, "<leader>gk", builtin.keymaps, "Telescope: keymaps" },                                          -- list keymaps
+            { key_modes.normal, "<leader>gf", builtin.current_buffer_fuzzy_find, "Telescope: fuzzy finder on current buffer" }, -- grep current file
+            { key_modes.normal, "<leader>gp", builtin.live_grep, "Telescope: live grep on project dir" },
+            { key_modes.normal, "<leader>gb", builtin.buffers, "Telescope: buffers" },
+            { key_modes.normal, "<leader>gh", builtin.help_tags, "Telescope: help" },
+            { key_modes.normal, "<leader>gm", builtin.man_pages, "Telescope: Man Page" },
+            { key_modes.normal, "<leader>gd", builtin.diagnostics, "Telescope: LSP diagnostics" },
+            { key_modes.normal, "<leader>gc", builtin.commands, "Telescope: commands" },
         }
 
         for _, key in ipairs(keybindings) do
