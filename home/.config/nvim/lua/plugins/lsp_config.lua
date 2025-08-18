@@ -34,6 +34,8 @@ return {
         luasnip.add_snippets("rust", require("snippets.rust"));
         luasnip.add_snippets("markdown", require("snippets.markdown"));
         luasnip.add_snippets("zig", require("snippets.zig"));
+        luasnip.add_snippets("bash", require("snippets.bash"));
+        luasnip.add_snippets("sh", require("snippets.bash"));
 
         luasnip.filetype_extend("javascript", { "html" })
         luasnip.filetype_extend("javascriptreact", { "html" })

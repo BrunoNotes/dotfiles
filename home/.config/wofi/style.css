@@ -1,0 +1,52 @@
+window {
+    margin: 0px;
+    border: 1px solid #FFFFFF;
+    border-radius: 8px;
+    background-color: black;
+}
+
+#input {
+    margin: 5px;
+    border: none;
+    color: #f8f8f2;
+    background-color: black;
+}
+
+#inner-box {
+    margin: 5px;
+    border: none;
+    background-color: black;
+}
+
+#outer-box {
+    margin: 5px;
+    border: none;
+    background-color: black;
+}
+
+#scroll {
+    margin: 0px;
+    border: none;
+}
+
+#text {
+    margin: 5px;
+    border: none;
+    color: #f8f8f2;
+}
+
+#entry.activatable #text {
+    color: #282a36;
+}
+
+#entry>* {
+    color: #f8f8f2;
+}
+
+#entry:selected {
+    background-color: #2e2e32;
+}
+
+#entry:selected #text {
+    font-weight: bold;
+}

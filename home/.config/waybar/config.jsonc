@@ -1,0 +1,135 @@
+{
+    "reload_style_on_change": true,
+    "layer": "top", // Waybar at top layer
+    "position": "top", // Waybar position (top|bottom|left|right)
+    "height": 26, // Waybar height (to be removed for auto height)
+    "spacing": 0, // Gaps between modules (4px)
+    // Choose the order of the modules
+    "output": [
+        "HDMI-A-1"
+    ],
+    "modules-left": [
+        "hyprland/workspaces"
+        //"hyprland/window"
+    ],
+    "modules-center": [
+        "clock"
+    ],
+    "modules-right": [
+        // "hyprland/language",
+        "custom/hyprpicker",
+        "network",
+        "bluetooth",
+        // "power-profiles-daemon",
+        "group/tray-expander",
+    ],
+    "hyprland/workspaces": {
+        "on-click": "activate",
+        "format": "{icon}",
+        "format-icons": {
+            "default": "",
+            "active": ""
+        },
+        // "persistent-workspaces": {
+        //     "1": [],
+        //     "2": [],
+        //     "3": [],
+        //     "4": [],
+        //     "5": []
+        // },
+        "on-scroll-up": "hyprctl dispatch workspace -1",
+        "on-scroll-down": "hyprctl dispatch workspace +1"
+    },
+    "hyprland/language": {
+        "format": "Lang: {}",
+        // "format-en": "AMERICA, HELL YEAH!",
+        // "keyboard-name": "at-translated-set-2-keyboard"
+    },
+    "hyprland/window": {
+        "separate-outputs": true
+    },
+    "custom/hyprpicker": {
+        "format": "",
+        "on-click": "hyprpicker -a",
+        "tooltip-format": "Color picker"
+    },
+    "tray": {
+        // "icon-size": 21,
+        "spacing": 10,
+        // "icons": {
+        //   "blueman": "bluetooth",
+        //   "TelegramDesktop": "$HOME/.local/share/icons/hicolor/16x16/apps/telegram.png"
+        // }
+    },
+    "clock": {
+        // "timezone": "America/New_York",
+        "format": "{:%H:%M}",
+        "tooltip-format": "<tt><small>{calendar}</small></tt>",
+        "format-alt": "{:%d-%m-%Y}",
+        "calendar": {
+            "mode": "month",
+            "mode-mon-col": 3,
+            // "weeks-pos": "right",
+            "on-scroll": 1,
+            "format": {
+                "months": "<span color='#FFFFFF'><b>{}</b></span>",
+                "days": "<span color='#FFFFFF'><b>{}</b></span>",
+                // "weeks": "<span color='#FFFFFF'><b>W{}</b></span>",
+                "weekdays": "<span color='#FFFFFF'><b>{}</b></span>",
+                "today": "<span color='#FFFFFF'><b><u>{}</u></b></span>"
+            }
+        },
+    },
+    "power-profiles-daemon": {
+        "format": "{icon}",
+        "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
+        "tooltip": true,
+        "format-icons": {
+            "default": "",
+            "performance": "",
+            "balanced": "",
+            "power-saver": ""
+        }
+    },
+    "bluetooth": {
+        "format": "",
+        "format-disabled": "󰂲",
+        "format-connected": "",
+        "tooltip-format": "Devices connected: {num_connections}",
+        "on-click": "blueman-manager"
+    },
+    "network": {
+        "format-icons": [
+            "󰤯",
+            "󰤟",
+            "󰤢",
+            "󰤥",
+            "󰤨"
+        ],
+        "format": "{icon}",
+        "format-wifi": "{icon}",
+        "format-ethernet": "󰀂",
+        "format-disconnected": "󰖪",
+        "tooltip-format-wifi": "{essid} ({frequency} GHz)\n⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
+        "tooltip-format-ethernet": "⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
+        "tooltip-format-disconnected": "Disconnected",
+        "interval": 3,
+        "nospacing": 1,
+        "on-click": "nm-connection-editor"
+    },
+    "group/tray-expander": {
+        "orientation": "inherit",
+        "drawer": {
+            "transition-duration": 600,
+            "children-class": "tray-group-item"
+        },
+        "modules": [
+            "custom/expand-icon",
+            "tray"
+        ]
+    },
+    "custom/expand-icon": {
+        "format": " ",
+        "tooltip": false
+    },
+}
