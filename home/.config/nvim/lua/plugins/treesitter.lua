@@ -1,23 +1,25 @@
 return {
-    "nvim-treesitter/nvim-treesitter",
-    dependencies = {},
-    config = function()
-        require("nvim-treesitter.configs").setup({
-            -- ensure_installed = "all", -- one of "all" or a list of languages
-            ensure_installed = {},   -- one of "all" or a list of languages
-            sync_install = false,
-            ignore_install = { "" }, -- List of parsers to ignore installing
-            auto_install = true,
-            modules = {},
-            highlight = {
-                enable = true,    -- false will disable the whole extension
-                disable = { "" }, -- list of language that will be disabled
-                additional_vim_regex_highlighting = false
-            },
-            autopairs = {
-                enable = true,
-            },
-            indent = { enable = true, disable = { "" } },
-        })
-    end,
+    {
+        "nvim-treesitter/nvim-treesitter",
+        build = ":TSUpdate",
+        config = function()
+            require 'nvim-treesitter.configs'.setup {
+                ensure_installed = {},
+                sync_install = false,
+                auto_install = true,
+                ignore_install = {},
+                highlight = {
+                    enable = true,
+                    disable = function(lang, buf)
+                        local max_filesize = 20000 * 1024 -- 20 mb
+                        local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+                        if ok and stats and stats.size > max_filesize then
+                            return true
+                        end
+                    end,
+                    additional_vim_regex_highlighting = false,
+                },
+            }
+        end
+    }
 }

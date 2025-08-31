@@ -22,6 +22,6 @@ local omnisharp_json = [[
 }
 ]]
 
-vim.api.nvim_create_user_command("OmnisharpJsonGen", function()
+vim.api.nvim_create_user_command("GenOmnisharpJson", function()
     utils.writeFile(omnisharp_path, omnisharp_json)
 end, { desc = "Generate omnisharp.json for C#", nargs = '*' })

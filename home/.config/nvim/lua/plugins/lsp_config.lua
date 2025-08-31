@@ -1,222 +1,129 @@
 local utils = require("utils")
 local icons = utils.icons
-local mason_folder = utils.nvim_data .. "/mason"
-
-local getBinPath = function(localPath, masonPath)
-    if utils.fileExists(vim.fn.expand(localPath)) then
-        return vim.fn.expand(localPath)
-    else
-        return mason_folder .. masonPath
-    end
-end
 
 return {
     "neovim/nvim-lspconfig",
     dependencies = {
-        'williamboman/mason.nvim',
-        "williamboman/mason-lspconfig.nvim",
-        "folke/neodev.nvim",
-        -- completion
-        "hrsh7th/nvim-cmp",
-        "hrsh7th/cmp-buffer",
-        "hrsh7th/cmp-path",
-        "hrsh7th/cmp-nvim-lsp",
-        "hrsh7th/cmp-cmdline",
-        "hrsh7th/cmp-nvim-lua",
-        "L3MON4D3/LuaSnip",
-        'saadparwaiz1/cmp_luasnip',
+        { "mason-org/mason.nvim", opts = {} },
+        "mason-org/mason-lspconfig.nvim",
+        {
+            "saghen/blink.cmp",
+            version = '1.*',
+            opts = {
+                cmdline = { enabled = false },
+                keymap = {
+                    preset = 'none',
+                    ['<C-j>'] = { function(cmp) cmp.show() end, 'select_next', 'fallback' },
+                    ['<C-k>'] = { function(cmp) cmp.show() end, 'select_prev', 'fallback' },
+                    ['<CR>'] = { 'accept', 'fallback' },
+                    ['<C-f>'] = { function(cmp) cmp.scroll_documentation_down(4) end, 'fallback' },
+                    ['<C-b>'] = { function(cmp) cmp.scroll_documentation_up(4) end, 'fallback' },
+                },
+                completion = {
+                    list = {
+                        selection = {
+                            preselect = false,
+                            auto_insert = false
+                        }
+                    },
+                    menu = {
+                        auto_show = false,
+                    },
+                    documentation = {
+                        auto_show = true,
+                        auto_show_delay_ms = 500,
+                    }
+                },
+            }
+        },
     },
     config = function()
-        local luasnip = require("luasnip");
-        local cmp = require("cmp");
+        require("mason").setup()
+        require("mason-lspconfig").setup()
 
-        luasnip.add_snippets("html", require("snippets.html"));
-        luasnip.add_snippets("rust", require("snippets.rust"));
-        luasnip.add_snippets("markdown", require("snippets.markdown"));
-        luasnip.add_snippets("zig", require("snippets.zig"));
-        luasnip.add_snippets("bash", require("snippets.bash"));
-        luasnip.add_snippets("sh", require("snippets.bash"));
-
-        luasnip.filetype_extend("javascript", { "html" })
-        luasnip.filetype_extend("javascriptreact", { "html" })
-        luasnip.filetype_extend("typescript", { "html" })
-        luasnip.filetype_extend("typescriptreact", { "html" })
-
-        cmp.setup({
-            snippet = {
-                expand = function(args)
-                    luasnip.lsp_expand(args.body) -- For `luasnip` users.
+        local servers_config = {
+            ts_ls = {
+                on_attach = function(client, bufnr)
+                    client.server_capabilities.documentFormattingProvider = false
                 end,
             },
-            preselect = cmp.PreselectMode.None,
-            completion = { completeopt = "noselect", autocomplete = false },
-            mapping = cmp.mapping.preset.insert({
-                ["<C-k>"] = cmp.mapping(function(fallback)
-                    if cmp.visible() then
-                        cmp.select_prev_item()
-                    else
-                        cmp.complete()
-                    end
-                end),
-                ["<C-j>"] = cmp.mapping(function(fallback)
-                    if cmp.visible() then
-                        cmp.select_next_item()
-                    else
-                        cmp.complete()
-                    end
-                end),
-                ["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-1), { "i", "c" }),
-                ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(1), { "i", "c" }),
-                ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
-                ["<C-e>"] = cmp.mapping({
-                    i = cmp.mapping.abort(),
-                    c = cmp.mapping.close(),
-                }),
-                ["<CR>"] = cmp.mapping.confirm({ select = false, behavior = cmp.ConfirmBehavior.Replace }),
-            }),
-            formatting = {
-                fields = { "abbr", "menu", "kind" },
-                format = function(entry, vim_item)
-                    vim_item.kind = string.format('| %s', vim_item.kind)
-                    vim_item.menu = ({
-                        nvim_lsp = "",
-                        nvim_lua = "",
-                        luasnip = "",
-                        buffer = "",
-                        path = "",
-                        emoji = "",
-                    })[entry.source.name]
-                    return vim_item
-                end,
+            lua_ls = {
+                settings = {
+                    Lua = {
+                        workspace = {
+                            library = vim.api.nvim_get_runtime_file("", true) -- neovim api completion
+                        },
+                        -- completion = {
+                        --     callSnippet = "Disable"
+                        -- },
+                    }
+                },
+
             },
-            sources = {
-                { name = "nvim_lsp" },
-                { name = "nvim_lua" },
-                { name = "luasnip" },
-                { name = "buffer" },
-                { name = "path" },
-            },
-            confirm_opts = {
-                behavior = cmp.ConfirmBehavior.Replace,
-                select = false,
-            },
-            experimental = {
-                ghost_text = false,
-            },
-        })
-
-        local capabilities = require('cmp_nvim_lsp').default_capabilities()
-
-        -------------------------------------
-
-        require('mason').setup()
-        require('mason.settings').set({
-            ui = {
-                border = 'rounded'
-            }
-        })
-        local lsp_config = require("lspconfig")
-        local mason_lspconfig = require("mason-lspconfig")
-
-        -- langs --
-        mason_lspconfig.setup({
-            ensure_installed = {
-                -- Replace these with whatever servers you want to install
-                'lua_ls',
-            }
-        })
-
-        lsp_config.lua_ls.setup({
-            settings = {
-                Lua = {
-                    completion = {
-                        callSnippet = "Disable"
+            zls = {
+                settings = {
+                    zls = {
+                        enable_snippets = false,
                     },
-                }
-            },
-            capabilities = capabilities,
-        })
-        -- vim lua completion
-        -- vim.api.nvim_get_runtime_file("lua", true) -- neovim api completion without plugin
-        require("neodev").setup({})
-
-        lsp_config.ts_ls.setup({
-            ---@diagnostic disable-next-line: unused-local
-            on_attach = function(client, bufnr)
-                client.server_capabilities.documentFormattingProvider = false
-            end,
-            capabilities = capabilities,
-        })
-
-        lsp_config.gdscript.setup({
-            ---@diagnostic disable-next-line: unused-local
-            on_attach = function(client, bufnr)
-            end,
-            flags = {
-                debounce_text_changes = 150,
-            },
-            capabilities = capabilities,
-        })
-
-        -- zig
-        local zls_folder = getBinPath(utils.home .. "/opt/zls/zig-out/bin/zls", "/bin/zls")
-        lsp_config.zls.setup({
-            settings = {
-                zls = {
-                    enable_snippets = false,
                 },
             },
-            cmd = {
-                zls_folder
-            },
-            capabilities = capabilities,
-        })
+        }
+        -- use local if exists
+        if utils.fileExists(utils.home .. "/opt/zls/zig-out/bin/zls") then
+            servers_config.zls.cmd = { utils.home .. "/opt/zls/zig-out/bin/zls" }
+        end
         vim.g.zig_fmt_autosave = 0
 
-        mason_lspconfig.setup_handlers({
-            function(server_name)
-                lsp_config[server_name].setup({})
-            end,
-        })
+        -- require("mason-lspconfig").setup_handlers({
+        --     function(server_name)
+        --         local config = servers_config[server_name] or {}
+        --
+        --         config.capabilities = require('blink.cmp').get_lsp_capabilities()
+        --         require("lspconfig")[server_name].setup(config)
+        --     end,
+        -- })
+        for server, config in pairs(servers_config) do
+            config.capabilities = require('blink.cmp').get_lsp_capabilities()
+            require("lspconfig")[server].setup(config)
+        end
 
-        -- end langs --
-
-        vim.api.nvim_create_autocmd('LspAttach', {
-            desc = 'LSP actions',
+        vim.api.nvim_create_autocmd("LspAttach", {
+            group = vim.api.nvim_create_augroup("b_lsp_attach", { clear = true }),
             callback = function(args)
                 local client = vim.lsp.get_client_by_id(args.data.client_id)
                 if not client then return end
 
-                -- Create your keybindings here...
-                local modes = utils.key_modes
-                local keybindings = {
-                    { modes.normal, "K", function() vim.lsp.buf.hover() end, "LSP: Hover" },
-                    { modes.normal, "H", function() vim.diagnostic.open_float() end, "LSP: diagnostics" },
-                    { modes.insert, "<C-S>", function() vim.lsp.buf.signature_help() end, "LSP: Signature help" },
-                    { modes.normal, "gD", function() vim.lsp.buf.declaration() end, "LSP: Go to declaration" },
-                    { modes.normal, "gd", function() vim.lsp.buf.definition() end, "LSP: Go to definition" },
-                    { modes.normal, "<F2>", function() vim.lsp.buf.rename() end, "LSP: Rename" },
-                    { modes.normal, "<leader>lf", function() vim.lsp.buf.format() end, "LSP: Format file" },
-                    { modes.normal, "<leader>li", function() vim.cmd(":LspInfo") end, "LSP: Info" },
-                    { modes.normal, "<leader>lI", function() vim.cmd(":LspInstallInfo") end, "LSP: Install info" },
-                }
+                vim.keymap.set("n", "<leader>lf", vim.lsp.buf.format)
+                vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end)
+                vim.keymap.set("n", "H", function() vim.diagnostic.open_float() end)
+                vim.keymap.set("i", "<C-S>", function() vim.lsp.buf.signature_help() end)
+                vim.keymap.set("n", "gD", function() vim.lsp.buf.declaration() end)
+                vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end)
+                vim.keymap.set("n", "<F2>", function() vim.lsp.buf.rename() end)
+                vim.keymap.set("n", "<leader>lr", function() vim.lsp.buf.rename() end)
 
-                for _, key in ipairs(keybindings) do
-                    vim.keymap.set(key[1], key[2], key[3], { silent = true, desc = key[4] })
-                end
+                -- if client:supports_method("textDocument/completion") then
+                --     -- adds completion to the default list (<C-x><C-o>)
+                --     vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = false })
+                --     vim.cmd("set completeopt+=noselect")
+                -- end
 
-                -- format on save
                 vim.api.nvim_create_autocmd("BufWritePre", {
+                    desc = "Format on save",
+                    group = vim.api.nvim_create_augroup("b_lsp_format", { clear = true }),
                     buffer = args.buf,
                     callback = function()
                         if client:supports_method("textDocument/formatting") then
-                            vim.lsp.buf.format({ bufnr = args.buf, id = client.id, timeout_ms = 1000 })
+                            vim.lsp.buf.format({
+                                bufnr = args.buf,
+                                id = client.id,
+                                timeout_ms = 1000
+                            })
                         end
                     end,
                 })
             end
         })
-
 
         vim.diagnostic.config({
             signs = {
@@ -232,8 +139,8 @@ return {
                 -- source = "always",  -- Or "if_many"
                 severity = vim.diagnostic.severity.ERROR,
                 spacing = 10,
-                prefix = '',
-                sufix = '',
+                prefix = "",
+                sufix = "",
                 format = function(diagnostic)
                     if diagnostic.severity == vim.diagnostic.severity.ERROR then
                         return string.format("%s %s", icons.error, diagnostic.message)
