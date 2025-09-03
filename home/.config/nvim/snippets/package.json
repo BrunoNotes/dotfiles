@@ -22,6 +22,10 @@
                 "path": "./zig.json"
             },
             {
+                "language": "odin",
+                "path": "./odin.json"
+            },
+            {
                 "language": "markdown",
                 "path": "./markdown.json"
             }

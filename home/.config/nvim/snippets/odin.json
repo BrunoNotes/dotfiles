@@ -1,0 +1,28 @@
+{
+    "main": {
+        "body": [
+            "package main",
+            "",
+            "main :: proc() {",
+            "    ${1}",
+            "}"
+        ],
+        "prefix": "main"
+    },
+    "proc": {
+        "body": [
+            "${1} :: proc() {",
+            "    ${0}",
+            "}"
+        ],
+        "prefix": "proc"
+    },
+    "struct": {
+        "body": [
+            "${1} :: struct {",
+            "    ${0}",
+            "}"
+        ],
+        "prefix": "struct"
+    }
+}

@@ -1,3 +1,6 @@
+TERM_WIN = nil
+local term_buf = nil
+
 local M = {}
 
 M.home = vim.fn.expand("~")
@@ -35,7 +38,7 @@ M.fileExists = function(file)
     return f ~= nil
 end
 
-M.readFile = function(path)
+M.readFile = function(self, path)
     local file = assert(io.open(path, "rb"))
     local content = file:read("*a")
     file:close()
@@ -48,49 +51,29 @@ M.writeFile = function(path, content)
     file:close()
 end
 
-M.readJson = function(path)
-    local content = M.readFile(path)
+M.readJson = function(self, path)
+    local content = self:readFile(path)
     local json = vim.json.decode(content)
     return json
 end
 
-local term_buf = nil
-
-M.openTerminal = function(opts)
-    opts = opts or {}
-
-    local ok, _ = pcall(vim.api.nvim_buf_get_name, term_buf)
-
-    if ok and term_buf ~= nil then
-        vim.api.nvim_set_current_buf(term_buf)
+M.createBuffer = function(self, scratch)
+    local buf = nil
+    if not scratch then
+        buf = vim.api.nvim_create_buf(true, false)
     else
-        vim.cmd.term()
-        term_buf = vim.api.nvim_get_current_buf()
+        -- Create an immutable scratch buffer that is wiped once hidden
+        buf = vim.api.nvim_create_buf(false, true)
+        vim.api.nvim_set_option_value("bufhidden", "wipe", { buf = buf })
+        vim.api.nvim_set_option_value("modifiable", false, { buf = buf })
     end
-
-    -- Start in insert mode
-    vim.cmd.startinsert()
+    return buf
 end
 
-M.runOnTerminal = function(opts)
-    opts = opts or {}
-
-    if opts ~= {} then
-        if vim.fn.executable(opts) == 0 then
-            print(opts .. " not found")
-            return
-        end
-    end
-
-    -- Create an immutable scratch buffer that is wiped once hidden
-    local buf = vim.api.nvim_create_buf(false, true)
-
-    vim.api.nvim_set_option_value("bufhidden", "wipe", { buf = buf })
-    vim.api.nvim_set_option_value("modifiable", false, { buf = buf })
-
+M.openFloatinWindow = function(self, buf)
     -- Create a floating window using the scratch buffer positioned in the middle
-    local screen_size = 0.9
-    local height = math.ceil(vim.o.lines * screen_size)
+    local screen_size = 1.0
+    local height = math.ceil(vim.o.lines * screen_size - 1)
     local width = math.ceil(vim.o.columns * screen_size)
     local win = vim.api.nvim_open_win(buf, true, {
         style = "minimal",
@@ -99,16 +82,79 @@ M.runOnTerminal = function(opts)
         height = height,
         row = math.ceil((vim.o.lines - height) / 2),
         col = math.ceil((vim.o.columns - width) / 2),
-        -- border = "rounded",
+        border = "none",
     })
 
     -- Change to the window that is floating to ensure termopen uses correct size
     vim.api.nvim_set_current_win(win)
 
+    return win
+end
+
+M.openTerminal = function(self, opts)
+    opts = opts or {}
+
+    local floating = opts.floating or true
+
+    -- term_buf created on the top of the file
+    local ok_buf, _ = pcall(vim.api.nvim_buf_get_name, term_buf)
+    local ok_win, _ = pcall(vim.api.nvim_win_get_config, TERM_WIN)
+
+    if floating then
+        if not ok_win then
+            term_buf = nil
+
+            local run_result = self:runOnTerminal({
+                cmd = vim.o.shell,
+                buf = term_buf,
+                delete_buffer = false,
+            })
+
+            TERM_WIN = run_result.win
+
+            term_buf = vim.api.nvim_get_current_buf()
+        else
+            -- openFloatinWindow(term_buf)
+            vim.api.nvim_win_set_config(TERM_WIN, {
+                hide = false
+            })
+            vim.api.nvim_set_current_win(TERM_WIN)
+        end
+    else
+        if ok_buf and term_buf ~= nil then
+            vim.api.nvim_set_current_buf(term_buf)
+        else
+            vim.cmd.term()
+            term_buf = vim.api.nvim_get_current_buf()
+        end
+    end
+
+    -- Start in insert mode
+    vim.cmd.startinsert()
+end
+
+M.runOnTerminal = function(self, opts)
+    opts = opts or {}
+
+    if opts ~= {} then
+        if vim.fn.executable(opts.cmd) == 0 then
+            print(opts .. " not found")
+            return
+        end
+    end
+
+    local delete_buffer = opts.delete_buffer or true
+    local buf = opts.buf or self:createBuffer(delete_buffer)
+
+    local win = self:openFloatinWindow(buf)
+
     -- Launch, and configure to close the window when the process exits
-    vim.fn.termopen({ opts }, {
-        on_exit = function(_, _, _)
-            if vim.api.nvim_win_is_valid(win) then
+    local job_id = vim.fn.jobstart(opts.cmd, {
+        -- detach = false,
+        -- pty = true,
+        term = true,
+        on_exit = function(job, exit_code, event_type)
+            if vim.api.nvim_win_is_valid(win) and not delete_buffer then
                 vim.api.nvim_win_close(win, true)
             end
         end
@@ -116,6 +162,11 @@ M.runOnTerminal = function(opts)
 
     -- Start in insert mode
     vim.cmd.startinsert()
+
+    return {
+        job_id = job_id,
+        win = win
+    }
 end
 
 M.icons = {

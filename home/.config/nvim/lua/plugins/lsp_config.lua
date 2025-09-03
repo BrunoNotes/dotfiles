@@ -16,6 +16,7 @@ return {
                     ['<C-j>'] = { function(cmp) cmp.show() end, 'select_next', 'fallback' },
                     ['<C-k>'] = { function(cmp) cmp.show() end, 'select_prev', 'fallback' },
                     ['<CR>'] = { 'accept', 'fallback' },
+                    ['<TAB>'] = { 'accept', 'fallback' },
                     ['<C-f>'] = { function(cmp) cmp.scroll_documentation_down(4) end, 'fallback' },
                     ['<C-b>'] = { function(cmp) cmp.scroll_documentation_up(4) end, 'fallback' },
                 },

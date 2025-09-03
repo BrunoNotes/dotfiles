@@ -44,8 +44,32 @@ end)
 vim.keymap.set("i", "<C-j>", "<NOP>")
 vim.keymap.set("i", "<C-k>", "<NOP>")
 vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
+vim.keymap.set("n", "<leader>q", function()
+    -- Check if the current buffer is in a floating window
+    local win = vim.api.nvim_get_current_win()
+    if vim.api.nvim_win_get_config(win).relative ~= '' then
+        -- defined in util
+        if win == TERM_WIN then
+            -- only hide if it is the terminall window
+            vim.api.nvim_win_set_config(win, {
+                hide = true
+            })
+            -- Get previous window
+            local prev_win = vim.fn.win_getid(vim.fn.winnr('#'))
+
+            -- Set previous window as current
+            if prev_win and vim.api.nvim_win_is_valid(prev_win) then
+                vim.api.nvim_set_current_win(prev_win)
+            end
+        else
+            vim.cmd.close()
+        end
+    end
+end, { desc = "Close floating window" })
 vim.keymap.set("n", "<leader><leader>x", function() vim.cmd(":source %") end,
     { silent = true, desc = "Source current file" })
+vim.keymap.set("n", "<leader>x", function() vim.cmd(":. lua") end,
+    { silent = true, desc = "Execute current line" })
 vim.keymap.set("n", "<C-s>", function() vim.cmd.w() end, { silent = true, desc = "Save file" })
 vim.keymap.set("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window" })
 vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
@@ -113,10 +137,10 @@ vim.keymap.set("n", "<leader>cc", function()
     }
 end, { desc = "Quick commit" })
 
-vim.keymap.set("n", "<leader>qo", function() vim.cmd.copen() end, { desc = "Open quickfix list" })
-vim.keymap.set("n", "<leader>qx", function() vim.cmd.cclose() end, { desc = "Close quickfix list" })
-vim.keymap.set("n", "<leader>qn", function() vim.cmd.cnext() end, { desc = "Goes to next quickfix list item" })
-vim.keymap.set("n", "<leader>qp", function() vim.cmd.cprevious() end, { desc = "Goes to next quickfix list item" })
+vim.keymap.set("n", "<leader>fo", function() vim.cmd.copen() end, { desc = "Open quickfix list" })
+vim.keymap.set("n", "<leader>fx", function() vim.cmd.cclose() end, { desc = "Close quickfix list" })
+vim.keymap.set("n", "<leader>fn", function() vim.cmd.cnext() end, { desc = "Goes to next quickfix list item" })
+vim.keymap.set("n", "<leader>fp", function() vim.cmd.cprevious() end, { desc = "Goes to next quickfix list item" })
 
 vim.keymap.set("n", "<leader>cj", function()
     vim.cmd.cle()
@@ -125,7 +149,7 @@ end, { desc = "Clear jump list" })
 
 vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 vim.keymap.set("n", "<leader><CR>", function()
-    utils.openTerminal()
+    utils:openTerminal()
 end, { desc = "Opens terminal" })
 
 ----- autocommands -----
@@ -143,7 +167,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
     desc = "Highlight when yanking (copying) text",
     group = vim.api.nvim_create_augroup("b_highlight_yank", { clear = true }),
     callback = function()
-        vim.hl.on_yank()
+        vim.hl.on_yank({ timeout = 50 })
     end,
 })
 
@@ -187,7 +211,7 @@ vim.api.nvim_create_autocmd({ "VimLeave" }, {
     end,
 })
 
-vim.api.nvim_create_autocmd("TermOpen", {
+vim.api.nvim_create_autocmd({ "TermOpen" }, {
     desc = "Terminal local options",
     group = vim.api.nvim_create_augroup("b_custom_term_open", {}),
     callback = function(buf)
@@ -308,6 +332,22 @@ csharp_new_line_between_query_expression_clauses = false
     utils.writeFile(editorconfig_path, editorconfig)
 end, { desc = "Generate .editorconfig", nargs = '*' })
 
+vim.api.nvim_create_user_command("Terminal", function(opts)
+    -- print(vim.inspect(opts))
+    utils:openTerminal()
+    -- if utils.tableSize(opts.fargs) > 0 then
+    --     for _, value in ipairs(opts.fargs) do
+    --         if value == "panel" then
+    --             utils:openTerminal({floating = false})
+    --         else
+    --             utils:openTerminal({floating = true})
+    --         end
+    --     end
+    -- else
+    --     utils:openTerminal({floating = true})
+    -- end
+end, { desc = "Opens terminal", nargs = '*' })
+
 ----- plugins -----
 
 -- Bootstrap lazy.nvim
@@ -343,9 +383,9 @@ require("lazy").setup({
 ----- custom -----
 
 vim.api.nvim_create_user_command("LazyGit", function(opts)
-    utils.runOnTerminal("lazygit")
+    utils:runOnTerminal({ cmd = "lazygit" })
 end, { desc = "Run lazygit in a floating terminal", nargs = '*' })
 
 vim.keymap.set("n", "<leader>gs", function()
-    utils.runOnTerminal("lazygit")
+    utils:runOnTerminal({ cmd = "lazygit" })
 end, { desc = "Run lazygit in a floating terminal" })
