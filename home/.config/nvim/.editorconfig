@@ -1,7 +1,6 @@
 [*]
 indent_style = space
 indent_size = 4
-
 # https://github.com/CppCXY/EmmyLuaCodeStyle/blob/master/lua.template.editorconfig
 [*.lua]
 # true/false or always
@@ -10,13 +9,3 @@ align_continuous_rect_table_field = false
 # option none / always / contain_curly/
 align_array_table = false
 
-# https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/code-style-rule-options?view=vs-2019
-[*.cs]
-# New line preferences
-csharp_new_line_before_open_brace = false
-csharp_new_line_before_else = false
-csharp_new_line_before_catch = false
-csharp_new_line_before_finally = false
-csharp_new_line_before_members_in_object_initializers = false
-csharp_new_line_before_members_in_anonymous_types = false
-csharp_new_line_between_query_expression_clauses = false

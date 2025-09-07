@@ -24,6 +24,23 @@ M.tableSize = function(table)
     return size
 end
 
+M.getFileExt = function(path)
+    local ext = path:match("%.([^%.]+)$")
+    return ext and ext:lower() or ""
+end
+
+M.existsInTable = function(table, item)
+    -- if table[item] == nil then
+    --     return true
+    -- end
+    for _, value in ipairs(table) do
+        if value:lower() == item:lower() then
+            return true
+        end
+    end
+    return false
+end
+
 M.openFileOrBuffer = function(file_path, buffer)
     if buffer == -1 then
         vim.cmd(string.format(":e %s", file_path))
@@ -36,6 +53,63 @@ M.fileExists = function(file)
     local f = io.open(file, "rb")
     if f then f:close() end
     return f ~= nil
+end
+
+M.scanDir = function(self, directory, opts)
+    -- Default options
+    opts = opts or {}
+    local ignore_patterns = opts.ignore_patterns or {
+        "^%.+$",          -- Ignore hidden files/directories starting with .
+        "^%.git$",        -- Ignore git directory
+        "^node_modules$", -- Ignore node_modules
+    }
+
+    --- Check if path should be ignored
+    ---@param path string Path to check
+    ---@return boolean True if path should be ignored
+    local function shouldIgnore(path)
+        local filename = path:match("[^/]+$")
+        for _, pattern in ipairs(ignore_patterns) do
+            if filename:match(pattern) then
+                return true
+            end
+        end
+        return false
+    end
+
+    --- Recursive file scanning function
+    ---@param dir string Directory to scan
+    ---@return table List of file paths
+    local function scanRecursive(dir)
+        local files = {}
+
+        -- Use vim.fn.readdir for directory listing
+        local dir_contents = vim.fn.readdir(dir, function(name)
+            return not shouldIgnore(name)
+        end)
+
+        for _, item in ipairs(dir_contents) do
+            local full_path = dir .. '/' .. item
+
+            -- Check if it's a directory
+            if vim.fn.isdirectory(full_path) == 1 then
+                -- Recursively scan subdirectories
+                local subdir_files = scanRecursive(full_path)
+                for _, subfile in ipairs(subdir_files) do
+                    table.insert(files, subfile)
+                end
+            else
+                -- Add file to list
+                table.insert(files, full_path)
+            end
+        end
+
+        return files
+    end
+
+    -- Normalize directory path and scan
+    directory = vim.fn.fnamemodify(directory, ':p'):gsub('/$', '')
+    return scanRecursive(directory)
 end
 
 M.readFile = function(self, path)
@@ -158,6 +232,32 @@ M.runOnTerminal = function(self, opts)
                 vim.api.nvim_win_close(win, true)
             end
         end
+    })
+
+    vim.keymap.set("n", "q", function()
+        -- Check if the current buffer is in a floating window
+        local win = vim.api.nvim_get_current_win()
+        if vim.api.nvim_win_get_config(win).relative ~= '' then
+            -- defined in util
+            if win == TERM_WIN then
+                -- only hide if it is the terminall window
+                vim.api.nvim_win_set_config(win, {
+                    hide = true
+                })
+                -- Get previous window
+                local prev_win = vim.fn.win_getid(vim.fn.winnr('#'))
+
+                -- Set previous window as current
+                if prev_win and vim.api.nvim_win_is_valid(prev_win) then
+                    vim.api.nvim_set_current_win(prev_win)
+                end
+            else
+                vim.cmd.close()
+            end
+        end
+    end, {
+        buffer = true,
+        desc = "Close floating window"
     })
 
     -- Start in insert mode

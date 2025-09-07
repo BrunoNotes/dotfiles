@@ -44,28 +44,6 @@ end)
 vim.keymap.set("i", "<C-j>", "<NOP>")
 vim.keymap.set("i", "<C-k>", "<NOP>")
 vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
-vim.keymap.set("n", "<leader>q", function()
-    -- Check if the current buffer is in a floating window
-    local win = vim.api.nvim_get_current_win()
-    if vim.api.nvim_win_get_config(win).relative ~= '' then
-        -- defined in util
-        if win == TERM_WIN then
-            -- only hide if it is the terminall window
-            vim.api.nvim_win_set_config(win, {
-                hide = true
-            })
-            -- Get previous window
-            local prev_win = vim.fn.win_getid(vim.fn.winnr('#'))
-
-            -- Set previous window as current
-            if prev_win and vim.api.nvim_win_is_valid(prev_win) then
-                vim.api.nvim_set_current_win(prev_win)
-            end
-        else
-            vim.cmd.close()
-        end
-    end
-end, { desc = "Close floating window" })
 vim.keymap.set("n", "<leader><leader>x", function() vim.cmd(":source %") end,
     { silent = true, desc = "Source current file" })
 vim.keymap.set("n", "<leader>x", function() vim.cmd(":. lua") end,
@@ -305,11 +283,27 @@ end, { desc = "Make current file executable", nargs = '*' })
 vim.api.nvim_create_user_command("GenEditorConfig", function()
     local editorconfig_path = vim.fn.getcwd() .. "/.editorconfig"
 
+    local files = utils:scanDir(vim.fn.getcwd())
+    -- print(vim.inspect(files))
+
+    local exts = {}
+
+    -- print(vim.inspect(exts))
+    for _, file in ipairs(files) do
+        local ext = utils.getFileExt(file)
+        if not utils.existsInTable(exts, ext) then
+            table.insert(exts, ext)
+        end
+    end
+
     local editorconfig = [[
 [*]
 indent_style = space
 indent_size = 4
-
+]]
+    for _, ext in ipairs(exts) do
+        if ext:lower() == "lua" then
+            local lua_config = [[
 # https://github.com/CppCXY/EmmyLuaCodeStyle/blob/master/lua.template.editorconfig
 [*.lua]
 # true/false or always
@@ -317,7 +311,10 @@ align_continuous_assign_statement = false
 align_continuous_rect_table_field = false
 # option none / always / contain_curly/
 align_array_table = false
-
+        ]]
+            editorconfig = editorconfig .. lua_config
+        elseif ext:lower() == "cs" then
+            local cs_config = [[
 # https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/code-style-rule-options?view=vs-2019
 [*.cs]
 # New line preferences
@@ -328,7 +325,11 @@ csharp_new_line_before_finally = false
 csharp_new_line_before_members_in_object_initializers = false
 csharp_new_line_before_members_in_anonymous_types = false
 csharp_new_line_between_query_expression_clauses = false
-]]
+        ]]
+            editorconfig = editorconfig .. cs_config
+        end
+    end
+
     utils.writeFile(editorconfig_path, editorconfig)
 end, { desc = "Generate .editorconfig", nargs = '*' })
 

@@ -59,7 +59,11 @@ return {
                         -- },
                     }
                 },
-
+            },
+            ols = {
+                init_options = {
+                    checker_args = "-strict-style",
+                },
             },
             zls = {
                 settings = {
@@ -70,8 +74,9 @@ return {
             },
         }
         -- use local if exists
-        if utils.fileExists(utils.home .. "/opt/zls/zig-out/bin/zls") then
-            servers_config.zls.cmd = { utils.home .. "/opt/zls/zig-out/bin/zls" }
+        local zls_folder = utils.home .. "/opt/zls/zig-out/bin/zls"
+        if utils.fileExists(zls_folder) then
+            servers_config.zls.cmd = { zls_folder }
         end
         vim.g.zig_fmt_autosave = 0
 
@@ -94,7 +99,6 @@ return {
                 local client = vim.lsp.get_client_by_id(args.data.client_id)
                 if not client then return end
 
-                vim.keymap.set("n", "<leader>lf", vim.lsp.buf.format)
                 vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end)
                 vim.keymap.set("n", "H", function() vim.diagnostic.open_float() end)
                 vim.keymap.set("i", "<C-S>", function() vim.lsp.buf.signature_help() end)
@@ -109,6 +113,7 @@ return {
                 --     vim.cmd("set completeopt+=noselect")
                 -- end
 
+                vim.keymap.set("n", "<leader>lf", vim.lsp.buf.format)
                 vim.api.nvim_create_autocmd("BufWritePre", {
                     desc = "Format on save",
                     group = vim.api.nvim_create_augroup("b_lsp_format", { clear = true }),
