@@ -71,5 +71,11 @@ if [[ -n $cargo ]]; then
     . "$HOME/.cargo/env"
 fi
 
+# Mise
+mise=$(command -v mise || true)
+if [[ -n $mise ]]; then
+    eval "$(~/.local/bin/mise activate bash)"
+fi
+
 # Vim mode
 set -o vi

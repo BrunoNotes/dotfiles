@@ -45,7 +45,7 @@ return {
         local servers_config = {
             ts_ls = {
                 on_attach = function(client, bufnr)
-                    client.server_capabilities.documentFormattingProvider = false
+                    client.server_capabilities.documentFormattingProvider = true
                 end,
             },
             lua_ls = {

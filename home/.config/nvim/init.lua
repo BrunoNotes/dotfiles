@@ -22,6 +22,10 @@ vim.opt.updatetime = 50
 vim.opt.inccommand = "split"
 vim.opt.errorbells = false
 vim.opt.tabstop = 4
+vim.opt.softtabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.expandtab = true
+vim.opt.smartindent = true
 vim.opt.wrap = false
 vim.opt.hlsearch = true
 vim.opt.scrolloff = 10
@@ -116,9 +120,11 @@ vim.keymap.set("n", "<leader>cc", function()
 end, { desc = "Quick commit" })
 
 vim.keymap.set("n", "<leader>fo", function() vim.cmd.copen() end, { desc = "Open quickfix list" })
-vim.keymap.set("n", "<leader>fx", function() vim.cmd.cclose() end, { desc = "Close quickfix list" })
+vim.keymap.set("n", "<leader>fq", function() vim.cmd.cclose() end, { desc = "Close quickfix list" })
 vim.keymap.set("n", "<leader>fn", function() vim.cmd.cnext() end, { desc = "Goes to next quickfix list item" })
 vim.keymap.set("n", "<leader>fp", function() vim.cmd.cprevious() end, { desc = "Goes to next quickfix list item" })
+vim.keymap.set("n", "<A-n>", function() vim.cmd.cnext() end, { desc = "Goes to next quickfix list item" })
+vim.keymap.set("n", "<A-p>", function() vim.cmd.cprevious() end, { desc = "Goes to next quickfix list item" })
 
 vim.keymap.set("n", "<leader>cj", function()
     vim.cmd.cle()
@@ -333,21 +339,42 @@ csharp_new_line_between_query_expression_clauses = false
     utils.writeFile(editorconfig_path, editorconfig)
 end, { desc = "Generate .editorconfig", nargs = '*' })
 
-vim.api.nvim_create_user_command("Terminal", function(opts)
+vim.api.nvim_create_user_command("TerminalB", function(opts)
     -- print(vim.inspect(opts))
-    utils:openTerminal()
-    -- if utils.tableSize(opts.fargs) > 0 then
-    --     for _, value in ipairs(opts.fargs) do
-    --         if value == "panel" then
-    --             utils:openTerminal({floating = false})
-    --         else
-    --             utils:openTerminal({floating = true})
-    --         end
-    --     end
-    -- else
-    --     utils:openTerminal({floating = true})
-    -- end
-end, { desc = "Opens terminal", nargs = '*' })
+    -- utils:openTerminal()
+    if utils.tableSize(opts.fargs) > 0 then
+        for _, value in ipairs(opts.fargs) do
+            value = value:lower()
+            if value == "r" or value == "replace" then
+                utils:openTerminal({ floating = false })
+            elseif value == "v" or value == "vertical" then
+                vim.cmd('vsplit')
+                utils:openTerminal({ floating = false })
+            elseif value == "s" or value == "horizontal" then
+                vim.cmd('split')
+                utils:openTerminal({ floating = false })
+            else
+                utils:openTerminal({ floating = true })
+            end
+        end
+    else
+        utils:openTerminal({ floating = true })
+    end
+end, {
+    desc = "Opens terminal",
+    nargs = "*",
+    complete = function(ArgLead, CmdLine, CursorPos)
+        local suggestions = {
+            "replace",
+            "vertical",
+            "horizontal",
+        }
+
+        return vim.tbl_filter(function(item)
+            return item:match("^" .. ArgLead)
+        end, suggestions)
+    end
+})
 
 ----- plugins -----
 

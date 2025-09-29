@@ -1,0 +1,16 @@
+[user]
+    name = Bruno
+    email = brunonotes7@gmail.com
+    username = BrunoNotes
+[core]
+    editor = nvim
+[init]
+    defaultBranch = master
+[alias]
+    co = checkout
+    br = branch
+    ci = commit
+    st = status
+[pull]
+    rebase = true
+
