@@ -1,22 +1,22 @@
 {
     "print": {
-        "body": "std.debug.print(\"${1}\")",
+        "body": "std.debug.print(\"${1}\", .{})",
         "prefix": "print"
     },
     "loginfo": {
-        "body": "std.log.info(\"${1}\")",
+        "body": "std.log.info(\"${1}\", .{})",
         "prefix": "loginfo"
     },
     "logerr": {
-        "body": "std.log.err(\"${1}\")",
+        "body": "std.log.err(\"${1}\", .{})",
         "prefix": "logerr"
     },
     "logwarn": {
-        "body": "std.log.warn(\"${1}\")",
+        "body": "std.log.warn(\"${1}\", .{})",
         "prefix": "logwarn"
     },
     "logdebug": {
-        "body": "std.log.debug(\"${1}\")",
+        "body": "std.log.debug(\"${1}\", .{})",
         "prefix": "logdebug"
     },
     "fnvoid": {
@@ -46,5 +46,9 @@
     "assert": {
         "body": "const assert = std.debug.assert;",
         "prefix": "assert"
+    },
+    "import": {
+        "body": "const ${1} = @import(\"${2}\");",
+        "prefix": "import"
     }
 }

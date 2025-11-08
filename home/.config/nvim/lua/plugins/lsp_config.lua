@@ -42,56 +42,40 @@ return {
         require("mason").setup()
         require("mason-lspconfig").setup()
 
-        local servers_config = {
-            ts_ls = {
-                on_attach = function(client, bufnr)
-                    client.server_capabilities.documentFormattingProvider = true
-                end,
-            },
-            lua_ls = {
-                settings = {
-                    Lua = {
-                        workspace = {
-                            library = vim.api.nvim_get_runtime_file("", true) -- neovim api completion
-                        },
-                        -- completion = {
-                        --     callSnippet = "Disable"
-                        -- },
+        vim.lsp.config('lua_ls', {
+            on_init = function(client)
+                client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
+                    -- Make the server aware of Neovim runtime files
+                    workspace = {
+                        checkThirdParty = false,
+                        library = {
+                            vim.env.VIMRUNTIME
+                        }
+                        -- library = {
+                        --   vim.api.nvim_get_runtime_file('', true),
+                        -- }
                     }
-                },
-            },
-            ols = {
-                init_options = {
-                    checker_args = "-strict-style",
-                },
-            },
-            zls = {
-                settings = {
-                    zls = {
-                        enable_snippets = false,
-                    },
-                },
-            },
-        }
+                })
+            end,
+            settings = {
+                Lua = {}
+            }
+        })
+
         -- use local if exists
         local zls_folder = utils.home .. "/opt/zls/zig-out/bin/zls"
         if utils.fileExists(zls_folder) then
-            servers_config.zls.cmd = { zls_folder }
+            vim.lsp.config("zls", {
+                cmd = { zls_folder }
+            })
+            vim.lsp.enable("zls")
         end
         vim.g.zig_fmt_autosave = 0
 
-        -- require("mason-lspconfig").setup_handlers({
-        --     function(server_name)
-        --         local config = servers_config[server_name] or {}
-        --
-        --         config.capabilities = require('blink.cmp').get_lsp_capabilities()
-        --         require("lspconfig")[server_name].setup(config)
-        --     end,
-        -- })
-        for server, config in pairs(servers_config) do
-            config.capabilities = require('blink.cmp').get_lsp_capabilities()
-            require("lspconfig")[server].setup(config)
-        end
+        -- for server, config in pairs(servers_config) do
+        --     config.capabilities = require('blink.cmp').get_lsp_capabilities()
+        --     vim.lsp.config(server, config)
+        -- end
 
         vim.api.nvim_create_autocmd("LspAttach", {
             group = vim.api.nvim_create_augroup("b_lsp_attach", { clear = true }),
@@ -106,6 +90,7 @@ return {
                 vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end)
                 vim.keymap.set("n", "<F2>", function() vim.lsp.buf.rename() end)
                 vim.keymap.set("n", "<leader>lr", function() vim.lsp.buf.rename() end)
+                vim.keymap.set("n", "<leader>lc", function() vim.lsp.buf.code_action({}) end)
 
                 -- if client:supports_method("textDocument/completion") then
                 --     -- adds completion to the default list (<C-x><C-o>)

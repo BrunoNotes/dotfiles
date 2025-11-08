@@ -6,10 +6,10 @@ editor="nvim"
 
 default_note () {
     if [ -d $notes_path ]; then
-        nvim "$notes_path/index.md"
+        nvim "$notes_path/default.md"
     else
         mkdir $notes_path
-        nvim "$notes_path/index.md"
+        nvim "$notes_path/default.md"
     fi
 }
 

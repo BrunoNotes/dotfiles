@@ -136,6 +136,25 @@ vim.keymap.set("n", "<leader><CR>", function()
     utils:openTerminal()
 end, { desc = "Opens terminal" })
 
+vim.keymap.set("x", "<leader>r", function()
+    local function getSelection()
+        -- does not handle rectangular selection
+        local s_start = vim.fn.getpos(".")
+        local s_end = vim.fn.getpos("v")
+        local lines = vim.fn.getregion(s_start, s_end)
+        return lines
+    end
+
+    local selection = getSelection()
+    local text = vim.fn.escape(selection[1], [[\/]])
+
+    local clear_selection = vim.keycode("<C-u>")
+    local double_left = vim.keycode("<Left><Left>")
+    local keys_to_feed = ":" .. clear_selection .. "%s/" .. text .. "//g" .. double_left
+
+    vim.fn.feedkeys(keys_to_feed)
+end, { desc = "Replaces word under cursor" })
+
 ----- autocommands -----
 
 vim.api.nvim_create_autocmd({ "BufWinEnter" }, {

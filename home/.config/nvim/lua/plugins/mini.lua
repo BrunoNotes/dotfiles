@@ -16,7 +16,11 @@ return {
 
             vim.keymap.set("n", "<leader>.", function() vim.cmd("Pick files") end)
             vim.keymap.set("n", "<leader>gh", function() vim.cmd("Pick help") end)
-            vim.keymap.set("n", "<leader>gp", function() vim.cmd("Pick grep_live") end)
+            vim.keymap.set("n", "<leader>gp", function()
+                require("mini.pick").builtin.grep_live({
+                    tool = "git"
+                })
+            end)
             vim.keymap.set("n", "<leader>gf", function() vim.cmd("Pick grep") end)
             vim.keymap.set("n", "<leader>gb", function() vim.cmd("Pick buffers") end)
         end
