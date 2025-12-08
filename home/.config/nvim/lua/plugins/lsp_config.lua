@@ -44,18 +44,21 @@ return {
 
         vim.lsp.config('lua_ls', {
             on_init = function(client)
-                client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
-                    -- Make the server aware of Neovim runtime files
-                    workspace = {
-                        checkThirdParty = false,
-                        library = {
-                            vim.env.VIMRUNTIME
+                client.config.settings.Lua = vim.tbl_deep_extend(
+                    'force',
+                    client.config.settings.Lua,
+                    {
+                        -- Make the server aware of Neovim runtime files
+                        workspace = {
+                            checkThirdParty = false,
+                            library = {
+                                vim.env.VIMRUNTIME
+                            }
+                            -- library = {
+                            --   vim.api.nvim_get_runtime_file('', true),
+                            -- }
                         }
-                        -- library = {
-                        --   vim.api.nvim_get_runtime_file('', true),
-                        -- }
-                    }
-                })
+                    })
             end,
             settings = {
                 Lua = {}
@@ -90,11 +93,18 @@ return {
                 vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end)
                 vim.keymap.set("n", "<F2>", function() vim.lsp.buf.rename() end)
                 vim.keymap.set("n", "<leader>lr", function() vim.lsp.buf.rename() end)
-                vim.keymap.set("n", "<leader>lc", function() vim.lsp.buf.code_action({}) end)
+                vim.keymap.set("n", "<leader>la", function() vim.lsp.buf.code_action({}) end)
 
                 -- if client:supports_method("textDocument/completion") then
                 --     -- adds completion to the default list (<C-x><C-o>)
-                --     vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = false })
+                --     vim.lsp.completion.enable(
+                --         true,
+                --         client.id,
+                --         args.buf,
+                --         {
+                --             autotrigger = false
+                --         }
+                --     )
                 --     vim.cmd("set completeopt+=noselect")
                 -- end
 

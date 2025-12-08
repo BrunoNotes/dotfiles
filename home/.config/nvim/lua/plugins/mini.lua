@@ -18,7 +18,7 @@ return {
             vim.keymap.set("n", "<leader>gh", function() vim.cmd("Pick help") end)
             vim.keymap.set("n", "<leader>gp", function()
                 require("mini.pick").builtin.grep_live({
-                    tool = "git"
+                    tool = "rg",
                 })
             end)
             vim.keymap.set("n", "<leader>gf", function() vim.cmd("Pick grep") end)

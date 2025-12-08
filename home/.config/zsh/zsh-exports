@@ -51,3 +51,5 @@ fi
 # Csharp
 export ASPNETCORE_ENVIRONMENT="Development"
 
+export RIPGREP_CONFIG_PATH="$HOME/.config/ripgrep/config"
+
