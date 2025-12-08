@@ -436,3 +436,8 @@ end, { desc = "Run lazygit in a floating terminal", nargs = '*' })
 vim.keymap.set("n", "<leader>gs", function()
     utils:runOnTerminal({ cmd = "lazygit" })
 end, { desc = "Run lazygit in a floating terminal" })
+
+vim.keymap.set("n", "<leader>sc", function()
+    buf = vim.api.nvim_create_buf(true, true)
+    vim.api.nvim_set_current_buf(buf)
+end, { desc = "Opens scratch buffer" })
