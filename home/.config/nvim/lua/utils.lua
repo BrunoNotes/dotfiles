@@ -131,19 +131,6 @@ M.readJson = function(self, path)
     return json
 end
 
-M.createBuffer = function(self, scratch)
-    local buf = nil
-    if not scratch then
-        buf = vim.api.nvim_create_buf(true, false)
-    else
-        -- Create an immutable scratch buffer that is wiped once hidden
-        buf = vim.api.nvim_create_buf(false, true)
-        vim.api.nvim_set_option_value("bufhidden", "wipe", { buf = buf })
-        vim.api.nvim_set_option_value("modifiable", false, { buf = buf })
-    end
-    return buf
-end
-
 M.openFloatinWindow = function(self, buf)
     -- Create a floating window using the scratch buffer positioned in the middle
     local screen_size = 1.0
@@ -210,7 +197,7 @@ M.openTerminal = function(self, opts)
     vim.cmd.startinsert()
 end
 
-local function closeFloatingWin()
+M.closeFloatingWin = function()
     -- Check if the current buffer is in a floating window
     local win = vim.api.nvim_get_current_win()
     if vim.api.nvim_win_get_config(win).relative ~= '' then
@@ -234,6 +221,19 @@ local function closeFloatingWin()
 end
 
 M.runOnTerminal = function(self, opts)
+    local createBuffer = function(self, scratch)
+        local buf = nil
+        if not scratch then
+            buf = vim.api.nvim_create_buf(true, false)
+        else
+            -- Create an immutable scratch buffer that is wiped once hidden
+            buf = vim.api.nvim_create_buf(false, true)
+            vim.api.nvim_set_option_value("bufhidden", "wipe", { buf = buf })
+            vim.api.nvim_set_option_value("modifiable", false, { buf = buf })
+        end
+        return buf
+    end
+
     opts = opts or {}
 
     if opts ~= {} then
@@ -244,7 +244,7 @@ M.runOnTerminal = function(self, opts)
     end
 
     local delete_buffer = opts.delete_buffer or true
-    local buf = opts.buf or self:createBuffer(delete_buffer)
+    local buf = opts.buf or createBuffer(delete_buffer)
 
     local win = self:openFloatinWindow(buf)
 
@@ -261,7 +261,7 @@ M.runOnTerminal = function(self, opts)
     })
 
     vim.keymap.set("n", "q", function()
-        closeFloatingWin()
+        self:closeFloatingWin()
     end, {
         buffer = true,
         desc = "Close floating window"
@@ -288,7 +288,7 @@ M.splitFloatingWin = function(self, opts)
     local split = opts.split or "s"
     split = split:lower()
 
-    closeFloatingWin()
+    self:closeFloatingWin()
 
     if split == "v" then
         vim.cmd('vsplit')

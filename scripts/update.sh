@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sudo timeshift --create --comments "Before Upgrade" --tags M
+# sudo timeshift --create --comments "Before Upgrade" --tags M
 
 apt=$(command -v apt || true)
 if [[ -n $apt ]]; then

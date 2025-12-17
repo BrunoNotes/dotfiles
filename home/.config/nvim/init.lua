@@ -47,7 +47,10 @@ end)
 
 vim.keymap.set("i", "<C-j>", "<NOP>")
 vim.keymap.set("i", "<C-k>", "<NOP>")
-vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
+vim.keymap.set("t", "<Esc><Esc>", function()
+    vim.fn.feedkeys(vim.keycode("<C-\\><C-n>"))
+    utils.closeFloatingWin()
+end, { desc = "Exit terminal mode" })
 vim.keymap.set("n", "<leader><leader>x", function() vim.cmd(":source %") end,
     { silent = true, desc = "Source current file" })
 vim.keymap.set("n", "<leader>x", function() vim.cmd(":. lua") end,
@@ -131,7 +134,6 @@ vim.keymap.set("n", "<leader>cj", function()
     print("Cleared jump list")
 end, { desc = "Clear jump list" })
 
-vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 vim.keymap.set("n", "<leader><CR>", function()
     utils:openTerminal()
 end, { desc = "Opens terminal" })
@@ -155,8 +157,20 @@ vim.keymap.set("x", "<leader>r", function()
     vim.fn.feedkeys(keys_to_feed)
 end, { desc = "Replaces word under cursor" })
 
------ autocommands -----
+vim.api.nvim_create_user_command("LazyGit", function(opts)
+    utils:runOnTerminal({ cmd = "lazygit" })
+end, { desc = "Run lazygit in a floating terminal", nargs = '*' })
 
+vim.keymap.set("n", "<leader>gs", function()
+    utils:runOnTerminal({ cmd = "lazygit" })
+end, { desc = "Run lazygit in a floating terminal" })
+
+vim.keymap.set("n", "<leader>sc", function()
+    buf = vim.api.nvim_create_buf(true, true)
+    vim.api.nvim_set_current_buf(buf)
+end, { desc = "Opens scratch buffer" })
+
+----- autocommands -----
 vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
     desc = "Format options",
     group = vim.api.nvim_create_augroup("b_format_options", { clear = true }),
@@ -174,12 +188,13 @@ vim.api.nvim_create_autocmd("TextYankPost", {
     end,
 })
 
-vim.api.nvim_create_autocmd({ "BufWritePre" }, {
-    desc = "Remove white space at the end",
-    group = vim.api.nvim_create_augroup("b_remove_whitespace", { clear = true }),
-    pattern = "*",
-    command = [[%s/\s\+$//e]],
-})
+-- TODO: find a faster way to run this
+-- vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+--     desc = "Remove white space at the end",
+--     group = vim.api.nvim_create_augroup("b_remove_whitespace", { clear = true }),
+--     pattern = "*",
+--     command = [[%s/\s\+$//e]],
+-- })
 
 vim.api.nvim_create_autocmd({ "VimEnter" }, {
     desc = "Change CWD on enter",
@@ -286,7 +301,7 @@ vim.api.nvim_create_autocmd({ "BufWinEnter", "WinEnter" }, {
     end,
 })
 
------ user commans -----
+----- user commands -----
 
 vim.api.nvim_create_user_command("ChangeCWD", function()
     local file_cwd = vim.fn.expand("%:p:h")
@@ -426,18 +441,3 @@ require("lazy").setup({
     -- automatically check for plugin updates
     checker = { enabled = false },
 })
-
------ custom -----
-
-vim.api.nvim_create_user_command("LazyGit", function(opts)
-    utils:runOnTerminal({ cmd = "lazygit" })
-end, { desc = "Run lazygit in a floating terminal", nargs = '*' })
-
-vim.keymap.set("n", "<leader>gs", function()
-    utils:runOnTerminal({ cmd = "lazygit" })
-end, { desc = "Run lazygit in a floating terminal" })
-
-vim.keymap.set("n", "<leader>sc", function()
-    buf = vim.api.nvim_create_buf(true, true)
-    vim.api.nvim_set_current_buf(buf)
-end, { desc = "Opens scratch buffer" })

@@ -75,11 +75,6 @@ return {
         end
         vim.g.zig_fmt_autosave = 0
 
-        -- for server, config in pairs(servers_config) do
-        --     config.capabilities = require('blink.cmp').get_lsp_capabilities()
-        --     vim.lsp.config(server, config)
-        -- end
-
         vim.api.nvim_create_autocmd("LspAttach", {
             group = vim.api.nvim_create_augroup("b_lsp_attach", { clear = true }),
             callback = function(args)
