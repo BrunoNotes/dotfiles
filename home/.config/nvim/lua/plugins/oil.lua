@@ -1,6 +1,11 @@
 return {
     'stevearc/oil.nvim',
-    dependencies = {},
+    dependencies = {
+        {
+            'echasnovski/mini.icons',
+            opts = {}
+        },
+    },
     config = function()
         require("oil").setup({
             default_file_explorer = true,
@@ -27,6 +32,6 @@ return {
             },
         })
 
-        vim.keymap.set("n", "<leader>fb", function() vim.cmd("Oil") end, {silent = true, desc = "Opens file browser"})
+        vim.keymap.set("n", "<leader>fb", function() vim.cmd("Oil") end, { silent = true, desc = "Opens file browser" })
     end
 }

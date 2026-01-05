@@ -24,5 +24,13 @@
             "}"
         ],
         "prefix": "struct"
+    },
+    "enum": {
+        "body": [
+            "${1} :: enum {",
+            "    ${0}",
+            "}"
+        ],
+        "prefix": "enum"
     }
 }

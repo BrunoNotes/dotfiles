@@ -260,7 +260,7 @@ M.runOnTerminal = function(self, opts)
         end
     })
 
-    vim.keymap.set("n", "q", function()
+    vim.keymap.set("n", "<Esc>", function()
         self:closeFloatingWin()
     end, {
         buffer = true,
@@ -334,17 +334,6 @@ M.icons = {
         "🌗 ",
         "🌘 ",
     }
-}
-
-M.key_modes = {
-    normal = "n",
-    insert = "i",
-    visual = "v",
-    visual_block = "x",
-    term = "t",
-    command = "c",
-    lang = "l",
-    select = "s",
 }
 
 return M

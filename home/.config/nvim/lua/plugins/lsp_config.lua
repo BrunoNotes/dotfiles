@@ -6,46 +6,15 @@ return {
     dependencies = {
         { "mason-org/mason.nvim", opts = {} },
         "mason-org/mason-lspconfig.nvim",
-        {
-            "saghen/blink.cmp",
-            version = '1.*',
-            opts = {
-                cmdline = { enabled = false },
-                keymap = {
-                    preset = 'none',
-                    ['<C-j>'] = { function(cmp) cmp.show() end, 'select_next', 'fallback' },
-                    ['<C-k>'] = { function(cmp) cmp.show() end, 'select_prev', 'fallback' },
-                    ['<CR>'] = { 'accept', 'fallback' },
-                    ['<TAB>'] = { 'accept', 'fallback' },
-                    ['<C-f>'] = { function(cmp) cmp.scroll_documentation_down(4) end, 'fallback' },
-                    ['<C-b>'] = { function(cmp) cmp.scroll_documentation_up(4) end, 'fallback' },
-                },
-                completion = {
-                    list = {
-                        selection = {
-                            preselect = false,
-                            auto_insert = false
-                        }
-                    },
-                    menu = {
-                        auto_show = false,
-                    },
-                    documentation = {
-                        auto_show = true,
-                        auto_show_delay_ms = 500,
-                    }
-                },
-            }
-        },
     },
     config = function()
         require("mason").setup()
         require("mason-lspconfig").setup()
 
-        vim.lsp.config('lua_ls', {
+        vim.lsp.config("lua_ls", {
             on_init = function(client)
                 client.config.settings.Lua = vim.tbl_deep_extend(
-                    'force',
+                    "force",
                     client.config.settings.Lua,
                     {
                         -- Make the server aware of Neovim runtime files
@@ -55,7 +24,7 @@ return {
                                 vim.env.VIMRUNTIME
                             }
                             -- library = {
-                            --   vim.api.nvim_get_runtime_file('', true),
+                            --   vim.api.nvim_get_runtime_file("", true),
                             -- }
                         }
                     })
@@ -81,27 +50,28 @@ return {
                 local client = vim.lsp.get_client_by_id(args.data.client_id)
                 if not client then return end
 
+                vim.cmd("highlight clear DiagnosticUnnecessary")
+                vim.cmd("highlight link DiagnosticUnnecessary NONE")
+
                 vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end)
                 vim.keymap.set("n", "H", function() vim.diagnostic.open_float() end)
                 vim.keymap.set("i", "<C-S>", function() vim.lsp.buf.signature_help() end)
                 vim.keymap.set("n", "gD", function() vim.lsp.buf.declaration() end)
                 vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end)
                 vim.keymap.set("n", "<F2>", function() vim.lsp.buf.rename() end)
-                vim.keymap.set("n", "<leader>lr", function() vim.lsp.buf.rename() end)
-                vim.keymap.set("n", "<leader>la", function() vim.lsp.buf.code_action({}) end)
 
-                -- if client:supports_method("textDocument/completion") then
-                --     -- adds completion to the default list (<C-x><C-o>)
-                --     vim.lsp.completion.enable(
-                --         true,
-                --         client.id,
-                --         args.buf,
-                --         {
-                --             autotrigger = false
-                --         }
-                --     )
-                --     vim.cmd("set completeopt+=noselect")
-                -- end
+                if client:supports_method("textDocument/completion") then
+                    -- adds completion to the default list (<C-x><C-o>)
+                    vim.lsp.completion.enable(
+                        true,
+                        client.id,
+                        args.buf,
+                        {
+                            autotrigger = false
+                        }
+                    )
+                    -- vim.cmd("set completeopt+=noselect")
+                end
 
                 vim.keymap.set("n", "<leader>lf", vim.lsp.buf.format)
                 vim.api.nvim_create_autocmd("BufWritePre", {
@@ -131,6 +101,7 @@ return {
                 },
             },
             -- virtual_lines or virtual_text
+            -- underline = false,
             virtual_text = {
                 -- source = "always",  -- Or "if_many"
                 severity = vim.diagnostic.severity.ERROR,

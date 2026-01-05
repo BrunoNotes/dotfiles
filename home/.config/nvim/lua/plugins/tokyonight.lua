@@ -13,6 +13,11 @@ return {
                     floats = "transparent",
                 },
                 sidebars = { "qf", "help" },
+                -- on_highlights = function(hl, c)
+                --     hl.DiagnosticUnnecessary = {
+                --         fg = c.text,
+                --     }
+                -- end,
             })
 
             vim.cmd("colorscheme tokyonight")
