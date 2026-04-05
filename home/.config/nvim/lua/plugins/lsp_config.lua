@@ -44,14 +44,20 @@ return {
         end
         vim.g.zig_fmt_autosave = 0
 
+        vim.lsp.config("clangd", {
+            cmd = { "clangd", "--header-insertion=never" }
+        })
+
         vim.api.nvim_create_autocmd("LspAttach", {
             group = vim.api.nvim_create_augroup("b_lsp_attach", { clear = true }),
             callback = function(args)
                 local client = vim.lsp.get_client_by_id(args.data.client_id)
                 if not client then return end
 
-                vim.cmd("highlight clear DiagnosticUnnecessary")
-                vim.cmd("highlight link DiagnosticUnnecessary NONE")
+                if client and client.name == 'clangd' then
+                  -- This stops the LSP from sending the "gray" tokens for inactive regions
+                  client.server_capabilities.semanticTokensProvider = nil
+                end
 
                 vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end)
                 vim.keymap.set("n", "H", function() vim.diagnostic.open_float() end)
@@ -74,20 +80,20 @@ return {
                 end
 
                 vim.keymap.set("n", "<leader>lf", vim.lsp.buf.format)
-                vim.api.nvim_create_autocmd("BufWritePre", {
-                    desc = "Format on save",
-                    group = vim.api.nvim_create_augroup("b_lsp_format", { clear = true }),
-                    buffer = args.buf,
-                    callback = function()
-                        if client:supports_method("textDocument/formatting") then
-                            vim.lsp.buf.format({
-                                bufnr = args.buf,
-                                id = client.id,
-                                timeout_ms = 1000
-                            })
-                        end
-                    end,
-                })
+                -- vim.api.nvim_create_autocmd("BufWritePre", {
+                --     desc = "Format on save",
+                --     group = vim.api.nvim_create_augroup("b_lsp_format", { clear = true }),
+                --     buffer = args.buf,
+                --     callback = function()
+                --         if client:supports_method("textDocument/formatting") then
+                --             vim.lsp.buf.format({
+                --                 bufnr = args.buf,
+                --                 id = client.id,
+                --                 timeout_ms = 1000
+                --             })
+                --         end
+                --     end,
+                -- })
             end
         })
 
