@@ -1,3 +1,6 @@
 [submodule "pc_config"]
 	path = pc_config
 	url = git@github.com:BrunoNotes/pc_config.git
+[submodule "home/.config/nvim"]
+	path = home/.config/nvim
+	url = https://github.com/BrunoNotes/nvim_config
