@@ -57,6 +57,9 @@ export PATH="$HOME/.local/lang/odin:$PATH"
 export PATH="$HOME/.local/share/pnpm:$PATH"
 export PATH="$HOME/.deno/bin:$PATH"
 
+export JAVA_HOME=/usr/lib/jvm/java-latest-openjdk
+export PATH="$JAVA_HOME/bin:$PATH"
+
 export ASPNETCORE_ENVIRONMENT="Development" # csharp
 
 # Ocaml
