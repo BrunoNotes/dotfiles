@@ -26,8 +26,8 @@ alias grub-update="grub-mkconfig -o /boot/grub/grub.cfg"
 alias gs="lazygit" # git status
 
 ## Scripts
-alias update=$HOME/dotfiles/pc_config/pc_config --run=update
-alias bkp_sync=$HOME/dotfiles/pc_config/pc_config --run=backup
+alias update="$HOME/dotfiles/pc_config/pc_config --run=update"
+alias bkp_sync="$HOME/dotfiles/pc_config/pc_config --run=backup"
 alias snvim="$HOME/dotfiles/scripts/nvim_server.sh"
 alias note="$HOME/dotfiles/scripts/note.sh"
 
