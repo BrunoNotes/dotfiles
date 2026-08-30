@@ -30,8 +30,10 @@ export PATH="$HOME/go/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$HOME/.local/lang/zig:$PATH"
 export PATH="$HOME/.local/lang/odin:$PATH"
+export PATH="$HOME/.local/lang/slang/bin:$PATH"
 export PATH="$HOME/.local/share/pnpm:$PATH"
 export PATH="$HOME/.deno/bin:$PATH"
+export PATH="$HOME/.dotnet/tools:$PATH"
 
 # Ocaml
 opam=$(command -v opam || true)

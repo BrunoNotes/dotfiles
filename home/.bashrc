@@ -26,8 +26,8 @@ alias grub-update="grub-mkconfig -o /boot/grub/grub.cfg"
 alias gs="lazygit" # git status
 
 ## Scripts
-alias update="$HOME/dotfiles/scripts/update.sh"
-alias bkp_sync="$HOME/dotfiles/pc_config/bash/backup.sh"
+alias update=$HOME/dotfiles/pc_config/pc_config --run=update
+alias bkp_sync=$HOME/dotfiles/pc_config/pc_config --run=backup
 alias snvim="$HOME/dotfiles/scripts/nvim_server.sh"
 alias note="$HOME/dotfiles/scripts/note.sh"
 
@@ -54,8 +54,10 @@ export PATH="$HOME/.local/local/go/bin:$PATH"
 export PATH="$HOME/go/bin:$PATH"
 export PATH="$HOME/.local/lang/zig:$PATH"
 export PATH="$HOME/.local/lang/odin:$PATH"
+export PATH="$HOME/.local/lang/slang/bin:$PATH"
 export PATH="$HOME/.local/share/pnpm:$PATH"
 export PATH="$HOME/.deno/bin:$PATH"
+export PATH="$HOME/.dotnet/tools:$PATH"
 
 export JAVA_HOME=/usr/lib/jvm/java-latest-openjdk
 export PATH="$JAVA_HOME/bin:$PATH"
