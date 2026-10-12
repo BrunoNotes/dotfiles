@@ -43,8 +43,15 @@ shopt -s expand_aliases
 # Enable history appending instead of overwriting.  #139609
 shopt -s histappend
 
-export VISUAL="vim"
-export EDITOR="vim"
+nvim=$(command -v nvim || true)
+if [[ -n $nvim ]]; then
+    export VISUAL="nvim"
+    export EDITOR="nvim"
+else
+    export VISUAL="vim"
+    export EDITOR="vim"
+fi
+
 # export TERMINAL="alacritty"
 export TERMINAL="ghostty"
 export PATH="$HOME/.local/bin:$PATH"
@@ -52,6 +59,7 @@ export PATH="$HOME/.local/bin:$PATH"
 # Languages
 export PATH="$HOME/.local/local/go/bin:$PATH"
 export PATH="$HOME/go/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$HOME/.local/lang/zig:$PATH"
 export PATH="$HOME/.local/lang/odin:$PATH"
 export PATH="$HOME/.local/lang/slang/bin:$PATH"
@@ -80,6 +88,17 @@ fi
 mise=$(command -v mise || true)
 if [[ -n $mise ]]; then
     eval "$(~/.local/bin/mise activate bash)"
+fi
+
+yazi=$(command -v yazi || true)
+if [[ -n $yazi ]]; then
+    function y() {
+        local tmp cwd; tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+        command yazi "$@" --cwd-file="$tmp"
+        IFS= read -r -d '' cwd < "$tmp"
+        [ "$cwd" != "$PWD" ] && [ -d "$cwd" ] && builtin cd -- "$cwd" || builtin true
+        command rm -f -- "$tmp"
+    }
 fi
 
 # Vim mode

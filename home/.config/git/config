@@ -1,6 +1,6 @@
 [user]
-    name = Bruno
-    email = brunonotes7@gmail.com
+	name = bruno
+	email = brunonotes7@gmail.com
     username = BrunoNotes
 [core]
     editor = nvim

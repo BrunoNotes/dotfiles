@@ -13,8 +13,14 @@ export LESS_TERMCAP_us=$'\E[01;36m'
 export LESS=-R
 
 # Environment variables set everywhere
-export VISUAL="vim"
-export EDITOR="vim"
+nvim=$(command -v nvim || true)
+if [[ -n $nvim ]]; then
+    export VISUAL="nvim"
+    export EDITOR="nvim"
+else
+    export VISUAL="vim"
+    export EDITOR="vim"
+fi
 export TERMINAL="alacritty"
 # export TERMINAL="ghostty"
 export PATH="$HOME/.local/bin:$PATH"
