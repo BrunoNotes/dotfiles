@@ -37,6 +37,9 @@
 
 ; packages config
 (require 'evil)
+(setq evil-want-C-u-delete t)
+(setq evil-want-C-u-scroll t)
+(setq evil-want-C-w-in-emacs-state t)
 (evil-mode 1)
 
 (use-package tokyo-night
@@ -56,6 +59,6 @@
 
 ; keybindings
 
-(gobal-set-key (kbd "<escape>") 'keyboard-escape-quit)
+(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
 (load custom-file)
